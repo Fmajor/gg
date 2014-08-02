@@ -1,22 +1,23 @@
 #!/bin/bash
 
 currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
-if [ $currentBranch == 'develop' ] || [ $currentBranch == 'master' ]; then
+currentBranchPrefix=`echo $currentBranch|awk -F '.' '{print $1}'`
+if [ $currentBranchPrefix != 'newFeature' ]; then
 	printf "\nYou must be in one feature branch!\n\n"
 	git status
 	exit 1
 fi
 
-printf "You are in branch ||   $currentBranch   ||, make sure it is a feature branch\n"
+printf "You are in branch ||   $currentBranch   ||\n"
 printf "Do you want to close it like this?\n"
 # 合并完成的特性回develop
 printf "\tgit checkout develop\n"
-printf "\tgit merge -no-ff $currentBranch\n"
+printf "\tgit merge --no-ff $currentBranch\n"
 printf "\tgit branch -D $currentBranch\n"
 read temp
 
 git checkout develop
-git merge -no-ff $currentBranch && printf "press Enter to delete $currentBranch branch\n"
+git merge --no-ff $currentBranch && printf "press Enter to delete $currentBranch branch\n"
 read temp
 git branch -D $currentBranch
 
