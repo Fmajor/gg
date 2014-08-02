@@ -1,0 +1,4 @@
+#!/bin/bash
+printf "Do you what to generate the default .gitignore file?"
+read temp
+printf "*~\n*swp\n" > .gitignore
