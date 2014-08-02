@@ -2,7 +2,7 @@
 
 currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
 currentBranchPrefix=`echo $currentBranch|awk -F '-' '{print $1}'`
-version = `echo $currentBranch|awk -F '-' '{print $2}'`
+version=`echo $currentBranch|awk -F '-' '{print $2}'`
 if [ $currentBranchPrefix != 'release' ]; then
 	printf "\nYou must be in one release branch!\n\n"
 	git status
