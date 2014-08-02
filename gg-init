@@ -1,0 +1,12 @@
+#!/bin/bash
+printf 'do you what to git init the directory like this?\n'
+printf '\tgit init\n'
+printf '\tgit add .\n'
+printf '\tgit commit -a -m "init commit"\n'
+printf '\tgit checkout -b develop master\n'
+
+read temp
+git init
+git add .
+git commit -a -m "init commit"
+git checkout -b  develop master
