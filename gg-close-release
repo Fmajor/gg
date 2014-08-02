@@ -23,6 +23,7 @@ read temp
 git checkout master
 git merge –-no-ff $currentBranch && git tag -a $version
 git checkout develop
-git merge –-no-ff $currentBranch && printf "press Enter to delete branch $currentBranch"
-git branch -d $currentBranch
+git merge –-no-ff $currentBranch \
+	&& printf "press Enter to delete branch $currentBranch" \
+	&& git branch -d $currentBranch
 
