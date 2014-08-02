@@ -1,0 +1,19 @@
+#!/bin/bash
+if [ "$#" != "1" ]; then
+	printf "Please input feature name~\n"
+	exit 1
+fi
+
+currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
+if [ $currentBranch != 'develop' ]; then
+	printf "\nYou must be in the develop branch to create a new feature branch!\n\n"
+	git status
+	exit 1
+fi
+
+printf "Do you what to open a new feature branch like this?\n"
+# 创建一个特性分支
+printf "\tgit checkout -b newFeature.$1 develop\n"
+
+read temp
+git checkout -b newFeature.$1 develop

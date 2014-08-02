@@ -1,0 +1,29 @@
+#!/bin/bash
+
+currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
+currentBranchPrefix=`echo $currentBranch|awk -F '-' '{print $1}'`
+version=`echo $currentBranch|awk -F '-' '{print $2}'`
+if [ $currentBranchPrefix != 'hotfix' ]; then
+	printf "\nYou must be in one hotfix branch!\n\n"
+	git status
+	exit 1
+fi
+
+printf "You are in branch || 		  $currentBranch   ||\n"
+printf "Do you want to close it like this?\n"
+
+printf "\tgit checkout master\n"
+printf "\tgit merge --no-ff $currentBranch\n"
+printf "\tgit tag -a $version\n"
+printf "\tgit checkout develop\n"
+printf "\tgit merge --no-ff $currentBranch\n"
+printf "\tgit branch -d $currentBranch\n"
+
+read temp
+git checkout master
+git merge --no-ff $currentBranch && git tag -a $version
+git checkout develop
+git merge --no-ff $currentBranch \
+	&& printf "press Enter to delete branch $currentBranch" \
+	&& git branch -d $currentBranch
+	
