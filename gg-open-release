@@ -1,2 +1,22 @@
-M	gg-open-feature
-M	gg-open-release
+#!/bin/bash
+if [ "$#" != "1" ]; then
+	printf "Please input release number~\n"
+	printf "Current tag names are\n"
+	git tag
+	exit 1
+fi
+
+currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
+if [ $currentBranch != 'develop' ]; then
+	printf 	"\nYou must be in the develop branch to create a new feature branch!\n\n"
+	git status
+	exit 1
+fi
+
+printf "Do you what to open a new release branch like this?\n"
+
+# 创建一个发布分支
+printf "git checkout -b releases-$1 develop"
+
+read temp
+git checkout -b releases-$1 develop
