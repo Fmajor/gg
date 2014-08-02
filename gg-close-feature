@@ -16,7 +16,6 @@ printf "\tgit branch -D $currentBranch\n"
 read temp
 
 git checkout develop
-git merge -no-ff $currentBranch
-printf "press Enter to delete $currentBranch branch\n"
+git merge -no-ff $currentBranch && printf "press Enter to delete $currentBranch branch\n"
 read temp
 git branch -D $currentBranch
