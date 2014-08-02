@@ -12,25 +12,25 @@ Usage
 -------
 
 ### gg-init
->Initialized empty Git repository and make a develop branch.
+* Initialized empty Git repository and make a develop branch.
 
 ### gg-default.gitignore
->Generate .gitignore to exclude \*~ and \*swp files.
+* Generate .gitignore to exclude \*~ and \*swp files.
 
 ### gg-feature-open newFeatureName
->Generate a newFeatre branch named newFeatre.newFeatureName.
+* Generate a newFeatre branch named newFeatre.newFeatureName.
 
 ### gg-feature-close
->Merge the newFeature branch into develop branch, then delete it.
+* Merge the newFeature branch into develop branch, then delete it.
 
 ### gg-release-open versionNum
->Generate a release branch named release-versionNum.
+* Generate a release branch named release-versionNum.
 
 ### gg-release-close
->Merge the release branch into develop branch and master branch, then delete it.
+* Merge the release branch into develop branch and master branch, then delete it.
 
 ### gg-hotfix-open versionNum
->Generate a hotfix branch named release-versionNum.
+* Generate a hotfix branch named release-versionNum.
 
 ### gg-hotfix-close
->Merge the hotfix branch into develop branch and master branch, then delete it.
+* Merge the hotfix branch into develop branch and master branch, then delete it.
