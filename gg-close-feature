@@ -11,10 +11,12 @@ printf "You are in branch ||   $currentBranch   ||, make sure it is a feature br
 printf "Do you want to close it like this?\n"
 # 合并完成的特性回develop
 printf "\tgit checkout develop\n"
-printf "\tgit merge –-no-ff $currentBranch\n"
+printf "\tgit merge --no-ff $currentBranch\n"
 printf "\tgit branch -D $currentBranch\n"
 read temp
 
 git checkout develop
 git merge –-no-ff $currentBranch
+print "press Enter to delete $currentBranch branch\n"
+read temp
 git branch -D $currentBranch
