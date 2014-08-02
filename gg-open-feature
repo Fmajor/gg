@@ -13,7 +13,7 @@ fi
 
 printf "Do you what to open a new feature branch like this?\n"
 # 创建一个特性分支
-printf "\tgit checkout -b newFeatureI--I$1 develop\n"
+printf "\tgit checkout -b newFeature.$1 develop\n"
 
 read temp
-git checkout -b newFeatureI--I$1 develop
+git checkout -b newFeature.$1 develop
