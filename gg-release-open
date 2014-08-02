@@ -8,7 +8,7 @@ fi
 
 currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
 if [ $currentBranch != 'develop' ]; then
-	printf 	"\nYou must be in the develop branch to create a new feature branch!\n\n"
+	printf "\nYou must be in the develop branch to create a new feature branch!\n\n"
 	git status
 	exit 1
 fi
