@@ -16,7 +16,7 @@ fi
 printf "Do you what to open a new release branch like this?\n"
 
 # 创建一个发布分支
-printf "git checkout -b releases-$1 develop"
+printf "\tgit checkout -b releases-$1 develop"
 
 read temp
 git checkout -b releases-$1 develop
