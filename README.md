@@ -71,7 +71,9 @@ when you fix the bug(s) and want to merge it into develop, use (you must be in t
 		gg-issues-close
 
 ### trails branch
+
 * Temporary branch, it
+
 > can be created from any branch and has the name like currentBranch.trails
 > 
 > will be merged into the branch from which it was created, which called "good close"
@@ -85,8 +87,10 @@ Without the option, you get a branch like currentBranchName.trails
 Then do crazy things (or we will be too old to do them)
 Finally, you have tow choices:
 * merge it into the branch from which it was created, use (you must be in the trails branch)
+
 		gg-trails-good-close
 * delete it, use (you must be in the trails branch)
+
 		gg-trails-bad-close
 notice that when you delete the branch, the things become unreachable, so i log the things into .deletedTrailsBranchs, the unreachable commits will be autoremoved, depend on your git gc configurate
 
