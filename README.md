@@ -5,6 +5,7 @@ About
 -------
 
 This bash command script is to achieve "A successful Git branching model" in http://nvie.com/posts/a-successful-git-branching-model.
+
 It contains all the functions in the article, and something more for myself.
 
 Model
@@ -94,9 +95,13 @@ when you fix the bug(s) and want to merge it into develop, use (you must be in t
 You have many crazy ideas and what to try them anywhere, you can create a trails branch, use (you can be in any branch)
 
 		gg-trails-open [trailsName]
+
 With the option, you get a branch like currentBranchName.trails-trailsName
+
 Without the option, you get a branch like currentBranchName.trails
+
 Then do crazy things (or we will be too old to do them)
+
 Finally, you have tow choices:
 * merge it into the branch from which it was created, use (you must be in the trails branch)
 
