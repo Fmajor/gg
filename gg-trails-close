@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
+
+currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
+currentBranchParent=`echo $currentBranch|sed 's#\(.*\)\..*#\1#'`
+isTrailBranch=`echo $currentBranch|sed 's#\(.*\)\..*#\1#'`
+echo $isTrailBranch
+
+if [ $currentBranch == $currentBranchParent ] || grep trail $isTrailBranch; then
+	printf "\nYou must be in one trail branch\n\n"
+	git status
+	exit 1
+fi
+
+git branch > temp.txt
+
+
+printf "You are in branch ||   $currentBranch   ||\n"
+printf "Do you want to close it like this?\n"
+
+
