@@ -126,6 +126,9 @@ Usage
 ### gg-go-back-to-stash
 * goback to the branch and load the uncommited things
  
+### gg-find-big-files
+* sometimes, a BIGGGG file may be added in the repository and make it tooooo big bo hold, you can use this script to find out its name
+
 ### other funcions are mentioned above
 ### These may be all the things I want to do in git 
 
