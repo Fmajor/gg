@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
+
+if [ "$#" != "1" ]; then
+	printf "Please input issues name~\n"
+	exit 1
+fi
+
+currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
+if [ $currentBranch != 'develop' ]; then
+	printf "\nYou must be in the develop branch to create a new issues branch!\n\n"
+	git status
+	exit 1
+fi
+
+printf "Do you what to open a new feature branch like this?\n"
+# 创建一个特性分支
+printf "\tgit checkout -b issues.$1 develop\n"
+
+read temp
+git checkout -b issues.$1 develop

@@ -13,12 +13,14 @@
 # Author: wujinnnnn@gmail.com
 
 printf 'do you what to git init the directory like this?\n'
+printf '\ttouch .deletedTrailsBranchs'
 printf '\tgit init\n'
 printf '\tgit add .\n'
 printf '\tgit commit -a -m "init commit"\n'
 printf '\tgit checkout -b develop master\n'
 
 read temp
+touch .deletedTrailsBranchs
 git init
 git add .
 git commit -a -m "init commit"

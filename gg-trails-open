@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
+
+currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
+
+printf "You are in branch ||      $currentBranch      ||\n"
+printf "Do you want to make a trail branch like this?\n"
+
+if [ $# == 1 ]; then
+	printf "\tgit checkout -b $currentBranch.trails-$1 $currentBranch\n"
+	read temp
+	git checkout -b $currentBranch.trails-$1 $currentBranch
+elif [ $# == 0 ]; then
+	printf "\tgit checkout -b $currentBranch.trails $currentBranch\n"
+	read temp
+	git checkout -b $currentBranch.trails $currentBranch
+else
+	printf "parameters number error!"
+	exit 1
+fi
