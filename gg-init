@@ -1,4 +1,17 @@
 #!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
+
 printf 'do you what to git init the directory like this?\n'
 printf '\tgit init\n'
 printf '\tgit add .\n'
