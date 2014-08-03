@@ -14,17 +14,21 @@
 
 currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
 currentBranchParent=`echo $currentBranch|sed 's#\(.*\)\..*#\1#'`
-isTrailBranch=`echo $currentBranch|sed 's#\(.*\)\..*#\1#'`
-echo $isTrailBranch
+isTrailBranch=`echo $currentBranch|sed 's#\(.*\)\..*#\1#'|grep trail`
 
-if [ $currentBranch == $currentBranchParent ] || grep trail $isTrailBranch; then
+if [ $currentBranch == $currentBranchParent ] || [ -z $isTrailBranch ]; then
 	printf "\nYou must be in one trail branch\n\n"
 	git status
 	exit 1
 fi
 
 git branch > temp.txt
-
+isParentAlive=`cat temp.txt|grep $currentBranchParent`
+rm temp.txt
+echo $isParentAlive
+if [ -z $isParentAlive ]; then
+	printf "The trails' parent branch is missing, do the job manully\n"
+fi
 
 printf "You are in branch ||   $currentBranch   ||\n"
 printf "Do you want to close it like this?\n"
