@@ -19,6 +19,7 @@ printf '\tgit commit -a -m "init commit"\n'
 printf '\tgit checkout -b develop master\n'
 
 read temp
+touch .deletedTrailsBranchs
 git init
 git add .
 git commit -a -m "init commit"
