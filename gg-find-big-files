@@ -1,0 +1,22 @@
+#!/bin/bash
+git gc
+git count-objects -v
+packNum=`find .git/objects/pack/*.idx | wc | awk '{print $1}'`
+if [ $packNum != 1 ]; then
+	printf "more than one packs, don't know which to use\n"
+	exit 1
+fi
+git verify-pack -v `find .git/objects/pack/*.idx` | sort -k 3 -n | grep blob | tail -n 20 > bashTempOutput.txt
+git rev-list --objects --all > bashTempOutput2.txt
+allBlobs=`cat bashTempOutput.txt | awk '{print $1"-"$3}'`
+for eachline in $allBlobs
+do
+	eachObject=`echo $eachline | awk -F '-' '{print $1}'`
+	  eachSize=`echo $eachline | awk -F '-' '{print $2}'`
+	eachFileName=`cat bashTempOutput2.txt | grep $eachObject | awk '{print $2}'`
+	printf "%15s %s\n" $eachSize $eachFileName | tee -a files.dat
+done
+rm bashTempOutput.txt bashTempOutput2.txt
+printf "Do you what to delete the result data?\n"
+read temp
+rm files.dat
