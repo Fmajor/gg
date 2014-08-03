@@ -1,4 +1,16 @@
 #!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
 
 currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
 currentBranchPrefix=`echo $currentBranch|awk -F '-' '{print $1}'`

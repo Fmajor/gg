@@ -1,4 +1,17 @@
 #!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
+
 if [ "$#" != "1" ]; then
 	printf "Please input the hotfix number~\n"
 	printf "Current tag names are\n"
