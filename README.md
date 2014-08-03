@@ -17,9 +17,9 @@ There several kind of branches
 
 ### feature branch 
 * Temporary branch, it
->> can only be created from the develop branch
->> will be merged into the develop branch and then deleted at least
->> has the name like newFeature.*
+> can only be created from the develop branch
+> will be merged into the develop branch and then deleted at least
+> has the name like newFeature.\*
 
 When you come up with a new idea and want it be a new feature of your soft, use (you must be in the develop branch)
 		gg-feature-open featureName
@@ -28,9 +28,9 @@ When you finish it and want to merge it into develop, use (you must be in the fe
 
 ### release branch
 * Temporary branch, it
->> can only be created from the develop branch
->> will be merged into the develop and master branches, then be deleted at least
->> has the name like release-*
+> can only be created from the develop branch
+> will be merged into the develop and master branches, then be deleted at least
+> has the name like release-\*
 
 When your soft in the develop branch is stable and prepared to release, create a release branch use (you must be in the develop branch)
 		gg-release-open versionNumber
@@ -41,9 +41,9 @@ The new version is merged into the master and the develop branches
 
 ### hotfix branch
 * Temporary branch, it
->> can only be created from the master branch
->> will be merged into the develop and master branches, then be deleted at least
->> has the name like hotfix-*
+> can only be created from the master branch
+> will be merged into the develop and master branches, then be deleted at least
+> has the name like hotfix-\*
 
 When you find a HOTBUG in the master branch and must fix it immediately, make a hotfix branch to fix it. use (you must be in the master branch)
 		gg-hotfix-open versionNumber
@@ -53,9 +53,9 @@ The new version is merged into the master and the develop branches
 
 ### issues branch
 * Temporary branch, it
->> can only be created from the develop branch
->> will be merged into the develop and then deleted at least
->> has the name like issues.*
+> can only be created from the develop branch
+> will be merged into the develop and then deleted at least
+> has the name like issues.\*
 
 When you have a issues (or a bug) and what to fix it from the develop branch, you can create a issues branch. use (you must be in the develop branch)
 		gg-issues-open issuesName
@@ -64,9 +64,9 @@ when you fix the bug(s) and want to merge it into develop, use (you must be in t
 
 ### trails branch
 * Temporary branch, it
->> can be created from any branch
->> will be merged into the branch from which it was created, which called "good close"
->> will be deleted (and then become unreachable), which called "bad close"
+> can be created from any branch and has the name like currentBranch.trails
+> will be merged into the branch from which it was created, which called "good close"
+> will be deleted (and then become unreachable), which called "bad close"
 
 You have many crazy ideas and what to try them anywhere, you can create a trails branch, use (you can be in any branch)
 		gg-trails-open [trailsName]
