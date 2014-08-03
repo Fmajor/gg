@@ -11,7 +11,7 @@ It contains all the functions in the article, and something more for myself.
 Model
 --------
 
-There several kind of branches 
+There are several kind of branches 
 
 ### master and develop branches
 * Tow long-live branches, only stable release version of softwares can be in master branch, and unstable tings are in develop branch.
@@ -90,7 +90,7 @@ when you fix the bug(s) and want to merge it into develop, use (you must be in t
 > 
 > will be merged into the branch from which it was created, which called "good close"
 > 
-> will be deleted (and then become unreachable), which called "bad close"
+> or will be deleted (and then become unreachable), which called "bad close"
 
 You have many crazy ideas and what to try them anywhere, you can create a trails branch, use (you can be in any branch)
 
