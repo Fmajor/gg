@@ -14,7 +14,7 @@
 
 currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
 
-printf "You are in branch ||   $currentBranch   ||\n"
+printf "You are in branch ||      $currentBranch      ||\n"
 printf "Do you want to make a trail branch like this?\n"
 
 if [ $# == 1 ]; then

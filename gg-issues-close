@@ -13,8 +13,8 @@
 # Author: wujinnnnn@gmail.com
 
 currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
-currentBranchPrefix=`echo $currentBranch|awk -F '#' '{print $1}'`
-if [ $currentBranchPrefix != 'issues#' ]; then
+currentBranchPrefix=`echo $currentBranch|awk -F '.' '{print $1}'`
+if [ $currentBranchPrefix != 'issues.' ]; then
 	printf "\nYou must be in one issues branch!\n\n"
 	git status
 	exit 1

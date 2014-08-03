@@ -12,6 +12,6 @@
 #
 # Author: wujinnnnn@gmail.com
 
-git ck thisIsTheStash
+git checkout thisIsTheStash
 git stash pop
 git tag -d thisIsTheStash

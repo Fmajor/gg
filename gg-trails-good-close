@@ -30,19 +30,17 @@ if [ -z $isParentAlive ]; then
 	printf "The trails' parent branch is missing, do the job manully\n"
 fi
 
-printf "You are in branch ||   $currentBranch   ||\n"
+printf "You are in branch ||      $currentBranch      ||\n"
 printf "Do you want to close it like this?\n"
-now=date "+%Y-%m-%d-%H-%M-%S"
 
-printf "Record the logs of this branch in .deletedTrailsBranchs and then\n"
+printf "\tgit checkout $currentBranchParent\n"
+printf "\tgit merge --no-ff $currentBranch\n"
 printf "\tgit branch -D $currentBranch\n"
-read temp 
+read temp
 
-echo "=================================================" >> .deletedTrailsBranchs
-echo $currentBranch "deleted at" $now >> .deletedTrailsBranchs
-git log develop.trails..develop >> .deletedTrailsBranchs
-
-printf "press Enter to delete $currentBranch branch\n" \
+git checkout $currentBranchParent
+git merge --no-ff $currentBranch \
+	&& printf "press Enter to delete $currentBranch branch\n" \
 	&& read temp && git branch -D $currentBranch
 
 

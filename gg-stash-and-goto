@@ -20,4 +20,4 @@ fi
 
 git tag thisIsTheStash
 git stash
-git ck $1
+git checkout $1

@@ -21,7 +21,7 @@ if [ $currentBranchPrefix != 'hotfix' ]; then
 	exit 1
 fi
 
-printf "You are in branch || 		  $currentBranch   ||\n"
+printf "You are in branch ||      $currentBranch      ||\n"
 printf "Do you want to close it like this?\n"
 
 printf "\tgit checkout master\n"
