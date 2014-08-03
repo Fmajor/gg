@@ -4,9 +4,9 @@ gg
 About
 -------
 
-This bash command script is to achieve "a-successful Git branching model" in http://nvie.com/posts/a-successful-git-branching-model.
+This bash command script is to achieve "A successful Git branching model" in http://nvie.com/posts/a-successful-git-branching-model.
 
-There are 4 types of branches, `master` and `develop` are long-time branches who will always be there and `newFeature.*`, `release-*` and `hotfix-*` branches can only live a short time, the hole model please read the article mentioned.
+There are 4 types of branches, `master` and `develop` are long-time branches who will always be there and `newFeature.*`, `release-*` and `hotfix-*` branches can only exist a short time, for the complete model please read the article mentioned.
 
 Usage
 -------
