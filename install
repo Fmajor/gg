@@ -1,2 +1,3 @@
 #!/bin/bash
+rm *~
 sudo cp gg* /usr/local/bin
