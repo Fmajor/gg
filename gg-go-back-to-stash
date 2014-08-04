@@ -12,6 +12,5 @@
 #
 # Author: wujinnnnn@gmail.com
 
-git checkout thisIsTheStash
-git stash pop
-git tag -d thisIsTheStash
+git checkout `cat .git/currentBranch.dat` \
+	&& git stash pop
