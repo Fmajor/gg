@@ -18,13 +18,13 @@ printf "You are in branch ||      $currentBranch      ||\n"
 printf "Do you want to make a trail branch like this?\n"
 
 if [ $# == 1 ]; then
-	printf "\tgit checkout -b $currentBranch.trails-$1 $currentBranch\n"
+	printf "\tgit checkout -b $currentBranch.trials-$1 $currentBranch\n"
 	read temp
-	git checkout -b $currentBranch.trails-$1 $currentBranch
+	git checkout -b $currentBranch.trials-$1 $currentBranch
 elif [ $# == 0 ]; then
-	printf "\tgit checkout -b $currentBranch.trails $currentBranch\n"
+	printf "\tgit checkout -b $currentBranch.trials $currentBranch\n"
 	read temp
-	git checkout -b $currentBranch.trails $currentBranch
+	git checkout -b $currentBranch.trials $currentBranch
 else
 	printf "parameters number error!"
 	exit 1
