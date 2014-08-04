@@ -120,8 +120,8 @@ Usage
 ### gg-default.gitignore
 * Generate .gitignore to exclude \*~ and \*swp files.
 
-### gg-stash-and-goto
-* autosave your uncommited things and goto another branch to do something
+### gg-stash-and-goto branchName
+* autosave your uncommited things and goto branchName to do something
 
 ### gg-go-back-to-stash
 * goback to the branch and load the uncommited things
