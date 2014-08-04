@@ -26,6 +26,7 @@ printf "Do you want to close it like this?\n"
 printf "\tgit checkout develop\n"
 printf "\tgit merge --no-ff $currentBranch\n"
 printf "\tgit branch -D $currentBranch\n"
+printf "\n if you meet conflicts in merges, you should delete the branch manully\n"
 read temp
 
 git checkout develop

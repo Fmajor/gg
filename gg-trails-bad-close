@@ -22,7 +22,7 @@ if [ $currentBranch == $currentBranchParent ] || [ -z $isTrailBranch ]; then
 	exit 1
 fi
 
-git branch --list > temp.txt
+git branch  > temp.txt
 cat temp.txt | grep -x \ \ $currentBranchParent > temp1.txt
 isParentAlive=`cat temp1.txt`
 rm temp.txt temp1.txt
