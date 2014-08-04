@@ -22,7 +22,7 @@ if [ $currentBranch == $currentBranchParent ] || [ -z $isTrailBranch ]; then
 	exit 1
 fi
 
-git branch --list > temp.txt
+git branch > temp.txt
 cat temp.txt | grep -x \ \ $currentBranchParent > temp1.txt
 isParentAlive=`cat temp1.txt`
 rm temp.txt temp1.txt
@@ -36,6 +36,7 @@ printf "Do you want to close it like this?\n"
 printf "\tgit checkout $currentBranchParent\n"
 printf "\tgit merge --no-ff $currentBranch\n"
 printf "\tgit branch -D $currentBranch\n"
+printf "\n if you meet conflicts in merges, you should delete the branch manully\n"
 read temp
 
 git checkout $currentBranchParent
