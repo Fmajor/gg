@@ -83,32 +83,32 @@ when you fix the bug(s) and want to merge it into develop, use (you must be in t
 
 		gg-issues-close
 
-### trails branch
+### trials branch
 * Temporary branch, it
 
-> can be created from any branch and has the name like currentBranch.trails
+> can be created from any branch and has the name like currentBranch.trials
 > 
 > will be merged into the branch from which it was created, which called "good close"
 > 
 > or will be deleted (and then become unreachable), which called "bad close"
 
-You have many crazy ideas and what to try them anywhere, you can create a trails branch, use (you can be in any branch)
+You have many crazy ideas and what to try them anywhere, you can create a trials branch, use (you can be in any branch)
 
-		gg-trails-open [trailsName]
+		gg-trials-open [trialsName]
 
-With the option, you get a branch like currentBranchName.trails-trailsName
+With the option, you get a branch like currentBranchName.trials-trialsName
 
-Without the option, you get a branch like currentBranchName.trails
+Without the option, you get a branch like currentBranchName.trials
 
 Then do crazy things (or we will be too old to do them)
 
 Finally, you have tow choices:
-* merge it into the branch from which it was created, use (you must be in the trails branch)
+* merge it into the branch from which it was created, use (you must be in the trials branch)
 
-		gg-trails-good-close
-* delete it, use (you must be in the trails branch)
+		gg-trials-good-close
+* delete it, use (you must be in the trials branch)
 
-		gg-trails-bad-close
+		gg-trials-bad-close
 notice that when you delete the branch, the things become unreachable, so i log the things into .deletedTrailsBranchs, the unreachable commits will be autoremoved, depend on your git gc configurate
 
 Usage
