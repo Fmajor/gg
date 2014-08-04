@@ -18,6 +18,7 @@ printf '\tgit init\n'
 printf '\tgit add .\n'
 printf '\tgit commit -a -m "init commit"\n'
 printf '\tgit checkout -b develop master\n'
+printf '\tcp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit'
 
 read temp
 touch .deletedTrailsBranchs
@@ -25,3 +26,4 @@ git init
 git add .
 git commit -a -m "init commit"
 git checkout -b  develop master
+cp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit
