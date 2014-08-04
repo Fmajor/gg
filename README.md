@@ -25,7 +25,7 @@ There are several kind of branches
 > 
 > has the name like newFeature.\*
 
-When you come up with a new idea and want it be a new feature of your soft, use (you must be in the develop branch)
+When you come up with a new idea and want it to be a new feature of your soft, use (you must be in the develop branch)
 
 		gg-feature-open featureName
 When you finish it and want to merge it into develop, use (you must be in the feature branch)
@@ -127,7 +127,7 @@ Usage
 * goback to the branch and load the uncommited things
  
 ### gg-find-big-files
-* sometimes, a BIGGGG file may be added in the repository and make it tooooo big bo hold, you can use this script to find out its name
+* sometimes, a BIGGGG file may be added in the repository and make it tooooo big to hold, you can use this script to find out its name
 
 ### other funcions are mentioned above
 ### These may be all the things I want to do in git 
