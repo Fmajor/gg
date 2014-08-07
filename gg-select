@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
+get_currentBranch
+get_currentBranchType
+if [ $currentBranchType != 'basedOn' ]; then
+	printf "\nYou must be in the basedOn branch to select a soft to use!\n\n"
+	git status
+	exit 1
+fi
+
+get_master
+get_basedOn

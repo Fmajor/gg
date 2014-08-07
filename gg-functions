@@ -107,6 +107,16 @@ get_release() {
 	fi
 }
 
+get_basedOn(){
+    if [ -z $master ]; then
+        get_master
+    fi  
+    if [ -z $devCode ]; then
+        basedOn="basedOn"
+    else
+        basedOn="$devCode%basedOn"
+    fi  
+}
 
 get_hotfix() {
 	if [ -z $master ]; then
@@ -133,4 +143,16 @@ get_isParentAlive(){
 	cat temp.txt | grep -x \ \ $currentBranchParent > temp1.txt
 	isParentAlive=`cat temp1.txt`
 	rm temp.txt temp1.txt
+}
+
+get_currentSHA() {
+	currentSHA=`git show|grep commit|awk '{print $2}'`
+}
+
+get_currentTagName() {
+	get_currentSHA
+	tagNum=`git tag -l|awk '{system("git show "$1"|grep commit")}'|awk '{print $2}'|grep $currentSHA -C`
+	if [ -n $tagNum ];then
+		currentTagName=`git tag -l|awk "NR==$tagNum"`
+	fi
 }
