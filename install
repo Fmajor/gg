@@ -1,3 +1,11 @@
 #!/bin/bash
-rm *~
-sudo cp gg* /usr/local/bin
+read -p "where do you want to install the scripts(with out the last '/')[/usr/local/bin]:" inputStr
+installPath=/usr/local/bin
+if [ -n $inputStr ]; then
+	installPath=$inputStr
+fi
+
+sed "s#installPath=.*#installPath=$installPath#g" -i gg-*
+sudo cp gg-* $installPath
+
+printf "install done!\nyou should read the README.md carefully is case of big changes in the usage of the scripts\n"

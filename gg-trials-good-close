@@ -11,12 +11,14 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
 
-currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
-currentBranchParent=`echo $currentBranch|sed 's#\(.*\)\..*#\1#'`
-isTrailBranch=`echo $currentBranch|sed 's#.*\.\(.*\)#\1#'|grep trial`
+get_currentBranch
+get_currentBranchParent
+get_isTrialBranch
 
-if [ $currentBranch == $currentBranchParent ] || [ -z $isTrailBranch ]; then
+if [ -z $isTrailBranch ] ; then
 	printf "\nYou must be in one trial branch\n\n"
 	git status
 	exit 1
@@ -43,6 +45,4 @@ git checkout $currentBranchParent
 git merge --no-ff $currentBranch \
 	&& printf "press Enter to delete $currentBranch branch\n" \
 	&& read temp && git branch -D $currentBranch
-
-
 

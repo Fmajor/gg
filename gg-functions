@@ -1,0 +1,136 @@
+#!/bin/bash
+
+genDebugLog(){
+	git --version > gg-debug.txt
+	git status >> gg-debug.txt
+	git branch >> gg-debug.txt
+}
+
+get_currentBranch(){
+    #currentBranch=`git status | grep On\ branch | awk '{print $3 }'`
+	currentBranch=`git status | grep On\ branch | sed 's#On\ branch\ \(.*\)$#\1#'`
+	if [ -z $currentBranch ]; then
+		printf "Can not detect the current branch, please open a issue on github.com/famjor/gg and paste the gg-debug.txt file in it.\n"
+		exit 1
+	fi
+}
+get_currentBranchType(){
+	if [ -z $currentBranch ];then
+		get_currentBranch
+	fi
+	get_isTrialBranch
+	if [ -z $isTrialBranch ]; then # not the trialBranch 
+		if [ -n `echo $currentBranch | grep \/`]; then # have a "/" struct
+			currentBranchTypeAll=`echo $currentBranch|sed 's#\(.*\)\/.*#\1#'`
+			[ -n `echo $currentBranchTypeAll | grep master` ] && currentBranchType="master" && return
+			[ -n `echo $currentBranchTypeAll | grep develop` ] && currentBranchType="develop" && return
+			[ -n `echo $currentBranchTypeAll | grep feature` ] && currentBranchType="feature" && return
+			[ -n `echo $currentBranchTypeAll | grep issues` ] && currentBranchType="issues" && return
+			[ -n `echo $currentBranchTypeAll | grep work` ] && currentBranchType="work" && return
+		else # do not have a "/" struct
+			[ -n `echo $currentBranchTypeAll | grep release` ] && currentBranchType="release" && return
+			[ -n `echo $currentBranchTypeAll | grep hotfix` ] && currentBranchType="hotfix" && return
+			[ -n `echo $currentBranchTypeAll | grep master` ] && currentBranchType="master" && return
+			[ -n `echo $currentBranchTypeAll | grep develop` ] && currentBranchType="develop" && return
+			[ -n `echo $currentBranchTypeAll | grep basedOn` ] && currentBranchType="basedOn" && return
+		fi
+	else # it is a trialBranch
+		currentBranchType="trial" && return
+	fi
+}
+
+get_develop() {
+	if [ -z $currentBranchType ]; then
+		get_currentBranchType
+	fi
+	devCode=`echo $currentBranchTypeAll|sed 's#\(.*\)\%.*#\1#'`
+	if [ -n $devCode ]; then
+		develop="$devCode%develop"
+	else
+		develop="develop"
+	fi
+}
+
+get_master() {
+	if [ -z $currentBranchType ]; then
+		get_currentBranchType
+	fi
+	devCode=`echo $currentBranchTypeAll|sed 's#\(.*\)\%.*#\1#'`
+	if [ -n $devCode ]; then
+		master="$devCode%master"
+	else
+		master="master"
+	fi
+}
+
+get_feature() {
+	if [ -z $develop ]; then
+		get_develop
+	fi
+	if [ -z $devCode ]; then
+		feature="feature"
+	else
+		feature="$devCode%feature"
+	fi
+}
+get_issues() {
+	if [ -z $develop ]; then
+		get_develop
+	fi
+	if [ -z $devCode ]; then
+		issues="issues"
+	else
+		issues="$devCode%issues"
+	fi
+}
+
+get_version() {
+	if [ -z $currentBranchType ]; then
+		get_currentBranchType
+	fi
+	if [$currentBranchType != "release"] && [$currentBranchType != "hotfix"]; then
+		printf "error use of this function: get_version!\n"
+		exit 1
+	fi
+	#version=`echo $currentBranch | sed 's#.*-\(.*\)#\1#'`
+	version=`echo $currentBranch|awk -F '-' '{print $2}'`
+}
+
+get_release() {
+	if [ -z $develop ]; then
+		get_develop
+	fi
+	if [ -z $devCode ]; then
+		release="release"
+	else
+		release="$devCode%release"
+	fi
+}
+
+
+get_hotfix() {
+	if [ -z $master ]; then
+		get_master
+	fi
+	if [ -z $devCode ]; then
+		hotfix="hotfix"
+	else
+		hotfix="$devCode%hotfix"
+	fi
+}
+
+get_currentBranchParent(){
+	#currentBranchParent=`echo $currentBranch|sed 's#\(.*\)\..*#\1#'`
+	currentBranchParent=`echo $currentBranch|sed 's#\(.*\)\/.*#\1#'`
+}
+
+get_isTrialBranch(){
+	isTrialBranch=`echo $currentBranch|sed 's#.*\/\(.*\)#\1#'|grep trial`
+}
+
+get_isParentAlive(){
+	git branch  > temp.txt
+	cat temp.txt | grep -x \ \ $currentBranchParent > temp1.txt
+	isParentAlive=`cat temp1.txt`
+	rm temp.txt temp1.txt
+}

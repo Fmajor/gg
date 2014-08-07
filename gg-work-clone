@@ -12,6 +12,8 @@
 #
 # Author: wujinnnnn@gmail.com
 
+
+
 printf 'do you what to git init the directory like this?\n'
 printf '\tgit init\n'
 printf '\tgit add .\n'
@@ -25,3 +27,4 @@ git add .
 git commit -a -m "init commit"
 git checkout -b  develop master
 cp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit
+

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source ./gg-functions
+get_currentBranch
+get_currentBranchParent
+get_isTrialBranch
