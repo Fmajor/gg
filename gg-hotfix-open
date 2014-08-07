@@ -11,6 +11,8 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
 
 if [ "$#" != "1" ]; then
 	printf "Please input the hotfix number~\n"
@@ -19,16 +21,19 @@ if [ "$#" != "1" ]; then
 	exit 1
 fi
 
-currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
-if [ $currentBranch != 'master' ]; then
+get_currentBranch
+get_currentBranchType
+if [ $currentBranchType != 'master' ]; then
 	printf "\nYou must be in the master branch to create a new hotfix branch!\n\n"
 	git status
 	exit 1
 fi
 
+get_master
+get_hotfix
 printf "Do you what to open a new hotfix branch like this?\n"
 # 创建一个热补丁分支
-printf "\tgit checkout -b hotfix-$1 master"
+printf "\tgit checkout -b $hotfix-$1 $master"
 
 read temp
-git checkout -b hotfix-$1 master
+git checkout -b $hotfix-$1 $master

@@ -11,21 +11,20 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
 
-currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
-currentBranchParent=`echo $currentBranch|sed 's#\(.*\)\..*#\1#'`
-isTrailBranch=`echo $currentBranch|sed 's#.*\.\(.*\)#\1#'|grep trial`
+get_currentBranch
+get_currentBranchParent
+get_isTrialBranch
 
-if [ $currentBranch == $currentBranchParent ] || [ -z $isTrailBranch ]; then
+if [ -z $isTrailBranch ]; then
 	printf "\nYou must be in one trial branch\n\n"
 	git status
 	exit 1
 fi
 
-git branch  > temp.txt
-cat temp.txt | grep -x \ \ $currentBranchParent > temp1.txt
-isParentAlive=`cat temp1.txt`
-rm temp.txt temp1.txt
+get_isParentAlive
 if [ -z $isParentAlive ]; then
 	printf "The trials' parent branch is missing, do the job manully\n"
 fi
@@ -34,20 +33,20 @@ printf "You are in branch ||      $currentBranch      ||\n"
 printf "Do you want to close it like this?\n"
 now=`date "+%Y-%m-%d-%H-%M-%S"`
 
-printf "\tRecord the logs of this branch in .deletedTrailsBranchs and then\n"
+printf "\tRecord the logs of this branch in .gg-data/deletedTrailsBranchs and then\n"
 printf "\tgit branch -D $currentBranch\n"
 read temp 
 
 git commit -a -m "last commit for this trials"
 git checkout $currentBranchParent
-echo "=================================================" >> .deletedTrailsBranchs
-echo $currentBranch "deleted at" $now >> .deletedTrailsBranchs
+echo "=================================================" >> .gg-data/deletedTrailsBranchs
+echo $currentBranch "deleted at" $now >> .gg-data/deletedTrailsBranchs
 echo
-git log $currentBranchParent..$currentBranch >> .deletedTrailsBranchs
+git log $currentBranchParent..$currentBranch >> .gg-data/deletedTrailsBranchs
 
 
 printf "press Enter to delete $currentBranch branch\n" \
 	&& read temp && git branch -D $currentBranch \
-	&& git add .deletedTrailsBranchs&&git commit .deletedTrailsBranchs -m "delete branch $currentBranch"
+	&& git add .gg-data/deletedTrailsBranchs&&git commit .gg-data/deletedTrailsBranchs -m "delete branch $currentBranch"
 
 
