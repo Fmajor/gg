@@ -7,4 +7,5 @@ echo
 echo
 
 get_currentSHA
+get_currentTagName
 echo $currentTagName

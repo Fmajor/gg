@@ -146,13 +146,14 @@ get_isParentAlive(){
 }
 
 get_currentSHA() {
-	currentSHA=`git show|grep commit|awk '{print $2}'`
+	currentSHA=`git show|grep ^commit|awk '{print $2}'`
 }
 
 get_currentTagName() {
 	get_currentSHA
-	tagNum=`git tag -l|awk '{system("git show "$1"|grep commit")}'|awk '{print $2}'|grep $currentSHA -C`
-	if [ -n $tagNum ];then
-		currentTagName=`git tag -l|awk "NR==$tagNum"`
-	fi
+	git tag -l > .gg-data-temp1.txt
+	git tag -l|awk '{system("git show "$1"|grep ^commit")}'|awk '{print $2}' > .gg-data-temp2.txt
+	paste .gg-data-temp1.txt .gg-data-temp2.txt > .gg-data-temp3.txt
+	currentTagName=`cat .gg-data-temp3.txt|grep $currentSHA|head -n 1|awk '{print $1}'`
+	rm .gg-data-temp*
 }
