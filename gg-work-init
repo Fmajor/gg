@@ -31,7 +31,7 @@ if [ -z currentTagName ]; then
 fi
 
 printf 'do you what to git init the directory like this?\n'
-cp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit\
+cp $installPath/gg-pre-commit .git/hooks/pre-commit\
 	|| printf "please go to the git root to cp the pre-commit\n"\
 	&& exit 1
 

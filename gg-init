@@ -11,6 +11,7 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
 
 printf 'do you what to git init the directory like this?\n'
 printf '\tgit init\n'
@@ -24,4 +25,4 @@ git init
 git add .
 git commit -a -m "init commit"
 git checkout -b  develop master
-cp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit
+cp $installPath/gg-pre-commit .git/hooks/pre-commit
