@@ -1,5 +1,7 @@
 gg
 ======================
+Please wait for version v2.0 for more functions and better compatibility, this version is tested only in git version 1.7 and is not compatible with git version 1.9
+=====================
 
 About
 -------
