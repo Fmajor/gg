@@ -28,14 +28,14 @@ echo "You are in branch ||   $currentBranch   ||"
 echo "Do you want to close it like this?"
 # 合并完成的特性回develop
 gggttt;echo "git checkout $develop"
-gggttt;echo "git merge --no-ff $currentBranch"
+gggttt;echo "git merge --no-ff $currentBranch $develop"
 gggttt;echo "git branch -d $currentBranch"
 echo
 gggttt;echo "if you meet conflicts in merges, you should delete the branch manully"
 read temp
 
 git checkout $develop
-git merge --no-ff $currentBranch \
+git merge --no-ff $currentBranch $develop -m "Merge branch $currentBranch into $develop"\
 	&& echo "press Enter to delete $currentBranch branch\n" \
 	&& read temp && git branch -d $currentBranch
 

@@ -34,7 +34,7 @@ echo;echo "if you meet conflicts in merges, you should delete the branch manully
 read temp
 
 git checkout $develop
-git merge --no-ff $currentBranch \
+git merge --no-ff $currentBranch -m "Merge branch $currentBranch into $develop"\
 	&& echo "press Enter to delete $currentBranch branch\n" \
 	&& read temp && git branch -d $currentBranch
 

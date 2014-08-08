@@ -25,36 +25,39 @@ if [ $currentBranchType != 'work' ]; then
 	exit 1
 fi
 
-get_work_basedOn
+get_basedOn
+echo $work_basedOn
 if [ $# == 0 ];then
-	git checkout $work_basedOn
+	git checkout $basedOn
 	get_currentTagName
 	get_currentTagVersion
 	git checkout $thisWorkBranch
 
 	printf "Do you want to update your work branch like this?\n"
-	gggttt;echo "git checkout -b $thisWorkBranchTypeAll/$work_basedOn-$currentTagVersion"
-	gggttt;echo "git merge --no-ff $currentTagName"
+	gggttt;echo "git checkout -b $thisWorkBranchTypeAll/basedOn-$currentTagVersion"
+	gggttt;echo "git merge --no-ff $currentTagName -m \"update $thisWorkBranch with $currentTagName\"" 
 
 	read temp
-	git checkout -b $thisWorkBranchTypeAll/$work_basedOn-$currentTagVersion
-	git merge --no-ff $currentTagName
+	git checkout -b $thisWorkBranchTypeAll/basedOn-$currentTagVersion
+	git merge --no-ff $currentTagName -m "update $thisWorkBranch with $currentTagName"
 	
-elif [ $# == 1 ]
-	git checkout $1 \
-		|| printf "error go to $#\n check your spell\n We can go to \n" \
-		&& git branch \
-		&& git tag \
-		&& exit 1
+elif [ $# == 1 ]; then
+	git checkout $1 > /dev/null
+	if [ $? != 0 ];then
+		printf "error go to $#\n check your spell\n We can go to \n"
+		git branch
+		git tag
+		exit 1
+	fi
 	get_currentTagName
 	get_currentTagVersion
 	printf "Do you want to update your work branch like this?\n"
-	gggttt;echo "git checkout -b $thisWorkBranchTypeAll/$work_basedOn-$currentTagVersion"
-	gggttt;echo "git merge --no-ff $currentTagName"
+	gggttt;echo "git checkout -b $thisWorkBranchTypeAll/basedOn-$currentTagVersion"
+	gggttt;echo "git merge --no-ff $currentTagName -m \"update $thisWorkBranch with $currentTagName\""
 
 	read temp
-	git checkout -b $thisWorkBranchTypeAll/$work_basedOn-$currentTagVersion
-	git merge --no-ff $currentTagName
+	git checkout -b $thisWorkBranchTypeAll/basedOn-$currentTagVersion
+	git merge --no-ff $currentTagName -m "update $thisWorkBranch with $currentTagName"
 
 else
 	printf "error parameter numbers!!\n"

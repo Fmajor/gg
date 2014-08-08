@@ -28,7 +28,7 @@ printf '\tcp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit'
 
 read temp
 mkdir .gg-data
-mkdir .gg-data/gg-config
+touch .gg-data/gg-config
 git init
 git add .
 git commit -a -m "init commit"

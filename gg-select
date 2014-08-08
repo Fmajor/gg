@@ -32,21 +32,22 @@ if [ $# == 0 ];then
 	    git status
 	    exit 1
 	fi
-
+	git checkout $currentBranch
 	printf "Do you what to select the latest version soft in the $master branch like this?\n"
 	gggttt;echo "git merge --no-ff $master"
-	gggttt;echo "tag inUse-$currentTagName -a -m ""fork $master into baseOn, version $currentTagName$"""
+	gggttt;echo "tag inUse-$currentTagName -a -m \"fork $master into baseOn, version $currentTagName\""
 	read temp
-	git checkout $currentBranch
-	git merge --no-ff $master
-	git tag inUse-$currentTagName -a -m "fork $master into baseOn, version $currentTagName$"
-elif [ $# == 1 ]
 	
-	git checkout $1 \
-		|| printf "error go to $#\n check your spell\n We can go to \n" \
-		&& git branch \
-		&& git tag \
-		&& exit 1
+	git merge --no-ff $master -m "fork $master into baseOn, version $currentTagName"
+	git tag inUse-$currentTagName -a -m "fork $master into baseOn, version $currentTagName"
+elif [ $# == 1 ];then
+	git checkout $1 >/dev/null
+	if [ $? != 0 ]; then
+		printf "error go to $#\n check your spell\n We can go to \n"
+		git branch
+		git tag
+		exit 1
+	fi
 
 	get_currentTagName
 	if [ -z $currentTagName ]; then
@@ -54,13 +55,14 @@ elif [ $# == 1 ]
 	    git status
 	    exit 1
 	fi
+	git checkout $currentBranch
 	printf "Do you what to select the latest version soft in the $1 branch like this?\n"
 	gggttt;echo "git merge --no-ff $1"
-	gggttt;echo "git tag inUse-$currentTagName -a -m ""fork $1 into baseOn, version $currentTagName$"""
+	gggttt;echo "git tag inUse-$currentTagName -a -m \"fork $1 into baseOn, version $currentTagName\""
 
 	read temp
-	git checkout $currentBranch
-	git merge --no-ff $1
+	
+	git merge --no-ff $1 -m "fork $master into baseOn, version $currentTagName"
 	git tag inUse-$currentTagName -a -m "fork $1 into baseOn, version $currentTagName$"
 else
 	printf "error parameter numbers!!\n"

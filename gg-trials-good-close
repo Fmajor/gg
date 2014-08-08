@@ -28,6 +28,7 @@ fi
 get_isParentAlive
 if [ -z $isParentAlive ]; then
 	printf "The trials' parent branch is missing, do the job manully\n"
+	exit 1
 fi
 
 echo "You are in branch ||      $currentBranch      ||"
@@ -40,7 +41,7 @@ echo "if you meet conflicts in merges, you should delete the branch manully"
 read temp
 
 git checkout $currentBranchParent
-git merge --no-ff $currentBranch \
+git merge --no-ff $currentBranch -m "Merge branch $currentBranch into $currentBranchParent"\
 	&& echo "press Enter to delete $currentBranch branch" \
 	&& read temp && git branch -D $currentBranch
 

@@ -18,9 +18,9 @@ testClear
 get_currentBranch
 get_currentBranchType
 if [ $currentBranchType != 'basedOn' ]; then
-	printf "\nYou must be in the basedOn branch to open a new work!\n\n"
-	git status
-	exit 1
+	printf "\nYou must be in the basedOn branch to open a new work!\nOr you are in the detached HEAD state\nPlease make sure you are in the right place(press Enter for twice to continue)\n"
+	read temp
+	read temp
 fi
 
 if [ "$#" != "1" ]; then
@@ -31,6 +31,6 @@ fi
 get_currentTagName
 get_currentTagVersion
 printf "Do you want to open a new work branch like this?\n"
-gggttt;echo "git checkout -b work.$1/$currentBranch-$currentTagVersion"
+gggttt;echo "git checkout -b work.$1/basedOn-$currentTagVersion"
 read temp
-git checkout -b work.$1/$currentBranch-$currentTagVersion
+git checkout -b work.$1/basedOn-$currentTagVersion

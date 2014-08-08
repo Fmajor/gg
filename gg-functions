@@ -10,31 +10,35 @@ get_currentBranch(){
     #currentBranch=`git status | grep On\ branch | awk '{print $3 }'`
 	currentBranch=`git status | grep On\ branch | sed 's#On\ branch\ \(.*\)$#\1#'|sed "s#|#\\\|#g"`
 	if [ -z $currentBranch ]; then
-		printf "Can not detect the current branch, please open a issue on github.com/famjor/gg and paste the gg-debug.txt file in it.\n"
-		exit 1
+		pointer=1
 	fi
 }
 get_currentBranchType(){
+	if [ -n "$pointer" ]; then
+		currentBranchType="pointer"
+		return
+	fi
 	get_currentBranch
 	get_isTrialBranch
 	if [ -z $isTrialBranch ]; then # not the trialBranch 
 		temp=`echo $currentBranch | grep \/`
 		if [ -n "$temp" ]; then # have a "/" struct
 			currentBranchTypeAll=`echo $currentBranch|sed 's#\(.*\)\/.*#\1#'`
-			temp=`echo $currentBranchTypeAll | grep master` ;[ -n "$temp" ] && currentBranchType="master" ;return
-			temp=`echo $currentBranchTypeAll | grep develop`;[ -n "$temp" ] && currentBranchType="develop";return
-			temp=`echo $currentBranchTypeAll | grep feature`;[ -n "$temp" ] && currentBranchType="feature";return
-			temp=`echo $currentBranchTypeAll | grep issues` ;[ -n "$temp" ] && currentBranchType="issues" ;return
-			temp=`echo $currentBranchTypeAll | grep work`   ;[ -n "$temp" ] && currentBranchType="work"   ;return
+			temp=`echo $currentBranchTypeAll | grep master` ;[ -n "$temp" ] && currentBranchType="master" && return
+			temp=`echo $currentBranchTypeAll | grep develop`;[ -n "$temp" ] && currentBranchType="develop"&& return
+			temp=`echo $currentBranchTypeAll | grep feature`;[ -n "$temp" ] && currentBranchType="feature"&& return
+			temp=`echo $currentBranchTypeAll | grep issues` ;[ -n "$temp" ] && currentBranchType="issues" && return
+			temp=`echo $currentBranchTypeAll | grep work`   ;[ -n "$temp" ] && currentBranchType="work"   && return
 		else # do not have a "/" struct
-			temp=`echo $currentBranchTypeAll | grep release`;[ -n "$temp" ] && currentBranchType="release";return
-			temp=`echo $currentBranchTypeAll | grep hotfix` ;[ -n "$temp" ] && currentBranchType="hotfix" ;return
-			temp=`echo $currentBranchTypeAll | grep master` ;[ -n "$temp" ] && currentBranchType="master" ;return
-			temp=`echo $currentBranchTypeAll | grep develop`;[ -n "$temp" ] && currentBranchType="develop";return
-			temp=`echo $currentBranchTypeAll | grep basedOn`;[ -n "$temp" ] && currentBranchType="basedOn";return
+			currentBranchTypeAll=$currentBranch
+			temp=`echo $currentBranchTypeAll | grep release`;[ -n "$temp" ] && currentBranchType="release"&& return
+			temp=`echo $currentBranchTypeAll | grep hotfix` ;[ -n "$temp" ] && currentBranchType="hotfix" && return
+			temp=`echo $currentBranchTypeAll | grep master` ;[ -n "$temp" ] && currentBranchType="master" && return
+			temp=`echo $currentBranchTypeAll | grep develop`;[ -n "$temp" ] && currentBranchType="develop"&& return
+			temp=`echo $currentBranchTypeAll | grep basedOn`;[ -n "$temp" ] && currentBranchType="basedOn"&& return
 		fi
 	else # it is a trialBranch
-		currentBranchType="trial";return
+		currentBranchType="trial"&& return
 	fi
 	echo $currentBranch
 	printf "can not get current BranchType name!!!!\n"
@@ -42,9 +46,16 @@ get_currentBranchType(){
 }
 
 get_develop() {
-		get_currentBranchType
-	devCode=`echo $currentBranchTypeAll|awk -F '|' '{print $1}'`
-	haveDevCode=`echo $currentBranchTypeAll|grep \|`
+	get_currentBranchType
+
+	if [ $currentBranchType != "work" ];then
+		devCode=`echo $currentBranchTypeAll|awk -F '|' '{print $1}'`
+		haveDevCode=`echo $currentBranchTypeAll|grep \|`	
+	else
+		devCode=`echo $currentBranch|awk -F '/' '{print $2}'|awk -F '-' '{print $2}'`
+		haveDevCode=`echo $currentBranch|awk -F '/' '{print $2}'|awk -F '-' '{print $3}'`
+	fi
+
 	if [ -z "$haveDevCode" ];then 
 		devCode=
 	fi
@@ -56,9 +67,15 @@ get_develop() {
 }
 
 get_master() {
-		get_currentBranchType
-	devCode=`echo $currentBranchTypeAll|awk -F '|' '{print $1}'`
-	haveDevCode=`echo $currentBranchTypeAll|grep |`
+	get_currentBranchType
+	if [ $currentBranchType != "work" ];then
+		devCode=`echo $currentBranchTypeAll|awk -F '|' '{print $1}'`
+		haveDevCode=`echo $currentBranchTypeAll|grep \|`	
+	else
+		devCode=`echo $currentBranch|awk -F '/' '{print $2}'|awk -F '-' '{print $2}'`
+		haveDevCode=`echo $currentBranch|awk -F '/' '{print $2}'|awk -F '-' '{print $3}'`
+	fi
+
 	if [ -z "$haveDevCode" ];then 
 		devCode=
 	fi
@@ -94,6 +111,11 @@ get_version() {
 	fi
 	#version=`echo $currentBranch | sed 's#.*-\(.*\)#\1#'`
 	version=`echo $currentBranch|awk -F '-' '{print $2}'`
+	devCode=`echo $currentBranch|awk -F '|' '{print $1}'`
+	haveDevCode=`echo $currentBranch|awk -F '|' '{print $2}'`
+	if [ -n "$haveDevCode" ];then
+		version="$devCode-$version"
+	fi
 }
 
 get_release() {
@@ -101,17 +123,17 @@ get_release() {
 	if [ -z $devCode ]; then
 		release="release"
 	else
-		release="$devCode-release"
+		release="$devCode|release"
 	fi
 }
 
 get_basedOn(){
 	get_master
-    if [ -z $devCode ]; then
-        basedOn="basedOn"
-    else
-        basedOn="$devCode-basedOn"
-    fi  
+	if [ -z $devCode ]; then
+		basedOn="basedOn"
+	else
+		basedOn="$devCode|basedOn"
+	fi  
 }
 
 get_work_basedOn(){

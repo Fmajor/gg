@@ -31,26 +31,30 @@ if [ -z currentTagName ]; then
 fi
 
 printf 'do you what to git init the directory like this?\n'
-cp $installPath/gg-pre-commit .git/hooks/pre-commit\
-	|| printf "please go to the git root to cp the pre-commit\n"\
-	&& exit 1
+if [ -e .git/hooks/pre-commit ];then
+	echo
+else
+	cp $installPath/gg-pre-commit .git/hooks/pre-commit
+	printf "please go to the git root to cp the pre-commit\n"
+	exit 1
+fi
 
 get_basedOn
-if [ $# == 0 ];then
+if [ $# == 0 ]; then
 	gggttt;echo "git checkout -b $basedOn"
+	gggttt;echo "git tag inUse-$currentTagName -a -m \"init $master into baseOn, version $currentTagName\""
 	read temp
 	git checkout -b $basedOn
-	git tag inUse-$currentTagName -a -m "init $master into baseOn, version $currentTagName$"
-elif [ $# == 1 ]
-	printf "\tgit checkout $1\n"
-	gggttt;echo "git checkout -b $basedOn"
+	git tag inUse-$currentTagName -a -m "init $master into baseOn, version $currentTagName"
+elif [ $# == 1 ]; then
 	
-	read temp
-	git checkout $1 \
-		|| echo "error go to $1, check your spell, We can go to \n" \
-		&& git branch \
-		&& git tag \
-		&& exit 1
+	git checkout $1 > /dev/null
+	if [ $? != 0 ];then
+		echo "error go to $1, check your spell, We can go to \n"
+		git branch
+		git tag
+		exit 1
+	fi
 	get_currentTagName
 	if [ -z $currentTagName ]; then
 	    echo "$1 don't have a tag name, you should give one to it"
@@ -58,13 +62,13 @@ elif [ $# == 1 ]
 	    exit 1
 	fi
 
+	gggttt;echo "git checkout -b $basedOn"
+	gggttt;echo "git tag inUse-$currentTagName -a -m \"init $1 into baseOn, version $currentTagName\""
+	read temp
 	git checkout -b $basedOn
-	git tag inUse-$currentTagName -a -m "init $master into baseOn, version $currentTagName$"
+	git tag inUse-$currentTagName -a -m "init $1 into baseOn, version $currentTagName"
 else
 	printf "error parameter numbers!!\n"
 	exit 1
 fi
-
-read temp
-
 
