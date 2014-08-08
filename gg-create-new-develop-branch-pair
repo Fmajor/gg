@@ -29,8 +29,8 @@ if [ $currentBranchType != 'develop' ] && [ $currentBranchType != 'master' ]; th
 fi
 
 printf "Do you what to open a new pair of branches like this?\n"
-printf "\tgit checkout -b $1%develop $currentBranch\n"
-printf "\tgit checkout -b $1%master $currentBranch\n"
+gggttt;echo "git checkout -b $1%%develop $currentBranch"
+gggttt;echo "git checkout -b $1%%master $currentBranch"
 
 read temp
 git checkout -b $1%develop $currentBranch

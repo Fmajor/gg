@@ -34,7 +34,7 @@ get_release
 printf "Do you what to open a new release branch like this?\n"
 
 # 创建一个发布分支
-printf "\tgit checkout -b $release-$1"
+gggttt;echo "git checkout -b $release-$1"
 
 read temp
 git checkout -b $release-$1

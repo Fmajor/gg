@@ -24,17 +24,17 @@ if [ $currentBranchType != 'issues' ]; then
 fi
 
 get_develop
-printf "You are in branch ||   $currentBranch   ||\n"
-printf "Do you want to close it like this?\n"
+echo "You are in branch ||   $currentBranch   ||\n"
+echo "Do you want to close it like this?\n"
 # 合并完成的特性回develop
-printf "\tgit checkout $develop\n"
-printf "\tgit merge --no-ff $currentBranch\n"
-printf "\tgit branch -d $currentBranch\n"
-printf "\n if you meet conflicts in merges, you should delete the branch manully\n"
+gggttt;echo "git checkout $develop"
+gggttt;echo "git merge --no-ff $currentBranch"
+gggttt;echo "git branch -d $currentBranch"
+echo;echo "if you meet conflicts in merges, you should delete the branch manully"
 read temp
 
 git checkout $develop
 git merge --no-ff $currentBranch \
-	&& printf "press Enter to delete $currentBranch branch\n" \
+	&& echo "press Enter to delete $currentBranch branch\n" \
 	&& read temp && git branch -d $currentBranch
 

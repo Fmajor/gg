@@ -19,29 +19,30 @@ get_currentBranch
 get_currentBranchType
 get_version
 if [ $currentBranchType != 'hotfix' ]; then
-	printf "\nYou must be in one hotfix branch!\n\n"
+	printf "You must be in one hotfix branch!"
+	echo
 	git status
 	exit 1
 fi
 
 get_master
 get_develop
-printf "You are in branch ||      $currentBranch      ||\n"
-printf "Do you want to close it like this?\n"
+echo "You are in branch ||      $currentBranch      ||"
+echo "Do you want to close it like this?"
 
-printf "\tgit checkout $master\n"
-printf "\tgit merge --no-ff $currentBranch\n"
-printf "\tgit tag -a $version\n"
-printf "\tgit checkout $develop\n"
-printf "\tgit merge --no-ff $currentBranch\n"
-printf "\tgit branch -d $currentBranch\n"
-printf "\nif you meet conflicts in merges, you should delete the branch manully\n"
+gggttt;echo "git checkout $master"
+gggttt;echo "git merge --no-ff $currentBranch"
+gggttt;echo "git tag -a $version"
+gggttt;echo "git checkout $develop"
+gggttt;echo "git merge --no-ff $currentBranch"
+gggttt;echo "git branch -d $currentBranch"
+gggttt;echo "if you meet conflicts in merges, you should delete the branch manully"
 
 read temp
 git checkout $master
 git merge --no-ff $currentBranch && git tag -a $version
 git checkout $develop
 git merge --no-ff $currentBranch \
-	&& printf "press Enter to delete branch $currentBranch" \
+	&& echo "press Enter to delete branch $currentBranch" \
 	&& git branch -d $currentBranch
 	

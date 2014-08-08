@@ -31,6 +31,6 @@ fi
 get_currentTagName
 get_currentTagVersion
 printf "Do you want to open a new work branch like this?\n"
-printf "\tgit checkout -b work.$1/$currentBranch-$currentTagVersion\n"
+gggttt;echo "git checkout -b work.$1/$currentBranch-$currentTagVersion"
 read temp
 git checkout -b work.$1/$currentBranch-$currentTagVersion

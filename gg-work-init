@@ -25,7 +25,7 @@ fi
 
 get_currentTagName
 if [ -z currentTagName ]; then
-	printf "$currentBranch don't have a tag name, you should give one to it\n"
+	echo "$currentBranch don't have a tag name, you should give one to it"
 	git status
 	exit 1
 fi
@@ -37,23 +37,23 @@ cp $installPath/gg-pre-commit .git/hooks/pre-commit\
 
 get_basedOn
 if [ $# == 0 ];then
-	printf "\tgit checkout -b $basedOn\n"
+	gggttt;echo "git checkout -b $basedOn"
 	read temp
 	git checkout -b $basedOn
 	git tag inUse-$currentTagName -a -m "init $master into baseOn, version $currentTagName$"
 elif [ $# == 1 ]
 	printf "\tgit checkout $1\n"
-	printf "\tgit checkout -b $basedOn\n"
+	gggttt;echo "git checkout -b $basedOn"
 	
 	read temp
 	git checkout $1 \
-		|| printf "error go to $#\n check your spell\n We can go to \n" \
+		|| echo "error go to $1, check your spell, We can go to \n" \
 		&& git branch \
 		&& git tag \
 		&& exit 1
 	get_currentTagName
 	if [ -z $currentTagName ]; then
-	    printf "$1 don't have a tag name, you should give one to it\n"
+	    echo "$1 don't have a tag name, you should give one to it"
 	    git status
 	    exit 1
 	fi

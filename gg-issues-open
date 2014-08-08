@@ -32,7 +32,7 @@ get_develop
 get_issues
 printf "Do you what to open a new issues branch like this?\n"
 # 创建一个特性分支
-printf "\tgit checkout -b $issues/$1\n"
+gggttt;echo "git checkout -b $issues/$1"
 
 read temp
 git checkout -b $issues/$1

@@ -30,12 +30,12 @@ if [ -z $isParentAlive ]; then
 	printf "The trials' parent branch is missing, do the job manully\n"
 fi
 
-printf "You are in branch ||      $currentBranch      ||\n"
+echo "You are in branch ||      $currentBranch      ||"
 printf "Do you want to close it like this?\n"
 now=`date "+%Y-%m-%d-%H-%M-%S"`
 
 printf "\tRecord the logs of this branch in .gg-data/deletedTrailsBranchs and then\n"
-printf "\tgit branch -D $currentBranch\n"
+gggttt;echo "git branch -D $currentBranch"
 read temp 
 
 git checkout $currentBranchParent
@@ -45,7 +45,7 @@ echo
 git log $currentBranchParent..$currentBranch >> .gg-data/deletedTrailsBranchs
 
 
-printf "press Enter to delete $currentBranch branch\n" \
+echo "press Enter to delete $currentBranch branch" \
 	&& read temp && git branch -D $currentBranch \
 	&& git add .gg-data/deletedTrailsBranchs&&git commit .gg-data/deletedTrailsBranchs -m "delete branch $currentBranch"
 
