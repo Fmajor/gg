@@ -118,6 +118,11 @@ get_basedOn(){
     fi  
 }
 
+get_work_basedOn(){
+	work_basedOn=`echo $currentBranch|sed 's#\/\(.*\)-#\1#'`
+
+}
+
 get_hotfix() {
 	if [ -z $master ]; then
 		get_master
@@ -156,4 +161,25 @@ get_currentTagName() {
 	paste .gg-data-temp1.txt .gg-data-temp2.txt > .gg-data-temp3.txt
 	currentTagName=`cat .gg-data-temp3.txt|grep $currentSHA|head -n 1|awk '{print $1}'`
 	rm .gg-data-temp*
+}
+
+get_currentTagVersion() {
+	if [ -z $currentTagName ]; then
+		get_currentTagName
+	fi
+	currentTagVersion=`echo $currentTagName|sed 's#inUse-\(.*\)#\1#'`
+}
+
+get_now() {
+	now=`date "+%Y-%m-%d-%H-%M-%S"`
+}
+
+testClear() {
+	isClear=`git status|grep Changes\ not\ staged`
+	if [ -n $isClear ]; then
+		git status
+		printf "You have || Changes not staged for commit ||， will you still do the next things?(Press enter twice for sure)"
+		read temp
+		read temp
+	fi
 }

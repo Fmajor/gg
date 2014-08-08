@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
+
+get_currentBranch
+get_currentBranchType
+if [ $currentBranchType != 'basedOn' ]; then
+	printf "\nYou must be in the basedOn branch to open a new work!\n\n"
+	git status
+	exit 1
+fi
+
+if [ "$#" != "1" ]; then
+	printf "Please input the work name~\n"
+	exit 1
+fi
+
+get_currentTagName
+get_currentTagVersion
+printf "Do you want to open a new work branch like this?\n"
+printf "\tgit checkout -b work.$1/$currentBranch-$currentTagVersion\n"
+read temp
+git checkout -b work.$1/$currentBranch-$currentTagVersion

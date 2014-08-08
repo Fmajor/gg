@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
+get_now
+git status
+printf "Do you want to tag the branch with $now?\n"
+read temp
+git tag -a $now -m "in use since $now"

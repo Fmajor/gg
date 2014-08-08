@@ -21,6 +21,13 @@ if [ $currentBranchType != 'master' ]; then
 	exit 1
 fi
 
+get_currentTagName
+if [ -z currentTagName ]; then
+	printf "$currentBranch don't have a tag name, you should give one to it\n"
+	git status
+	exit 1
+fi
+
 printf 'do you what to git init the directory like this?\n'
 printf '\tcp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit'
 cp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit
@@ -31,7 +38,7 @@ if [ $# == 0 ];then
 	read temp
 	git checkout -b $basedOn
 elif [ $# == 1 ]
-	printf "\t git checkout $1\n"
+	printf "\tgit checkout $1\n"
 	printf "\tgit checkout -b $basedOn\n"
 	
 	read temp
@@ -40,6 +47,13 @@ elif [ $# == 1 ]
 		&& git branch \
 		&& git tag \
 		&& exit 1
+	get_currentTagName
+	if [ -z $currentTagName ]; then
+	    printf "$1 don't have a tag name, you should give one to it\n"
+	    git status
+	    exit 1
+	fi
+
 	git checkout -b $basedOn
 else
 	printf "error parameter numbers!!\n"
