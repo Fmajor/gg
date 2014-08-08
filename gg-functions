@@ -42,7 +42,11 @@ get_currentBranchType(){
 
 get_develop() {
 		get_currentBranchType
-	devCode=`echo $currentBranchTypeAll|sed 's#\(.*\)\%.*#\1#'`
+	devCode=`echo $currentBranchTypeAll|awk -F '%' '{print $1}'`
+	haveDevCode=`echo $currentBranchTypeAll|grep %`
+	if [ -z "$haveDevCode" ];then 
+		devCode=
+	fi
 	if [ -n "$devCode" ]; then
 		develop="$devCode%develop"
 	else
@@ -52,7 +56,11 @@ get_develop() {
 
 get_master() {
 		get_currentBranchType
-	devCode=`echo $currentBranchTypeAll|sed 's#\(.*\)\%.*#\1#'`
+	devCode=`echo $currentBranchTypeAll|awk -F '%' '{print $1}'`
+	haveDevCode=`echo $currentBranchTypeAll|grep %`
+	if [ -z "$haveDevCode" ];then 
+		devCode=
+	fi
 	if [ -n "$devCode" ]; then
 		master="$devCode%master"
 	else
