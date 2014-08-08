@@ -13,6 +13,8 @@
 # Author: wujinnnnn@gmail.com
 installPath=/usr/local/bin
 source $installPath/gg-functions
+testClear
+
 get_currentBranch
 get_currentBranchType
 if [ $currentBranchType != 'master' ]; then
@@ -29,14 +31,16 @@ if [ -z currentTagName ]; then
 fi
 
 printf 'do you what to git init the directory like this?\n'
-printf '\tcp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit'
-cp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit
+cp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit\
+	|| printf "please go to the git root to cp the pre-commit\n"\
+	&& exit 1
 
 get_basedOn
 if [ $# == 0 ];then
 	printf "\tgit checkout -b $basedOn\n"
 	read temp
 	git checkout -b $basedOn
+	git tag inUse-$currentTagName -a -m "init $master into baseOn, version $currentTagName$"
 elif [ $# == 1 ]
 	printf "\tgit checkout $1\n"
 	printf "\tgit checkout -b $basedOn\n"
@@ -55,6 +59,7 @@ elif [ $# == 1 ]
 	fi
 
 	git checkout -b $basedOn
+	git tag inUse-$currentTagName -a -m "init $master into baseOn, version $currentTagName$"
 else
 	printf "error parameter numbers!!\n"
 	exit 1

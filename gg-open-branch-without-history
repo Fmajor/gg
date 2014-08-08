@@ -13,8 +13,11 @@
 # Author: wujinnnnn@gmail.com
 installPath=/usr/local/bin
 source $installPath/gg-functions
-get_now
-git status
-printf "Do you want to tag the branch with $now?\n"
-read temp
-git tag -a $now -m "in use since $now"
+testClear
+
+if [ "$#" != "1" ]; then
+	printf "Please input the branch name~\n"
+	exit 1
+fi
+printf "Do you want to start a new branch with out history?\n"
+	git checkout --orphan $1

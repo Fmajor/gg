@@ -13,6 +13,7 @@
 # Author: wujinnnnn@gmail.com
 installPath=/usr/local/bin
 source $installPath/gg-functions
+testClear
 
 if [ "$#" != "1" ]; then
 	printf "Please input issues name~\n"
@@ -31,7 +32,7 @@ get_develop
 get_issues
 printf "Do you what to open a new issues branch like this?\n"
 # 创建一个特性分支
-printf "\tgit checkout -b $issues/$1 $develop\n"
+printf "\tgit checkout -b $issues/$1\n"
 
 read temp
-git checkout -b $issues/$1 $develop
+git checkout -b $issues/$1

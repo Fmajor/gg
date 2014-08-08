@@ -15,9 +15,7 @@ get_currentBranch(){
 	fi
 }
 get_currentBranchType(){
-	if [ -z $currentBranch ];then
-		get_currentBranch
-	fi
+	get_currentBranch
 	get_isTrialBranch
 	if [ -z $isTrialBranch ]; then # not the trialBranch 
 		if [ -n `echo $currentBranch | grep \/`]; then # have a "/" struct
@@ -40,9 +38,7 @@ get_currentBranchType(){
 }
 
 get_develop() {
-	if [ -z $currentBranchType ]; then
 		get_currentBranchType
-	fi
 	devCode=`echo $currentBranchTypeAll|sed 's#\(.*\)\%.*#\1#'`
 	if [ -n $devCode ]; then
 		develop="$devCode%develop"
@@ -52,9 +48,7 @@ get_develop() {
 }
 
 get_master() {
-	if [ -z $currentBranchType ]; then
 		get_currentBranchType
-	fi
 	devCode=`echo $currentBranchTypeAll|sed 's#\(.*\)\%.*#\1#'`
 	if [ -n $devCode ]; then
 		master="$devCode%master"
@@ -64,9 +58,7 @@ get_master() {
 }
 
 get_feature() {
-	if [ -z $develop ]; then
 		get_develop
-	fi
 	if [ -z $devCode ]; then
 		feature="feature"
 	else
@@ -74,9 +66,7 @@ get_feature() {
 	fi
 }
 get_issues() {
-	if [ -z $develop ]; then
 		get_develop
-	fi
 	if [ -z $devCode ]; then
 		issues="issues"
 	else
@@ -85,9 +75,7 @@ get_issues() {
 }
 
 get_version() {
-	if [ -z $currentBranchType ]; then
 		get_currentBranchType
-	fi
 	if [$currentBranchType != "release"] && [$currentBranchType != "hotfix"]; then
 		printf "error use of this function: get_version!\n"
 		exit 1
@@ -97,9 +85,7 @@ get_version() {
 }
 
 get_release() {
-	if [ -z $develop ]; then
 		get_develop
-	fi
 	if [ -z $devCode ]; then
 		release="release"
 	else
@@ -108,9 +94,7 @@ get_release() {
 }
 
 get_basedOn(){
-    if [ -z $master ]; then
         get_master
-    fi  
     if [ -z $devCode ]; then
         basedOn="basedOn"
     else
@@ -124,9 +108,7 @@ get_work_basedOn(){
 }
 
 get_hotfix() {
-	if [ -z $master ]; then
 		get_master
-	fi
 	if [ -z $devCode ]; then
 		hotfix="hotfix"
 	else
@@ -175,10 +157,10 @@ get_now() {
 }
 
 testClear() {
-	isClear=`git status|grep Changes\ not\ staged`
+	isClear=`git status|grep Changes\ not\ staged``git status|grep Changes\ to\ be\ committed`
 	if [ -n $isClear ]; then
 		git status
-		printf "You have || Changes not staged for commit ||， will you still do the next things?(Press enter twice for sure)"
+		printf "we suggest you make a commit before you do the next thing(Ctrl+C to abort the scripts)\nor you just want to go on do it?(Press enter twice for sure)"
 		read temp
 		read temp
 	fi

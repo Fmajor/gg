@@ -13,6 +13,7 @@
 # Author: wujinnnnn@gmail.com
 installPath=/usr/local/bin
 source $installPath/gg-functions
+testClear
 
 get_currentBranch
 get_currentBranchParent
@@ -24,10 +25,7 @@ if [ -z $isTrailBranch ] ; then
 	exit 1
 fi
 
-git branch > temp.txt
-cat temp.txt | grep -x \ \ $currentBranchParent > temp1.txt
-isParentAlive=`cat temp1.txt`
-rm temp.txt temp1.txt
+get_isParentAlive
 if [ -z $isParentAlive ]; then
 	printf "The trials' parent branch is missing, do the job manully\n"
 fi
@@ -38,7 +36,7 @@ printf "Do you want to close it like this?\n"
 printf "\tgit checkout $currentBranchParent\n"
 printf "\tgit merge --no-ff $currentBranch\n"
 printf "\tgit branch -D $currentBranch\n"
-printf "\n if you meet conflicts in merges, you should delete the branch manully\n"
+printf "\nif you meet conflicts in merges, you should delete the branch manully\n"
 read temp
 
 git checkout $currentBranchParent

@@ -13,6 +13,7 @@
 # Author: wujinnnnn@gmail.com
 installPath=/usr/local/bin
 source $installPath/gg-functions
+testClear
 
 if [ "$#" != "1" ]; then
 	printf "Please input release number~\n"
@@ -29,12 +30,11 @@ if [ $currentBranchType != 'develop' ]; then
 	exit 1
 fi
 
-get_develop
 get_release
 printf "Do you what to open a new release branch like this?\n"
 
 # 创建一个发布分支
-printf "\tgit checkout -b $release-$1 $develop"
+printf "\tgit checkout -b $release-$1"
 
 read temp
-git checkout -b $release-$1 $develop
+git checkout -b $release-$1

@@ -13,6 +13,7 @@
 # Author: wujinnnnn@gmail.com
 installPath=/usr/local/bin
 source $installPath/gg-functions
+testClear
 
 get_currentBranch
 
