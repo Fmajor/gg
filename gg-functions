@@ -18,29 +18,32 @@ get_currentBranchType(){
 	get_currentBranch
 	get_isTrialBranch
 	if [ -z $isTrialBranch ]; then # not the trialBranch 
-		if [ -n `echo $currentBranch | grep \/`]; then # have a "/" struct
+		temp=`echo $currentBranch | grep \/`
+		if [ -n "$temp"]; then # have a "/" struct
 			currentBranchTypeAll=`echo $currentBranch|sed 's#\(.*\)\/.*#\1#'`
-			[ -n `echo $currentBranchTypeAll | grep master` ] && currentBranchType="master" && return
-			[ -n `echo $currentBranchTypeAll | grep develop` ] && currentBranchType="develop" && return
-			[ -n `echo $currentBranchTypeAll | grep feature` ] && currentBranchType="feature" && return
-			[ -n `echo $currentBranchTypeAll | grep issues` ] && currentBranchType="issues" && return
-			[ -n `echo $currentBranchTypeAll | grep work` ] && currentBranchType="work" && return
+			temp=`echo $currentBranchTypeAll | grep master` ;[ -n "$temp" ] && currentBranchType="master" && return
+			temp=`echo $currentBranchTypeAll | grep develop`;[ -n "$temp" ] && currentBranchType="develop" && return
+			temp=`echo $currentBranchTypeAll | grep feature`;[ -n "$temp" ] && currentBranchType="feature" && return
+			temp=`echo $currentBranchTypeAll | grep issues` ;[ -n "$temp" ] && currentBranchType="issues" && return
+			temp=`echo $currentBranchTypeAll | grep work`   ;[ -n "$temp" ] && currentBranchType="work" && return
 		else # do not have a "/" struct
-			[ -n `echo $currentBranchTypeAll | grep release` ] && currentBranchType="release" && return
-			[ -n `echo $currentBranchTypeAll | grep hotfix` ] && currentBranchType="hotfix" && return
-			[ -n `echo $currentBranchTypeAll | grep master` ] && currentBranchType="master" && return
-			[ -n `echo $currentBranchTypeAll | grep develop` ] && currentBranchType="develop" && return
-			[ -n `echo $currentBranchTypeAll | grep basedOn` ] && currentBranchType="basedOn" && return
+			temp=`echo $currentBranchTypeAll | grep release`;[ -n "$temp" ] && currentBranchType="release" && return
+			temp=`echo $currentBranchTypeAll | grep hotfix` ;[ -n "$temp" ] && currentBranchType="hotfix" && return
+			temp=`echo $currentBranchTypeAll | grep master` ;[ -n "$temp" ] && currentBranchType="master" && return
+			temp=`echo $currentBranchTypeAll | grep develop`;[ -n "$temp" ] && currentBranchType="develop" && return
+			temp=`echo $currentBranchTypeAll | grep basedOn`;[ -n "$temp" ] && currentBranchType="basedOn" && return
 		fi
 	else # it is a trialBranch
 		currentBranchType="trial" && return
 	fi
+	printf "can not get current BranchType name!!!!\n"
+	exit 1
 }
 
 get_develop() {
 		get_currentBranchType
 	devCode=`echo $currentBranchTypeAll|sed 's#\(.*\)\%.*#\1#'`
-	if [ -n $devCode ]; then
+	if [ -n "$devCode" ]; then
 		develop="$devCode%develop"
 	else
 		develop="develop"
@@ -50,7 +53,7 @@ get_develop() {
 get_master() {
 		get_currentBranchType
 	devCode=`echo $currentBranchTypeAll|sed 's#\(.*\)\%.*#\1#'`
-	if [ -n $devCode ]; then
+	if [ -n "$devCode" ]; then
 		master="$devCode%master"
 	else
 		master="master"
@@ -75,7 +78,7 @@ get_issues() {
 }
 
 get_version() {
-		get_currentBranchType
+	get_currentBranchType
 	if [$currentBranchType != "release"] && [$currentBranchType != "hotfix"]; then
 		printf "error use of this function: get_version!\n"
 		exit 1
@@ -85,7 +88,7 @@ get_version() {
 }
 
 get_release() {
-		get_develop
+	get_develop
 	if [ -z $devCode ]; then
 		release="release"
 	else
@@ -94,7 +97,7 @@ get_release() {
 }
 
 get_basedOn(){
-        get_master
+	get_master
     if [ -z $devCode ]; then
         basedOn="basedOn"
     else
@@ -108,7 +111,7 @@ get_work_basedOn(){
 }
 
 get_hotfix() {
-		get_master
+	get_master
 	if [ -z $devCode ]; then
 		hotfix="hotfix"
 	else
@@ -158,7 +161,7 @@ get_now() {
 
 testClear() {
 	isClear=`git status|grep Changes\ not\ staged``git status|grep Changes\ to\ be\ committed`
-	if [ -n $isClear ]; then
+	if [ -n "$isClear" ]; then
 		git status
 		printf "we suggest you make a commit before you do the next thing(Ctrl+C to abort the scripts)\nor you just want to go on do it?(Press enter twice for sure)"
 		read temp
