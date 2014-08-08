@@ -5,7 +5,9 @@ if [ -n "$inputStr" ]; then
 	installPath=$inputStr
 fi
 
+rm *~
 sed "s#installPath=.*#installPath=$installPath#g" -i gg-*
+sudo rm $installPath/gg-*
 sudo cp gg-* $installPath
 
 printf "install done!\nyou should read the README.md carefully is case of big changes in the usage of the scripts\n"

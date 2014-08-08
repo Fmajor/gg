@@ -19,23 +19,24 @@ get_currentBranchType(){
 	get_isTrialBranch
 	if [ -z $isTrialBranch ]; then # not the trialBranch 
 		temp=`echo $currentBranch | grep \/`
-		if [ -n "$temp"]; then # have a "/" struct
+		if [ -n "$temp" ]; then # have a "/" struct
 			currentBranchTypeAll=`echo $currentBranch|sed 's#\(.*\)\/.*#\1#'`
-			temp=`echo $currentBranchTypeAll | grep master` ;[ -n "$temp" ] && currentBranchType="master" && return
-			temp=`echo $currentBranchTypeAll | grep develop`;[ -n "$temp" ] && currentBranchType="develop" && return
-			temp=`echo $currentBranchTypeAll | grep feature`;[ -n "$temp" ] && currentBranchType="feature" && return
-			temp=`echo $currentBranchTypeAll | grep issues` ;[ -n "$temp" ] && currentBranchType="issues" && return
-			temp=`echo $currentBranchTypeAll | grep work`   ;[ -n "$temp" ] && currentBranchType="work" && return
+			temp=`echo $currentBranchTypeAll | grep master` ;[ -n "$temp" ] && currentBranchType="master" ;return
+			temp=`echo $currentBranchTypeAll | grep develop`;[ -n "$temp" ] && currentBranchType="develop";return
+			temp=`echo $currentBranchTypeAll | grep feature`;[ -n "$temp" ] && currentBranchType="feature";return
+			temp=`echo $currentBranchTypeAll | grep issues` ;[ -n "$temp" ] && currentBranchType="issues" ;return
+			temp=`echo $currentBranchTypeAll | grep work`   ;[ -n "$temp" ] && currentBranchType="work"   ;return
 		else # do not have a "/" struct
-			temp=`echo $currentBranchTypeAll | grep release`;[ -n "$temp" ] && currentBranchType="release" && return
-			temp=`echo $currentBranchTypeAll | grep hotfix` ;[ -n "$temp" ] && currentBranchType="hotfix" && return
-			temp=`echo $currentBranchTypeAll | grep master` ;[ -n "$temp" ] && currentBranchType="master" && return
-			temp=`echo $currentBranchTypeAll | grep develop`;[ -n "$temp" ] && currentBranchType="develop" && return
-			temp=`echo $currentBranchTypeAll | grep basedOn`;[ -n "$temp" ] && currentBranchType="basedOn" && return
+			temp=`echo $currentBranchTypeAll | grep release`;[ -n "$temp" ] && currentBranchType="release";return
+			temp=`echo $currentBranchTypeAll | grep hotfix` ;[ -n "$temp" ] && currentBranchType="hotfix" ;return
+			temp=`echo $currentBranchTypeAll | grep master` ;[ -n "$temp" ] && currentBranchType="master" ;return
+			temp=`echo $currentBranchTypeAll | grep develop`;[ -n "$temp" ] && currentBranchType="develop";return
+			temp=`echo $currentBranchTypeAll | grep basedOn`;[ -n "$temp" ] && currentBranchType="basedOn";return
 		fi
 	else # it is a trialBranch
-		currentBranchType="trial" && return
+		currentBranchType="trial";return
 	fi
+	echo $currentBranch
 	printf "can not get current BranchType name!!!!\n"
 	exit 1
 }
