@@ -8,7 +8,7 @@ genDebugLog(){
 
 get_currentBranch(){
     #currentBranch=`git status | grep On\ branch | awk '{print $3 }'`
-	currentBranch=`git status | grep On\ branch | sed 's#On\ branch\ \(.*\)$#\1#'`
+	currentBranch=`git status | grep On\ branch | sed 's#On\ branch\ \(.*\)$#\1#'|sed "s#|#\\\|#g"`
 	if [ -z $currentBranch ]; then
 		printf "Can not detect the current branch, please open a issue on github.com/famjor/gg and paste the gg-debug.txt file in it.\n"
 		exit 1
@@ -42,13 +42,13 @@ get_currentBranchType(){
 
 get_develop() {
 		get_currentBranchType
-	devCode=`echo $currentBranchTypeAll|awk -F '%' '{print $1}'`
-	haveDevCode=`echo $currentBranchTypeAll|grep %`
+	devCode=`echo $currentBranchTypeAll|awk -F '|' '{print $1}'`
+	haveDevCode=`echo $currentBranchTypeAll|grep \|`
 	if [ -z "$haveDevCode" ];then 
 		devCode=
 	fi
 	if [ -n "$devCode" ]; then
-		develop="$devCode%develop"
+		develop="$devCode|develop"
 	else
 		develop="develop"
 	fi
@@ -56,13 +56,13 @@ get_develop() {
 
 get_master() {
 		get_currentBranchType
-	devCode=`echo $currentBranchTypeAll|awk -F '%' '{print $1}'`
-	haveDevCode=`echo $currentBranchTypeAll|grep %`
+	devCode=`echo $currentBranchTypeAll|awk -F '|' '{print $1}'`
+	haveDevCode=`echo $currentBranchTypeAll|grep |`
 	if [ -z "$haveDevCode" ];then 
 		devCode=
 	fi
 	if [ -n "$devCode" ]; then
-		master="$devCode%master"
+		master="$devCode|master"
 	else
 		master="master"
 	fi
@@ -73,7 +73,7 @@ get_feature() {
 	if [ -z $devCode ]; then
 		feature="feature"
 	else
-		feature="$devCode%feature"
+		feature="$devCode|feature"
 	fi
 }
 get_issues() {
@@ -81,7 +81,7 @@ get_issues() {
 	if [ -z $devCode ]; then
 		issues="issues"
 	else
-		issues="$devCode%issues"
+		issues="$devCode|issues"
 	fi
 }
 
@@ -100,7 +100,7 @@ get_release() {
 	if [ -z $devCode ]; then
 		release="release"
 	else
-		release="$devCode%release"
+		release="$devCode-release"
 	fi
 }
 
@@ -109,7 +109,7 @@ get_basedOn(){
     if [ -z $devCode ]; then
         basedOn="basedOn"
     else
-        basedOn="$devCode%basedOn"
+        basedOn="$devCode-basedOn"
     fi  
 }
 
@@ -123,17 +123,17 @@ get_hotfix() {
 	if [ -z $devCode ]; then
 		hotfix="hotfix"
 	else
-		hotfix="$devCode%hotfix"
+		hotfix="$devCode|hotfix"
 	fi
 }
 
 get_currentBranchParent(){
 	#currentBranchParent=`echo $currentBranch|sed 's#\(.*\)\..*#\1#'`
-	currentBranchParent=`echo $currentBranch|sed 's#\(.*\)\/.*#\1#'`
+	currentBranchParent=`echo $currentBranch|sed 's#\(.*\)%.*#\1#'`
 }
 
 get_isTrialBranch(){
-	isTrialBranch=`echo $currentBranch|sed 's#.*\/\(.*\)#\1#'|grep trial`
+	isTrialBranch=`echo $currentBranch|grep %`
 }
 
 get_isParentAlive(){
