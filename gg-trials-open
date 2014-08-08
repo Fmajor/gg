@@ -21,11 +21,11 @@ echo "You are in branch ||      $currentBranch      ||"
 printf "Do you want to make a trail branch like this?\n"
 
 if [ $# == 1 ]; then
-	gggttt;echo "git checkout -b $currentBranch/trials.$1 $currentBranch"
+	gggttt;echo "git checkout -b $currentBranch/trials.$1"
 	read temp
 	git checkout -b $currentBranch/trials.$1 $currentBranch
 elif [ $# == 0 ]; then
-	gggttt;echo "git checkout -b $currentBranch/trials $currentBranch"
+	gggttt;echo "git checkout -b $currentBranch/trials"
 	read temp
 	git checkout -b $currentBranch/trials $currentBranch
 else
