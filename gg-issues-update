@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
+testClear
+
+get_currentBranch
+get_currentBranchType
+if [ $currentBranchType != 'issues' ]; then
+	printf "\nYou must be in one issues branch!\n\n"
+	git status
+	exit 1
+fi
+
+get_develop
+echo "You are in branch ||   $currentBranch   ||\n"
+echo "Do you want to update it like this?\n"
+
+gggttt;echo "git merge --no-ff $develop"
+read temp
+
+git merge --no-ff $develop -m "Merge branch $develop into $currentBranch"
+
