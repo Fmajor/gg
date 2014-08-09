@@ -14,8 +14,10 @@
 installPath=/usr/local/bin
 source $installPath/gg-functions
 testClear
+testUntracked
 
 get_currentBranch
+thisBranchName=$currentBranch
 get_currentBranchType
 if [ $currentBranchType != 'basedOn' ]; then
 	printf "\nYou must be in the basedOn branch to select a soft to use!\n\n"
@@ -24,23 +26,8 @@ if [ $currentBranchType != 'basedOn' ]; then
 fi
 
 get_master
-if [ $# == 0 ];then	
-	git checkout $master
-	get_currentTagName
-	if [ -z $currentTagName ]; then
-	    echo "$master don't have a tag name, you should give one to it"
-	    git status
-	    exit 1
-	fi
-	git checkout $currentBranch
-	printf "Do you what to select the latest version soft in the $master branch like this?\n"
-	gggttt;echo "git merge --no-ff $master"
-	gggttt;echo "tag inUse-$currentTagName -a -m \"fork $master into baseOn, version $currentTagName\""
-	read temp
-	
-	git merge --no-ff $master -m "fork $master into baseOn, version $currentTagName"
-	git tag inUse-$currentTagName -a -m "fork $master into baseOn, version $currentTagName"
-elif [ $# == 1 ];then
+
+if [ $# == 1 ];then
 	git checkout $1 >/dev/null
 	if [ $? != 0 ]; then
 		printf "error go to $#\n check your spell\n We can go to \n"
@@ -55,15 +42,24 @@ elif [ $# == 1 ];then
 	    git status
 	    exit 1
 	fi
-	git checkout $currentBranch
+	git checkout $thisBranchName
 	printf "Do you what to select the latest version soft in the $1 branch like this?\n"
-	gggttt;echo "git merge --no-ff $1"
-	gggttt;echo "git tag inUse-$currentTagName -a -m \"fork $1 into baseOn, version $currentTagName\""
+
+	gggttt;echo "rm *"
+	gggttt;echo "git commit -a -m \"fork $1 into baseOn, version $currentTagName\""
+	gggttt;echo "git merge --ff --squash $1"
+	gggttt;echo "git add ."
+	gggttt;echo "git commit --amend -m \"fork $1 into baseOn, tagged $currentTagName\""
+	gggttt;echo "git tag inUse-$currentTagName -a -m \"fork $1 into baseOn$\""
 
 	read temp
 	
-	git merge --no-ff $1 -m "fork $master into baseOn, version $currentTagName"
-	git tag inUse-$currentTagName -a -m "fork $1 into baseOn, version $currentTagName$"
+	rm *
+	git commit -a -m "fork $1 into baseOn, version $currentTagName"
+	git merge --ff --squash $1
+	git add .
+	git commit --amend -m "fork $1 into baseOn, tagged inUse-$currentTagName"
+	git tag inUse-$currentTagName -a -m "fork $1 into baseOn$"
 else
 	printf "error parameter numbers!!\n"
 	exit 1

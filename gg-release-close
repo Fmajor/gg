@@ -42,6 +42,7 @@ git checkout $master
 git merge --no-ff $currentBranch -m "Merge branch $currentBranch into $master" && git tag -a $version -m "$version"
 git checkout $develop
 git merge --no-ff $currentBranch -m "Merge branch $currentBranch into $develop"\
+	&& git commit --allow-empty --amend -m "Merge branch $currentBranch into $develop"\
 	&& echo "press Enter to delete branch $currentBranch" \
-	&& read temp &&git branch -d $currentBranch
+	&& read temp &&git branch -D $currentBranch
 

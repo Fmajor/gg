@@ -27,15 +27,20 @@ fi
 
 get_basedOn
 echo $work_basedOn
-if [ $# == 0 ];then
-	git checkout $basedOn
+
+if [ $# == 1 ]; then
+	git checkout $1 > /dev/null
+	if [ $? != 0 ];then
+		printf "error go to $#\n check your spell\n We can go to \n"
+		git branch
+		git tag
+		exit 1
+	fi
 	get_currentTagName
 	get_currentTagVersion
-	git checkout $thisWorkBranch
-
 	printf "Do you want to update your work branch like this?\n"
 	gggttt;echo "git checkout -b $thisWorkBranchTypeAll/basedOn-$currentTagVersion"
-	gggttt;echo "git merge --no-ff $currentTagName -m \"update $thisWorkBranch with $currentTagName\"" 
+	gggttt;echo "git merge --no-ff $currentTagName -m \"update $thisWorkBranch with $currentTagName\""
 
 	read temp
 	git checkout -b $thisWorkBranchTypeAll/basedOn-$currentTagVersion

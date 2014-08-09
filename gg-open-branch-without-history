@@ -20,4 +20,5 @@ if [ "$#" != "1" ]; then
 	exit 1
 fi
 printf "Do you want to start a new branch with out history?\n"
+read temp
 	git checkout --orphan $1

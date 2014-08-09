@@ -105,7 +105,7 @@ get_issues() {
 
 get_version() {
 	get_currentBranchType
-	if [$currentBranchType != "release"] && [$currentBranchType != "hotfix"]; then
+	if [ $currentBranchType != "release" ] && [ $currentBranchType != "hotfix" ]; then
 		printf "error use of this function: get_version!\n"
 		exit 1
 	fi
@@ -202,3 +202,12 @@ testClear() {
 gggttt(){
 	printf "\t"
 }
+testUntracked(){
+	haveUntracked=`git status|grep Untracked`
+	if [ -n "$haveUntracked" ]; then
+		git status
+		printf "\n\nyou have Untracked files!!\nThe next step will REMOVE all the files here, please make the Untracked files safe!\n"
+		exit 1
+	fi
+}
+

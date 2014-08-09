@@ -39,4 +39,5 @@ printf "Do you what to open a new release branch like this?\n"
 gggttt;echo "git checkout -b $release-$1"
 
 read temp
+git commit --allow-empty -m "Start to release version $1"
 git checkout -b $release-$1
