@@ -11,19 +11,27 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
 
-printf 'do you what to git init the directory like this?\n'
-printf '\ttouch .deletedTrailsBranchs'
+haveFile=`ls`
+if [ -z $haveFile ];then
+	printf "you must have files to init\n"
+	exit 1
+fi
+
+printf 'Do you what to git init the directory like this?\n'
 printf '\tgit init\n'
 printf '\tgit add .\n'
 printf '\tgit commit -a -m "init commit"\n'
-printf '\tgit checkout -b develop master\n'
+printf '\tgit checkout -b develop\n'
 printf '\tcp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit'
 
 read temp
-touch .deletedTrailsBranchs
+mkdir .gg-data
+touch .gg-data/gg-config
+touch .gg-data/gg-info
 git init
 git add .
 git commit -a -m "init commit"
-git checkout -b  develop master
-cp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit
+git checkout -b develop
+cp $installPath/gg-pre-commit .git/hooks/pre-commit

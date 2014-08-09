@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
+testClear
+
+get_currentBranch
+get_currentBranchType
+get_basedOn
+get_master
+get_develop
+
+if [ $# != 1 ]; then
+	echo "you can input one peremeter with 'm','d' or 'b' for the master, develop and bashedOn branch of thie devCode"
+	exit 1
+fi
+
+case $1 in
+"m")
+	git checkout $master;;
+"d")
+	git checkout $develop;;
+"b")
+	git checkout $basedOn;;
+*)
+	echo "error parameter!!"
+	exit 1
+esac

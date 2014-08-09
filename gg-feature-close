@@ -11,26 +11,31 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
+testClear
 
-currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
-currentBranchPrefix=`echo $currentBranch|awk -F '.' '{print $1}'`
-if [ $currentBranchPrefix != 'newFeature' ]; then
+get_currentBranch
+get_currentBranchType
+if [ $currentBranchType != 'feature' ]; then
 	printf "\nYou must be in one feature branch!\n\n"
 	git status
 	exit 1
 fi
 
-printf "You are in branch ||   $currentBranch   ||\n"
-printf "Do you want to close it like this?\n"
+get_develop
+echo "You are in branch ||   $currentBranch   ||"
+echo "Do you want to close it like this?"
 # 合并完成的特性回develop
-printf "\tgit checkout develop\n"
-printf "\tgit merge --no-ff $currentBranch\n"
-printf "\tgit branch -D $currentBranch\n"
-printf "\n if you meet conflicts in merges, you should delete the branch manully\n"
+gggttt;echo "git checkout $develop"
+gggttt;echo "git merge --no-ff $currentBranch $develop"
+gggttt;echo "git branch -d $currentBranch"
+echo
+gggttt;echo "if you meet conflicts in merges, you should delete the branch manully"
 read temp
 
-git checkout develop
-git merge --no-ff $currentBranch \
-	&& printf "press Enter to delete $currentBranch branch\n" \
-	&& read temp && git branch -D $currentBranch
+git checkout $develop
+git merge --no-ff $currentBranch $develop -m "Merge branch $currentBranch into $develop"\
+	&& echo "press Enter to delete $currentBranch branch\n" \
+	&& read temp && git branch -d $currentBranch
 

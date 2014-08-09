@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
+testClear
+
+if [ "$#" != "1" ]; then
+	printf "Please input the branch name~\n"
+	exit 1
+fi
+printf "Do you want to start a new branch with out history?\n"
+read temp
+	git checkout --orphan $1

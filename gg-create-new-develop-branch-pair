@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+#         (__)                     gg
+#         (oo)
+#   /------\/               Distributed under
+#  / |    ||             the GNU GPL v3 License
+# *  /\---/\
+#    ~~   ~~               http://www.gnu.org
+#
+#
+# 2014-08-02
+#
+# Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
+testClear
+
+if [ "$#" != "1" ]; then
+	printf "Please input the dev code\n"
+	exit 1
+fi
+
+get_currentBranch
+get_currentBranchType
+if [ $currentBranchType != 'develop' ] && [ $currentBranchType != 'master' ]; then
+	printf "\nYou must be in the develop or in the master branch to create a new develop branch!\n\n"
+	git status
+	exit 1
+fi
+
+printf "Do you what to open a new pair of branches like this?\n"
+gggttt;echo "git checkout -b $1|develop $currentBranch"
+gggttt;echo "git checkout -b $1|master $currentBranch"
+
+read temp
+git checkout -b $1\|develop
+git checkout $currentBranch
+git checkout -b $1\|master

@@ -11,32 +11,38 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
+testClear
 
-currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
-currentBranchPrefix=`echo $currentBranch|awk -F '-' '{print $1}'`
-version=`echo $currentBranch|awk -F '-' '{print $2}'`
-if [ $currentBranchPrefix != 'release' ]; then
+get_currentBranch
+get_currentBranchType
+get_version
+if [ $currentBranchType != 'release' ]; then
 	printf "\nYou must be in one release branch!\n\n"
 	git status
 	exit 1
 fi
 
-printf "You are in branch ||      $currentBranch      ||\n"
+get_master
+get_develop
+echo "You are in branch ||      $currentBranch      ||"
 printf "Do you want to close it like this?\n"
 
-printf "\tgit checkout master\n"
-printf "\tgit merge --no-ff $currentBranch\n"
-printf "\tgit tag -a $version\n"
-printf "\tgit checkout develop\n"
-printf "\tgit merge --no-ff $currentBranch\n"
-printf "\tgit branch -d $currentBranch\n"
-printf "\n if you meet conflicts in merges, you should delete the branch manully\n"
+gggttt;echo "git checkout $master"
+gggttt;echo "git merge --no-ff $currentBranch"
+gggttt;echo "git tag -a $version"
+gggttt;echo "git checkout $develop"
+gggttt;echo "git merge --no-ff $currentBranch"
+gggttt;echo "git branch -d $currentBranch"
+echo;echo "if you meet conflicts in merges, you should delete the branch manully"
 
 read temp
-git checkout master
-git merge --no-ff $currentBranch && git tag -a $version
-git checkout develop
-git merge --no-ff $currentBranch \
-	&& printf "press Enter to delete branch $currentBranch" \
-	&& git branch -d $currentBranch
+git checkout $master
+git merge --no-ff $currentBranch -m "Merge branch $currentBranch into $master" && git tag -a $version -m "$version"
+git checkout $develop
+git merge --no-ff $currentBranch -m "Merge branch $currentBranch into $develop"\
+	&& git commit --allow-empty --amend -m "Merge branch $currentBranch into $develop"\
+	&& echo "press Enter to delete branch $currentBranch" \
+	&& read temp &&git branch -D $currentBranch
 

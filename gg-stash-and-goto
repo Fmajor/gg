@@ -11,14 +11,15 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
 
 if [ "$#" != "1" ]; then
 	printf "Please input the branch you are going to\n"
 	git branch
 	exit 1
 fi
-
-currentBranch=`git status | grep On\ branch | awk '{print $4 }'`
+get_currentBranch
 echo "$currentBranch" > .git/currentBranch.dat
 git branch > temp.txt
 cat temp.txt | grep -x \ \ $1  > temp1.txt
@@ -26,7 +27,8 @@ isAlive=`cat temp1.txt`
 rm temp.txt temp1.txt
 
 if [ -z $isAlive ]; then
-	printf "can not find brance $1\n\n current branches are\n"
+	echo "can not find branch $1"
+	echo "current branches are"
 	git branch
 	exit 1
 fi
