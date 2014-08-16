@@ -17,7 +17,7 @@ testClear
 
 get_currentBranch
 get_currentBranchType
-if [ $currentBranchType != 'feature' ]; then
+if [[ $currentBranchType != 'feature' ]]; then
 	printf "\nYou must be in one feature branch to update it!\n\n"
 	git status
 	exit 1

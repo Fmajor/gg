@@ -17,7 +17,7 @@ testClear
 
 get_currentBranch
 get_currentBranchType
-if [ $currentBranchType != 'issues' ]; then
+if [[ $currentBranchType != 'issues' ]]; then
 	printf "\nYou must be in one issues branch!\n\n"
 	git status
 	exit 1
