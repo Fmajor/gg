@@ -36,7 +36,7 @@ if [ $# == 0 ];then
 	printf "Do you want to update your work branch like this?\n"
 	gggttt;echo "git checkout -b $thisWorkBranchTypeAll/basedOn-$currentTagVersion"
 	gggttt;echo "git merge --no-ff $currentTagName -m \"update $thisWorkBranch with $currentTagName\"" 
-	echo "press Ctrl+C to ESCAPE"
+	echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 
 	read temp
 	git checkout -b $thisWorkBranchTypeAll/basedOn-$currentTagVersion

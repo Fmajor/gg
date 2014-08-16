@@ -16,6 +16,6 @@ source $installPath/gg-functions
 get_now
 git status
 printf "Do you want to tag the branch with $now?\n"
-echo "press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
 git tag -a $now -m "in use since $now"

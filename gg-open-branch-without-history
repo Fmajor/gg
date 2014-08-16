@@ -20,6 +20,6 @@ if [ "$#" != "1" ]; then
 	exit 1
 fi
 printf "Do you want to start a new branch with out history?\n"
-echo "press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
 	git checkout --orphan $1

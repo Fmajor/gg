@@ -36,7 +36,7 @@ now=`date "+%Y-%m-%d-%H-%M-%S"`
 
 printf "\tRecord the logs of this branch in .gg-data/deletedTrailsBranchs and then\n"
 gggttt;echo "git branch -D $currentBranch"
-echo "press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp 
 
 git checkout $currentBranchParent

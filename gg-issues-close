@@ -31,7 +31,7 @@ gggttt;echo "git checkout $develop"
 gggttt;echo "git merge --no-ff $currentBranch"
 gggttt;echo "git branch -d $currentBranch"
 echo;echo "if you meet conflicts in merges, you should delete the branch manully"
-echo "press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
 
 git checkout $develop

@@ -33,6 +33,6 @@ get_feature
 printf "Do you what to open a new feature branch like this?\n"
 # 创建一个特性分支
 gggttt;echo "git checkout -b $feature/$1"
-echo "press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
 git checkout -b $feature/$1

@@ -29,7 +29,7 @@ echo "Do you want to update it like this?"
 
 gggttt;echo "git merge --no-ff $develop"
 echo
-echo "press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
 
 git merge --no-ff $develop -m "Merge(update) branch $develop into $currentBranch "
