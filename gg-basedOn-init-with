@@ -57,6 +57,7 @@ if [ $# == 1 ]; then
 
 	gggttt;echo "gg-open-branch-without-history $basedOn"
 	gggttt;echo "git tag inUse-$currentTagName -a -m \"init $1 into baseOn, version $currentTagName\""
+	echo "press Ctrl+C to ESCAPE"
 	read temp
 	gg-open-branch-without-history $basedOn
 	git add .

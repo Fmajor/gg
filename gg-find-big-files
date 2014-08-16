@@ -18,5 +18,6 @@ do
 done
 rm bashTempOutput.txt bashTempOutput2.txt
 printf "Do you what to delete the result data?\n"
+echo "press Ctrl+C to ESCAPE"
 read temp
 rm files.dat

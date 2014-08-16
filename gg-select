@@ -51,7 +51,8 @@ if [ $# == 1 ];then
 	gggttt;echo "git add ."
 	gggttt;echo "git commit --amend -m \"fork $1 into baseOn, tagged $currentTagName\""
 	gggttt;echo "git tag inUse-$currentTagName -a -m \"fork $1 into baseOn$\""
-
+	echo "press Ctrl+C to ESCAPE"
+	
 	read temp
 	
 	rm *
