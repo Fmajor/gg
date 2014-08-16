@@ -19,14 +19,14 @@ get_currentBranch
 get_currentBranchParent
 get_isTrialBranch
 
-if [ -z $isTrialBranch ]; then
+if [[ -z $isTrialBranch ]]; then
 	printf "\nYou must be in one trial branch\n\n"
 	git status
 	exit 1
 fi
 
 get_isParentAlive
-if [ -z $isParentAlive ]; then
+if [[ -z $isParentAlive ]]; then
 	printf "The trials' parent branch is missing, do the job manully\n"
 fi
 
@@ -36,7 +36,7 @@ now=`date "+%Y-%m-%d-%H-%M-%S"`
 
 printf "\tRecord the logs of this branch in .gg-data/deletedTrailsBranchs and then\n"
 gggttt;echo "git branch -D $currentBranch"
-echo "press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp 
 
 git checkout $currentBranchParent

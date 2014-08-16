@@ -20,14 +20,14 @@ get_currentBranch
 echo "You are in branch ||      $currentBranch      ||"
 printf "Do you want to make a trail branch like this?\n"
 
-if [ $# == 1 ]; then
+if [[ $# == 1 ]]; then
 	gggttt;echo "git checkout -b $currentBranch%trials.$1"
-	echo "press Ctrl+C to ESCAPE"
+	echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 	read temp
 	git checkout -b $currentBranch%trials.$1
-elif [ $# == 0 ]; then
+elif [[ $# == 0 ]]; then
 	gggttt;echo "git checkout -b $currentBranch%trials"
-	echo "press Ctrl+C to ESCAPE"	
+	echo "press ENTER to continue, press Ctrl+C to ESCAPE"	
 	read temp
 	git checkout -b $currentBranch%trials
 else

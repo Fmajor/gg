@@ -19,7 +19,7 @@ get_currentBranch
 thisWorkBranch=$currentBranch
 get_currentBranchType
 thisWorkBranchTypeAll=$currentBranchTypeAll
-if [ $currentBranchType != 'work' ]; then
+if [[ $currentBranchType != 'work' ]]; then
 	printf "\nYou must be in the work branch to make a update!\n\n"
 	git status
 	exit 1
@@ -27,7 +27,7 @@ fi
 
 get_basedOn
 echo $work_basedOn
-if [ $# == 0 ];then
+if [[ $# == 0 ]];then
 	git checkout $basedOn
 	get_currentTagName
 	get_currentTagVersion
@@ -36,7 +36,7 @@ if [ $# == 0 ];then
 	printf "Do you want to update your work branch like this?\n"
 	gggttt;echo "git checkout -b $thisWorkBranchTypeAll/basedOn-$currentTagVersion"
 	gggttt;echo "git merge --no-ff $currentTagName -m \"update $thisWorkBranch with $currentTagName\"" 
-	echo "press Ctrl+C to ESCAPE"
+	echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 
 	read temp
 	git checkout -b $thisWorkBranchTypeAll/basedOn-$currentTagVersion

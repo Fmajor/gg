@@ -1,7 +1,7 @@
 #!/bin/bash
-read -p "where do you want to install the scripts(with out the last '/')[/usr/local/bin]:" inputStr
+read -p "where do you want to install the scripts(with out the last '/')[[/usr/local/bin]]:" inputStr
 installPath=/usr/local/bin
-if [ -n "$inputStr" ]; then
+if [[ -n "$inputStr" ]]; then
 	installPath=$inputStr
 fi
 

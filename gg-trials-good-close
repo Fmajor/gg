@@ -19,14 +19,14 @@ get_currentBranch
 get_currentBranchParent
 get_isTrialBranch
 
-if [ -z $isTrialBranch ]; then
+if [[ -z $isTrialBranch ]]; then
 	printf "\nYou must be in one trial branch\n\n"
 	git status
 	exit 1
 fi
 
 get_isParentAlive
-if [ -z $isParentAlive ]; then
+if [[ -z $isParentAlive ]]; then
 	printf "The trials' parent branch is missing, do the job manully\n"
 	exit 1
 fi
@@ -38,12 +38,12 @@ gggttt;echo "git checkout $currentBranchParent"
 gggttt;echo "git merge --no-ff $currentBranch"
 gggttt;echo "git branch -D $currentBranch"
 echo "if you meet conflicts in merges, you should delete the branch manully"
-echo "press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
 
 git checkout $currentBranchParent
 git merge --no-ff $currentBranch -m "Merge branch $currentBranch into $currentBranchParent"\
 	&& echo "press Enter to delete $currentBranch branch" \
-	&& echo "press Ctrl+C to ESCAPE" \	
+	&& echo "press Ctrl+C to ESCAPE" \
 	&& read temp && git branch -D $currentBranch
 

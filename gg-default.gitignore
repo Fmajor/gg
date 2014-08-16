@@ -13,6 +13,6 @@
 # Author: wujinnnnn@gmail.com
 
 printf "Do you what to generate the default .gitignore file?"
-echo "press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
 printf "*~\n*swp\n" > .gitignore

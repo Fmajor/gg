@@ -17,13 +17,13 @@ testClear
 
 get_currentBranch
 get_currentBranchType
-if [ $currentBranchType != 'basedOn' ]; then
-	printf "\nYou must be in the basedOn branch to open a new work!\nOr you are in the detached HEAD state\nPlease make sure you are in the right place(press Enter for twice to continue)\n"
+if [[ $currentBranchType != 'basedOn' ]]; then
+	printf "\nYou must be in the basedOn branch to open a new work!\nOr you are in the detached HEAD state\nPlease make sure you are in the right place(press Enter for twice to continue, press Ctrl+C to ESCAPE)\n"
 	read temp
 	read temp
 fi
 
-if [ "$#" != "1" ]; then
+if [[ "$#" != "1" ]]; then
 	printf "Please input the work name~\n"
 	exit 1
 fi
@@ -32,6 +32,6 @@ get_currentTagName
 get_currentTagVersion
 printf "Do you want to open a new work branch like this?\n"
 gggttt;echo "git checkout -b work.$1/basedOn-$currentTagVersion"
-echo "press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
 git checkout -b work.$1/basedOn-$currentTagVersion

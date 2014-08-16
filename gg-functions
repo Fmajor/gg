@@ -9,33 +9,33 @@ genDebugLog(){
 get_currentBranch(){
     #currentBranch=`git status | grep On\ branch | awk '{print $3 }'`
 	currentBranch=`git status | grep On\ branch | sed 's#On\ branch\ \(.*\)$#\1#'|sed "s#|#\\\|#g"`
-	if [ -z $currentBranch ]; then
+	if [[ -z $currentBranch ]]; then
 		pointer=1
 	fi
 }
 get_currentBranchType(){
-	if [ -n "$pointer" ]; then
+	if [[ -n "$pointer" ]]; then
 		currentBranchType="pointer"
 		return
 	fi
 	get_currentBranch
 	get_isTrialBranch
-	if [ -z $isTrialBranch ]; then # not the trialBranch 
+	if [[ -z $isTrialBranch ]]; then # not the trialBranch 
 		temp=`echo $currentBranch | grep \/`
-		if [ -n "$temp" ]; then # have a "/" struct
+		if [[ -n "$temp" ]]; then # have a "/" struct
 			currentBranchTypeAll=`echo $currentBranch|sed 's#\(.*\)\/.*#\1#'`
-			temp=`echo $currentBranchTypeAll | grep master` ;[ -n "$temp" ] && currentBranchType="master" && return
-			temp=`echo $currentBranchTypeAll | grep develop`;[ -n "$temp" ] && currentBranchType="develop"&& return
-			temp=`echo $currentBranchTypeAll | grep feature`;[ -n "$temp" ] && currentBranchType="feature"&& return
-			temp=`echo $currentBranchTypeAll | grep issues` ;[ -n "$temp" ] && currentBranchType="issues" && return
-			temp=`echo $currentBranchTypeAll | grep work`   ;[ -n "$temp" ] && currentBranchType="work"   && return
+			temp=`echo $currentBranchTypeAll | grep master` ;[[ -n "$temp" ]] && currentBranchType="master" && return
+			temp=`echo $currentBranchTypeAll | grep develop`;[[ -n "$temp" ]] && currentBranchType="develop"&& return
+			temp=`echo $currentBranchTypeAll | grep feature`;[[ -n "$temp" ]] && currentBranchType="feature"&& return
+			temp=`echo $currentBranchTypeAll | grep issues` ;[[ -n "$temp" ]] && currentBranchType="issues" && return
+			temp=`echo $currentBranchTypeAll | grep work`   ;[[ -n "$temp" ]] && currentBranchType="work"   && return
 		else # do not have a "/" struct
 			currentBranchTypeAll=$currentBranch
-			temp=`echo $currentBranchTypeAll | grep release`;[ -n "$temp" ] && currentBranchType="release"&& return
-			temp=`echo $currentBranchTypeAll | grep hotfix` ;[ -n "$temp" ] && currentBranchType="hotfix" && return
-			temp=`echo $currentBranchTypeAll | grep master` ;[ -n "$temp" ] && currentBranchType="master" && return
-			temp=`echo $currentBranchTypeAll | grep develop`;[ -n "$temp" ] && currentBranchType="develop"&& return
-			temp=`echo $currentBranchTypeAll | grep basedOn`;[ -n "$temp" ] && currentBranchType="basedOn"&& return
+			temp=`echo $currentBranchTypeAll | grep release`;[[ -n "$temp" ]] && currentBranchType="release"&& return
+			temp=`echo $currentBranchTypeAll | grep hotfix` ;[[ -n "$temp" ]] && currentBranchType="hotfix" && return
+			temp=`echo $currentBranchTypeAll | grep master` ;[[ -n "$temp" ]] && currentBranchType="master" && return
+			temp=`echo $currentBranchTypeAll | grep develop`;[[ -n "$temp" ]] && currentBranchType="develop"&& return
+			temp=`echo $currentBranchTypeAll | grep basedOn`;[[ -n "$temp" ]] && currentBranchType="basedOn"&& return
 		fi
 	else # it is a trialBranch
 		currentBranchType="trial"&& return
@@ -48,7 +48,7 @@ get_currentBranchType(){
 get_develop() {
 	get_currentBranchType
 
-	if [ $currentBranchType != "work" ];then
+	if [[ $currentBranchType != "work" ]];then
 		devCode=`echo $currentBranchTypeAll|awk -F '|' '{print $1}'`
 		haveDevCode=`echo $currentBranchTypeAll|grep \|`	
 	else
@@ -56,10 +56,10 @@ get_develop() {
 		haveDevCode=`echo $currentBranch|awk -F '/' '{print $2}'|awk -F '-' '{print $3}'`
 	fi
 
-	if [ -z "$haveDevCode" ];then 
+	if [[ -z "$haveDevCode" ]];then 
 		devCode=
 	fi
-	if [ -n "$devCode" ]; then
+	if [[ -n "$devCode" ]]; then
 		develop="$devCode|develop"
 	else
 		develop="develop"
@@ -68,7 +68,7 @@ get_develop() {
 
 get_master() {
 	get_currentBranchType
-	if [ $currentBranchType != "work" ];then
+	if [[ $currentBranchType != "work" ]];then
 		devCode=`echo $currentBranchTypeAll|awk -F '|' '{print $1}'`
 		haveDevCode=`echo $currentBranchTypeAll|grep \|`	
 	else
@@ -76,10 +76,10 @@ get_master() {
 		haveDevCode=`echo $currentBranch|awk -F '/' '{print $2}'|awk -F '-' '{print $3}'`
 	fi
 
-	if [ -z "$haveDevCode" ];then 
+	if [[ -z "$haveDevCode" ]];then 
 		devCode=
 	fi
-	if [ -n "$devCode" ]; then
+	if [[ -n "$devCode" ]]; then
 		master="$devCode|master"
 	else
 		master="master"
@@ -88,7 +88,7 @@ get_master() {
 
 get_feature() {
 		get_develop
-	if [ -z $devCode ]; then
+	if [[ -z $devCode ]]; then
 		feature="feature"
 	else
 		feature="$devCode|feature"
@@ -96,7 +96,7 @@ get_feature() {
 }
 get_issues() {
 		get_develop
-	if [ -z $devCode ]; then
+	if [[ -z $devCode ]]; then
 		issues="issues"
 	else
 		issues="$devCode|issues"
@@ -105,7 +105,7 @@ get_issues() {
 
 get_version() {
 	get_currentBranchType
-	if [ $currentBranchType != "release" ] && [ $currentBranchType != "hotfix" ]; then
+	if [[ $currentBranchType != "release" ]] && [[ $currentBranchType != "hotfix" ]]; then
 		printf "error use of this function: get_version!\n"
 		exit 1
 	fi
@@ -113,14 +113,14 @@ get_version() {
 	version=`echo $currentBranch|awk -F '-' '{print $2}'`
 	devCode=`echo $currentBranch|awk -F '|' '{print $1}'`
 	haveDevCode=`echo $currentBranch|awk -F '|' '{print $2}'`
-	if [ -n "$haveDevCode" ];then
+	if [[ -n "$haveDevCode" ]];then
 		version="$devCode-$version"
 	fi
 }
 
 get_release() {
 	get_develop
-	if [ -z $devCode ]; then
+	if [[ -z $devCode ]]; then
 		release="release"
 	else
 		release="$devCode|release"
@@ -129,7 +129,7 @@ get_release() {
 
 get_basedOn(){
 	get_master
-	if [ -z $devCode ]; then
+	if [[ -z $devCode ]]; then
 		basedOn="basedOn"
 	else
 		basedOn="$devCode|basedOn"
@@ -143,7 +143,7 @@ get_work_basedOn(){
 
 get_hotfix() {
 	get_master
-	if [ -z $devCode ]; then
+	if [[ -z $devCode ]]; then
 		hotfix="hotfix"
 	else
 		hotfix="$devCode|hotfix"
@@ -180,7 +180,7 @@ get_currentTagName() {
 }
 
 get_currentTagVersion() {
-	if [ -z $currentTagName ]; then
+	if [[ -z $currentTagName ]]; then
 		get_currentTagName
 	fi
 	currentTagVersion=`echo $currentTagName|sed 's#inUse-\(.*\)#\1#'`
@@ -192,7 +192,7 @@ get_now() {
 
 testClear() {
 	isClear=`git status|grep Changes\ not\ staged``git status|grep Changes\ to\ be\ committed`
-	if [ -n "$isClear" ]; then
+	if [[ -n "$isClear" ]]; then
 		git status
 		printf "\n\nwe suggest you make a commit before you do the next thing(Ctrl+C to abort the scripts)\nor you just want to go on do it?(Press enter twice for sure)"
 		read temp
@@ -204,7 +204,7 @@ gggttt(){
 }
 testUntracked(){
 	haveUntracked=`git status|grep Untracked`
-	if [ -n "$haveUntracked" ]; then
+	if [[ -n "$haveUntracked" ]]; then
 		git status
 		printf "\n\nyou have Untracked files!!\nThe next step will REMOVE all the files here, please make the Untracked files safe!\n"
 		exit 1
