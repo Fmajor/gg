@@ -17,7 +17,7 @@ testClear
 
 get_currentBranch
 get_currentBranchType
-if [ "$#" != "1" ]; then
+if [[ "$#" != "1" ]]; then
 	echo "your are in branch $currentBranch"
 	printf "Please input release number~\n"
 	printf "Current tag names are\n"
@@ -26,7 +26,7 @@ if [ "$#" != "1" ]; then
 fi
 
 
-if [ $currentBranchType != 'develop' ]; then
+if [[ $currentBranchType != 'develop' ]]; then
 	printf "\nYou must be in the develop branch to create a new feature branch!\n\n"
 	git status
 	exit 1

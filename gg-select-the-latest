@@ -18,17 +18,17 @@ testClear
 get_currentBranch
 thisBranchName=$currentBranch
 get_currentBranchType
-if [ $currentBranchType != 'basedOn' ]; then
+if [[ $currentBranchType != 'basedOn' ]]; then
 	printf "\nYou must be in the basedOn branch to select a soft to use!\n\n"
 	git status
 	exit 1
 fi
 
 get_master
-if [ $# == 0 ];then	
+if [[ $# == 0 ]];then	
 	git checkout $master
 	get_currentTagName
-	if [ -z $currentTagName ]; then
+	if [[ -z $currentTagName ]]; then
 	    echo "$master don't have a tag name, you should give one to it"
 	    git status
 	    exit 1

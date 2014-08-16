@@ -14,7 +14,7 @@
 installPath=/usr/local/bin
 
 haveFile=`ls`
-if [ -z $haveFile ];then
+if [[ -z $haveFile ]];then
 	printf "you must have files to init\n"
 	exit 1
 fi

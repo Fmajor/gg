@@ -2,7 +2,7 @@
 git gc
 git count-objects -v
 packNum=`find .git/objects/pack/*.idx | wc | awk '{print $1}'`
-if [ $packNum != 1 ]; then
+if [[ $packNum != 1 ]]; then
 	printf "more than one packs, don't know which to use\n"
 	exit 1
 fi

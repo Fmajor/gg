@@ -19,7 +19,7 @@ get_currentBranch
 thisWorkBranch=$currentBranch
 get_currentBranchType
 thisWorkBranchTypeAll=$currentBranchTypeAll
-if [ $currentBranchType != 'work' ]; then
+if [[ $currentBranchType != 'work' ]]; then
 	printf "\nYou must be in the work branch to make a update!\n\n"
 	git status
 	exit 1
@@ -28,9 +28,9 @@ fi
 get_basedOn
 echo $work_basedOn
 
-if [ $# == 1 ]; then
+if [[ $# == 1 ]]; then
 	git checkout $1 > /dev/null
-	if [ $? != 0 ];then
+	if [[ $? != 0 ]];then
 		printf "error go to $#\n check your spell\n We can go to \n"
 		git branch
 		git tag

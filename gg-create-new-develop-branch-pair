@@ -15,14 +15,14 @@ installPath=/usr/local/bin
 source $installPath/gg-functions
 testClear
 
-if [ "$#" != "1" ]; then
+if [[ "$#" != "1" ]]; then
 	printf "Please input the dev code\n"
 	exit 1
 fi
 
 get_currentBranch
 get_currentBranchType
-if [ $currentBranchType != 'develop' ] && [ $currentBranchType != 'master' ]; then
+if [[ $currentBranchType != 'develop' ]] && [[ $currentBranchType != 'master' ]]; then
 	printf "\nYou must be in the develop or in the master branch to create a new develop branch!\n\n"
 	git status
 	exit 1

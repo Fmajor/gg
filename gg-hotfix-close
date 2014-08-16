@@ -18,7 +18,7 @@ testClear
 get_currentBranch
 get_currentBranchType
 get_version
-if [ $currentBranchType != 'hotfix' ]; then
+if [[ $currentBranchType != 'hotfix' ]]; then
 	printf "You must be in one hotfix branch!"
 	echo
 	git status

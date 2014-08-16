@@ -17,21 +17,21 @@ testClear
 
 get_currentBranch
 get_currentBranchType
-if [ $currentBranchType != 'master' ]; then
+if [[ $currentBranchType != 'master' ]]; then
 	printf "\nYou must be in the master branch to init a work!\n\n"
 	git status
 	exit 1
 fi
 
 get_currentTagName
-if [ -z currentTagName ]; then
+if [[ -z currentTagName ]]; then
 	echo "$currentBranch don't have a tag name, you should give one to it"
 	git status
 	exit 1
 fi
 
 printf 'do you what to git init the directory like this?\n'
-if [ -e .git/hooks/pre-commit ];then
+if [[ -e .git/hooks/pre-commit ]];then
 	echo
 else
 	cp $installPath/gg-pre-commit .git/hooks/pre-commit
@@ -40,7 +40,7 @@ else
 fi
 
 get_basedOn
-if [ $# == 0 ]; then
+if [[ $# == 0 ]]; then
 	gggttt;echo "gg-open-branch-without-history $basedOn"
 	gggttt;echo "git tag inUse-$currentTagName -a -m \"init $master into baseOn, version $currentTagName\""
 	echo "press ENTER to continue, Ctrl+C to ESCAPE"

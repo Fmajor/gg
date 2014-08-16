@@ -19,14 +19,14 @@ get_currentBranch
 get_currentBranchParent
 get_isTrialBranch
 
-if [ -z $isTrialBranch ]; then
+if [[ -z $isTrialBranch ]]; then
 	printf "\nYou must be in one trial branch\n\n"
 	git status
 	exit 1
 fi
 
 get_isParentAlive
-if [ -z $isParentAlive ]; then
+if [[ -z $isParentAlive ]]; then
 	printf "The trials' parent branch is missing, do the job manully\n"
 fi
 
