@@ -31,7 +31,7 @@ fi
 printf "Do you what to open a new pair of branches like this?\n"
 gggttt;echo "git checkout -b $1|develop $currentBranch"
 gggttt;echo "git checkout -b $1|master $currentBranch"
-
+echo "press Ctrl+C to ESCAPE"
 read temp
 git checkout -b $1\|develop
 git checkout $currentBranch
