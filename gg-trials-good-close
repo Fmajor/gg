@@ -44,6 +44,6 @@ read temp
 git checkout $currentBranchParent
 git merge --no-ff $currentBranch -m "Merge branch $currentBranch into $currentBranchParent"\
 	&& echo "press Enter to delete $currentBranch branch" \
-	&& echo "press Ctrl+C to ESCAPE" \	
+	&& echo "press Ctrl+C to ESCAPE" \
 	&& read temp && git branch -D $currentBranch
 
