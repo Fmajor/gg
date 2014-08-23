@@ -11,6 +11,9 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
+installPath=/usr/local/bin
+source $installPath/gg-functions
+testClear
 
 git checkout `cat .git/currentBranch.dat` \
 	&& git stash pop

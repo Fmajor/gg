@@ -22,12 +22,13 @@ fi
 get_currentBranch
 echo "$currentBranch" > .git/currentBranch.dat
 git branch > temp.txt
+# we think that branch name we can go to is like "  blabla"
 cat temp.txt | grep -x \ \ $1  > temp1.txt
 isAlive=`cat temp1.txt`
 rm temp.txt temp1.txt
 
 if [[ -z $isAlive ]]; then
-	echo "can not find branch $1"
+	echo "can not find branch $1 that you can go to"
 	echo "current branches are"
 	git branch
 	exit 1

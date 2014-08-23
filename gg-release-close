@@ -43,7 +43,7 @@ git merge --no-ff $currentBranch -m "Merge branch $currentBranch into $master" &
 git checkout $develop
 git merge --no-ff $currentBranch -m "Merge branch $currentBranch into $develop"\
 	&& git commit --allow-empty --amend -m "Merge branch $currentBranch into $develop"\
-	&& echo "press Enter to delete branch $currentBranch" \
-	&& echo "press ENTER to continue, press Ctrl+C to ESCAPE" \
+	&& echo "press Enter to delete branch $currentBranch"\
+	&& echo "press ENTER to continue, press Ctrl+C to ESCAPE"\
 	&& read temp &&git branch -D $currentBranch
 

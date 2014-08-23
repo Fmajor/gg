@@ -194,7 +194,7 @@ testClear() {
 	isClear=`git status|grep Changes\ not\ staged``git status|grep Changes\ to\ be\ committed`
 	if [[ -n "$isClear" ]]; then
 		git status
-		printf "\n\nwe suggest you make a commit before you do the next thing(Ctrl+C to abort the scripts)\nor you just want to go on do it?(Press enter twice for sure)"
+		printf "\n\nwe suggest you make a commit before you do the next thing(Ctrl+C to abort the scripts)\nor you just want to go on do it?(Press Enter twice for sure)"
 		read temp
 		read temp
 	fi

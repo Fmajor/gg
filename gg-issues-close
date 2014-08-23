@@ -36,6 +36,7 @@ read temp
 
 git checkout $develop
 git merge --no-ff $currentBranch -m "Merge branch $currentBranch into $develop"\
-	&& echo "press Enter to delete $currentBranch branch\npress Ctrl+C to ESCAPE" \
+	&& echo "press Enter to delete $currentBranch branch"\
+	&& echo "press Ctrl+C to ESCAPE" \
 	&& read temp && git branch -d $currentBranch
 

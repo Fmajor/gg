@@ -49,6 +49,6 @@ git log $currentBranchParent..$currentBranch >> .gg-data/deletedTrailsBranchs
 echo "press Enter to delete $currentBranch branch" \
 	&& echo "press Ctrl+C to ESCAPE" \
 	&& read temp && git branch -D $currentBranch \
-	&& git add .gg-data/deletedTrailsBranchs&&git commit .gg-data/deletedTrailsBranchs -m "delete branch $currentBranch"
+	&& git add .gg-data/deletedTrailsBranchs&&git commit .gg-data/deletedTrailsBranchs -m "bad close trial branch $currentBranch"
 
 

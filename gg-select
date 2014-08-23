@@ -30,7 +30,7 @@ get_master
 if [[ $# == 1 ]];then
 	git checkout $1 >/dev/null
 	if [[ $? != 0 ]]; then
-		printf "error go to $#\n check your spell\n We can go to \n"
+		printf "can not go to $1\n check your spell\n We can go to \n"
 		git branch
 		git tag
 		exit 1
@@ -46,6 +46,9 @@ if [[ $# == 1 ]];then
 	printf "Do you what to select the latest version soft in the $1 branch like this?\n"
 
 	gggttt;echo "rm *"
+	echo "==========================================================================="
+	gggttt;echo "    Warning: make sure rm * will NOT remove your .git directory and other hiden files in case you use some alias!!"
+	echo "==========================================================================="
 	gggttt;echo "git commit -a -m \"fork $1 into baseOn, version $currentTagName\""
 	gggttt;echo "git merge --ff --squash $1"
 	gggttt;echo "git add ."
@@ -55,8 +58,10 @@ if [[ $# == 1 ]];then
 	
 	read temp
 	
+	get_now
+	cp -r .git ../gg-backups-$now
 	rm *
-	git commit -a -m "fork $1 into baseOn, version $currentTagName"
+	git commit -a -m "fork $1 into baseOn, version $currentTagName" && rm -r ../gg-backups-$now
 	git merge --ff --squash $1
 	git add .
 	git commit --amend -m "fork $1 into baseOn, tagged inUse-$currentTagName"

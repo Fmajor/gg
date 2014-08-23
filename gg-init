@@ -24,7 +24,6 @@ printf '\tgit init\n'
 printf '\tgit add .\n'
 printf '\tgit commit -a -m "init commit"\n'
 printf '\tgit checkout -b develop\n'
-printf '\tcp /usr/local/bin/gg-pre-commit .git/hooks/pre-commit'
 echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 
 read temp
