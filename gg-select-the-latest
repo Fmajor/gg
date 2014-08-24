@@ -36,6 +36,9 @@ if [[ $# == 0 ]];then
 	git checkout $thisBranchName
 	printf "Do you what to select the latest version soft in the $master branch like this?\n"
 	gggttt;echo "rm *"
+	echo "==========================================================================="
+	gggttt;echo "    Warning: make sure rm * will NOT remove your .git directory and other hiden files in case you use some alias!!"
+	echo "==========================================================================="
 	gggttt;echo "git commit -a -m \"fork $master into baseOn, version $currentTagName\""
 	gggttt;echo "git merge --ff --squash $master"
 	gggttt;echo "git add ."
@@ -45,6 +48,9 @@ if [[ $# == 0 ]];then
 
 	read temp
 	
+	get_now
+	cp -r .git ../gg-backups-$now
+	echo "backup .git to ../gg-backups-$now, if there is no error, you can delete the bakup file any time"
 	rm *
 	git commit -a -m "fork $master into baseOn, version $currentTagName"
 	git merge --ff --squash $master

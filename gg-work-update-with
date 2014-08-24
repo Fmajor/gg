@@ -48,6 +48,7 @@ if [[ $# == 1 ]]; then
 	git merge --no-ff $currentTagName -m "update $thisWorkBranch with $currentTagName"
 
 else
-	printf "error parameter numbers!!\n"
+	printf "please input the tag name you want to update with\n"
+	git tag | grep inUse
 	exit 1
 fi
