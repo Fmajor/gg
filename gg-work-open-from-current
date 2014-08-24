@@ -18,7 +18,8 @@ testClear
 get_currentBranch
 get_currentBranchType
 if [[ $currentBranchType != 'basedOn' ]]; then
-	printf "\nYou must be in the basedOn branch to open a new work!\nOr you are in the detached HEAD state\nPlease make sure you are in the right place(press Enter for twice to continue, press Ctrl+C to ESCAPE)\n"
+	git s
+	printf "You must be in the basedOn branch to open a new work!\nOr you are in the HEAD detached state at some tag\nPlease make sure you are in the right place(press Enter for twice to continue, press Ctrl+C to ESCAPE)\n"
 	read temp
 	read temp
 fi

@@ -60,13 +60,15 @@ if [[ $# == 1 ]];then
 	
 	get_now
 	cp -r .git ../gg-backups-$now
+	echo "backup .git to ../gg-backups-$now, if there is no error, you can delete the bakup file any time"
 	rm *
-	git commit -a -m "fork $1 into baseOn, version $currentTagName" && rm -r ../gg-backups-$now
+	git commit -a -m "fork $1 into baseOn, version $currentTagName"
 	git merge --ff --squash $1
 	git add .
 	git commit --amend -m "fork $1 into baseOn, tagged inUse-$currentTagName"
 	git tag inUse-$currentTagName -a -m "fork $1 into baseOn$"
 else
-	printf "error parameter numbers!!\n"
+	printf "please input the tag name you what to select\n"
+	git tag
 	exit 1
 fi
