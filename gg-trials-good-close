@@ -41,9 +41,9 @@ echo "if you meet conflicts in merges, you should delete the branch manully"
 echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
 
-git checkout $currentBranchParent
-git merge --no-ff $currentBranch -m "Merge branch $currentBranch into $currentBranchParent"\
+git checkout "$currentBranchParent"
+git merge --no-ff "$currentBranch" -m "Merge branch $currentBranch into $currentBranchParent"\
 	&& echo "press Enter to delete $currentBranch branch" \
 	&& echo "press Ctrl+C to ESCAPE" \
-	&& read temp && git branch -D $currentBranch
+	&& read temp && git branch -D "$currentBranch"
 

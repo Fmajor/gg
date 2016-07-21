@@ -16,7 +16,7 @@ source $installPath/gg-functions
 testClear
 
 if [[ "$#" != "1" ]]; then
-	printf "Please input the branch name~\n"
+	printf "Please input the branch name\n"
 	exit 1
 fi
 printf "Do you want to start branch $1 without history?\n"

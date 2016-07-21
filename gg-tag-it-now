@@ -18,4 +18,4 @@ git status
 printf "Do you want to tag the branch with $now?\n"
 echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
-git tag -a $now -m "in use since $now"
+git tag -a $now -m "time: $now"

@@ -40,4 +40,4 @@ gggttt;echo "git checkout -b $release-$1"
 echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
 git commit --allow-empty -m "Start to release version $1"
-git checkout -b $release-$1
+git checkout -b "$release-$1"

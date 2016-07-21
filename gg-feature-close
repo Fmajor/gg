@@ -26,18 +26,18 @@ fi
 get_develop
 echo "You are in branch ||   $currentBranch   ||"
 echo "Do you want to close it like this?"
-# 合并完成的特性回develop
+
 gggttt;echo "git checkout $develop"
 gggttt;echo "git merge --no-ff $currentBranch $develop"
 gggttt;echo "git branch -d $currentBranch"
 echo
-gggttt;echo "if you meet conflicts in merges, you should delete the branch manully"
+gggttt;echo "if you meet conflicts in merges and want to abort the merge, you should delete the branch manully"
 echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
 
-git checkout $develop
-git merge --no-ff $currentBranch $develop -m "Merge branch $currentBranch into $develop"\
+git checkout "$develop"
+git merge --no-ff "$currentBranch" "$develop" -m "Merge branch $currentBranch into $develop"\
 	&& echo "press Enter to delete $currentBranch branch"\
-	&& echo " press Ctrl+C to ESCAPE"\
+	&& echo " press Ctrl+C not to delete it"\
 	&& read temp && git branch -d $currentBranch
 

@@ -16,7 +16,7 @@ source $installPath/gg-functions
 testClear
 
 if [[ "$#" != "1" ]]; then
-	printf "Please input feature name~\n"
+	printf "Please input feature name\n"
 	exit 1
 fi
 
@@ -31,8 +31,8 @@ fi
 get_develop
 get_feature
 printf "Do you what to open a new feature branch like this?\n"
-# 创建一个特性分支
+
 gggttt;echo "git checkout -b $feature/$1"
 echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
-git checkout -b $feature/$1
+git checkout -b "$feature/$1"

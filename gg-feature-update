@@ -18,18 +18,18 @@ testClear
 get_currentBranch
 get_currentBranchType
 if [[ $currentBranchType != 'feature' ]]; then
-	printf "\nYou must be in one feature branch to update it!\n\n"
+	printf "\nYou must be in one feature branch to update it with the develop!\n\n"
 	git status
 	exit 1
 fi
 
 get_develop
 echo "You are in branch ||   $currentBranch   ||"
-echo "Do you want to update it like this?"
+echo "Do you want to update it with the develop like this?"
 
 gggttt;echo "git merge --no-ff $develop"
 echo
 echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 read temp
 
-git merge --no-ff $develop -m "Merge(update) branch $develop into $currentBranch "
+git merge --no-ff "$develop" -m "Merge(update) branch $develop into $currentBranch "

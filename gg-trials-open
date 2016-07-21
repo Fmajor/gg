@@ -24,12 +24,12 @@ if [[ $# == 1 ]]; then
 	gggttt;echo "git checkout -b $currentBranch%trials.$1"
 	echo "press ENTER to continue, press Ctrl+C to ESCAPE"
 	read temp
-	git checkout -b $currentBranch%trials.$1
+	git checkout -b "$currentBranch%trials.$1"
 elif [[ $# == 0 ]]; then
 	gggttt;echo "git checkout -b $currentBranch%trials"
 	echo "press ENTER to continue, press Ctrl+C to ESCAPE"	
 	read temp
-	git checkout -b $currentBranch%trials
+	git checkout -b "$currentBranch%trials"
 else
 	printf "parameters number error!"
 	exit 1

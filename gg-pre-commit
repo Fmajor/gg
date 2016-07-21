@@ -8,11 +8,11 @@
 # To enable this hook, rename this file to "pre-commit".
 
 
-currentBranch=`git status | grep On\ branch | sed 's#On\ branch\ \(.*\)$#\1#'|sed "s#|#\\\|#g"`
-isMaster=`echo $currentBranch|grep master`
-isDevelop=`echo $currentBranch|grep basedOn`
-if [[ -n "$isMaster" ]] || [[ -n "$basedOn" ]]; then
-	printf "You should NOT make a commit in the master branch or in the basedOn branch\n If you have to do so, use git commit --no-verify\n"
+#currentBranch=`git status | grep On\ branch | sed 's#On\ branch\ \(.*\)$#\1#'|sed "s#|#\\\|#g"`
+currentBranch=`git rev-parse --abbrev-ref HEAD`
+isMaster=`echo $currenaBranch|grep master`
+if [[ -n "$isMaster" ]]; then
+	printf "You should NOT make a commit in the master branch\n If you have to do so, use git commit --no-verify\n"
 	git branch
 	exit 1
 fi
