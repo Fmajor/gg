@@ -86,11 +86,14 @@ to get this demo
 	make simple
 
 and hit Enter for 42 times
+
 in this demo, things after >>>> are the commands in the makefile
+
 this after # are the comments
+
 other things are output from gg or git
 
-you can get colorful demo by running it by yourself
+you can get *colorful* demo by running it by yourself
 
 	#=============================================
 	# demo for gg
