@@ -91,6 +91,7 @@ commands
 demo
 ====================
 to get this demo
+
 	cd demo
 	make simple
 
