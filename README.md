@@ -2,7 +2,8 @@ gg
 ======================
 The mental model of gg
 ===============
-![gg mental model](http://fmajor.lamost.org/uploads/gg-mental-model.JPG)
+![gg mental model](http://fmajor.lamost.org/blog/assets/posts/2014-08-08-gg/dev.png)
+[gg-good use of git](http://fmajor.lamost.org/blog/2014/08/08/gg.html)
 commands
 =====================
 	gg-init
