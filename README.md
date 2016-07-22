@@ -6,10 +6,13 @@ The mental model of gg
 [gg-good use of git](http://fmajor.lamost.org/blog/2014/08/08/gg.html)
 Install
 ==============
+
 In Linux:
 	./linuxInstall
+
 In Mac:
 	./macInstall
+
 commands
 =====================
 	gg-init
