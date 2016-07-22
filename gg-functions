@@ -18,19 +18,21 @@ get_currentBranch(){
 	fi
 }
 get_currentBranchType(){
+	get_currentBranch
 	if [[ -n "$pointer" ]]; then
 		currentBranchType="pointer"
 		return
 	fi
-	get_currentBranch
 	get_isTrialBranch
 	if [[ -z $isTrialBranch ]]; then # not the trialBranch
+		if [[ -n `echo $currentBranch | grep -- "-FromBranch-"` ]]; then
+			currentBranchType="issues" && return
+		fi
 		temp=`echo $currentBranch | grep \/`
 		if [[ -n "$temp" ]]; then # have a "/" struct
-			#currentBranchTypeAll=`echo $currentBranch|sed 's#\(.*\)\/.*#\1#'`
 			currentBranchTypeAll=`echo $currentBranch|sed 's#\([^/]*\)\/.*#\1#'`
-			temp=`echo $currentBranchTypeAll | grep feature`;[[ -n "$temp" ]] && currentBranchType="feature"&& return
 			temp=`echo $currentBranchTypeAll | grep issues` ;[[ -n "$temp" ]] && currentBranchType="issues" && return
+			temp=`echo $currentBranchTypeAll | grep feature`;[[ -n "$temp" ]] && currentBranchType="feature"&& return
 		else # do not have a "/" struct
 			currentBranchTypeAll=$currentBranch
 			temp=`echo $currentBranchTypeAll | grep release`;[[ -n "$temp" ]] && currentBranchType="release"&& return
@@ -44,6 +46,21 @@ get_currentBranchType(){
 	echo $currentBranch
 	printf "can not get current BranchType name!!!!\n"
 	exit 1
+}
+
+get_father() {
+	get_currentBranchType
+	if [[ $currentBranchType == 'issues' ]]; then
+		father=`echo $currentBranch | awk -F '-FromBranch-' '{print $2}'`
+        if [[ -z $father ]]; then
+            get_develop
+            father=$develop
+        fi
+	elif [[ $currentBranchType == 'trial' ]]; then
+		father=`echo $currentBranch|sed 's#\(.*\)%.*#\1#'`
+	else
+		father=
+	fi
 }
 
 get_develop() {
@@ -125,8 +142,7 @@ get_hotfix() {
 }
 
 get_currentBranchParent(){
-	#currentBranchParent=`echo $currentBranch|sed 's#\(.*\)\..*#\1#'`
-	currentBranchParent=`echo $currentBranch|sed 's#\([^/]*\)%.*#\1#'`
+	currentBranchParent=`echo $currentBranch|sed 's#\(.*\)%.*#\1#'`
 }
 
 get_isTrialBranch(){
@@ -170,7 +186,7 @@ testClear() {
 	isClear=`git status|grep -i Changes\ not\ staged``git status|grep -i Changes\ to\ be\ committed`
 	if [[ -n "$isClear" ]]; then
 		git status
-		printf "\n\nwe suggest you make a commit or stash before you do the next thing(Ctrl+C to abort the scripts)\nor you just want to go on doing this?(Press Enter twice for sure)"
+		printf "\n\nwe suggest you make a commit or stash before you do the next thing(Ctrl+c to abort the scripts)\nor you just want to go on doing this?(Press Enter twice for sure)"
 		read temp
 		read temp
 	fi
@@ -185,9 +201,4 @@ testUntracked(){
 		printf "\nyou have Untracked files!!\nThe next step will REMOVE all the files here, please make the Untracked files safe!\n\tOr you can use 'git stash' to make a stash and then 'git stash pop'\n"
 		exit 1
 	fi
-}
-
-checkName(){
-	errorMsg="should not have "
-	if [[ -n `echo $1 | grep ` ]]
 }

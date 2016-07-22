@@ -13,9 +13,16 @@
 # Author: wujinnnnn@gmail.com
 installPath=/usr/local/bin/gg
 source $installPath/gg-functions
-get_now
-git status
-printf "Do you want to tag the branch with $now?\n"
+testClear
+
+if [[ "$#" -lt "1" ]]; then
+	printf "Please input comment\n"
+	exit 1
+fi
+
+printf "Do you what to open a comment like this?\n"
+
+gggttt;echo "git commit --allow-empty -m \"$1\""
 echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 read temp
-git tag -a $now -m "time: $now"
+git commit --allow-empty -m "$1"

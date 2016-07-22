@@ -17,27 +17,25 @@ testClear
 
 get_currentBranch
 get_currentBranchType
-if [[ "$#" != "1" ]]; then
-	echo "your are in branch $currentBranch"
-	printf "Please input release number~\n"
-	printf "Current tag names are\n"
-	git tag
+
+if [[ $currentBranchType != 'develop' && $currentBranchType != 'pointer' ]]; then
+	printf "\nYou must be in the develop branch or in the detached commint in the develop branch to create a new feature branch!\n\n"
+	git status
 	exit 1
 fi
 
-
-if [[ $currentBranchType != 'develop' ]]; then
-	printf "\nYou must be in the develop branch to create a new feature branch!\n\n"
-	git status
+if [[ "$#" != "1" ]]; then
+	echo "your are in branch $currentBranch, Please input release number"
+	printf "Current tag names are\n"
+	git tag
 	exit 1
 fi
 
 get_release
 printf "Do you what to open a new release branch like this?\n"
 
-# 创建一个发布分支
-gggttt;echo "git checkout -b $release-$1"
-echo "press ENTER to continue, press Ctrl+C to ESCAPE"
+gggttt;echo "git checkout -b \"$release-$1\""
+echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 read temp
 git commit --allow-empty -m "Start to release version $1"
 git checkout -b "$release-$1"

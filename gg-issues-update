@@ -18,18 +18,23 @@ testClear
 get_currentBranch
 get_currentBranchType
 if [[ $currentBranchType != 'issues' ]]; then
-	printf "\nYou must be in one issues branch to update it from develop!\n\n"
+	printf "\nYou must be in one issues branch to update!\n"
 	git status
 	exit 1
 fi
 
 get_develop
+if [[ -n `echo $currentBranch | grep -- -FromBranch-` ]]; then
+	father=`echo $currentBranch | awk -F '-FromBranch-' '{print $2}'`
+else
+	father="$develop"
+fi
+
 echo "You are in branch ||   $currentBranch   ||\n"
 echo "Do you want to update it like this?\n"
 
-gggttt;echo "git merge --no-ff $develop"
-echo "press ENTER to continue, press Ctrl+C to ESCAPE"
+gggttt;echo "git merge --no-ff \"$father\""
+echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 read temp
 
-git merge --no-ff "$develop" -m "Merge branch $develop into $currentBranch"
-
+git merge --no-ff "$father" -m "Merge branch $father into $currentBranch"

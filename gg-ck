@@ -15,7 +15,7 @@ installPath=/usr/local/bin/gg
 source $installPath/gg-functions
 testClear
 
-errorMsg="you should input one peremeter with 'm','d' for the master and develop branch of thie devCode"
+errorMsg="you should input one peremeter with 'm','d','f' for the master, evelop and father branch"
 
 if [[ $# != 1 ]]; then
 	echo "$errorMsg"
@@ -25,10 +25,19 @@ fi
 case $1 in
 "m")
 	get_master
-	git checkout $master;;
+	git checkout "$master";;
 "d")
 	get_develop
-	git checkout $develop;;
+	git checkout "$develop";;
+"f")
+	get_currentBranch
+	get_father
+	if [[ -n $father ]]; then
+		git checkout "$father"
+	else
+		echo "branch $currentBranch has no father"
+	fi
+	;;
 *)
 	echo "$errorMsg"
 	exit 1

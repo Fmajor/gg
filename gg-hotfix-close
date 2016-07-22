@@ -30,19 +30,20 @@ get_develop
 echo "You are in branch ||      $currentBranch      ||"
 echo "Do you want to close it like this?"
 
-gggttt;echo "git checkout $master"
-gggttt;echo "git merge --no-ff $currentBranch"
-gggttt;echo "git tag -a $version"
-gggttt;echo "git checkout $develop"
-gggttt;echo "git merge --no-ff $currentBranch"
-gggttt;echo "git branch -d $currentBranch"
+gggttt;echo "git checkout \"$master\""
+gggttt;echo "git merge --no-ff \"$currentBranch\""
+gggttt;echo "git tag -a \"$version\""
+gggttt;echo "git checkout \"$develop\""
+gggttt;echo "git merge --no-ff \"$currentBranch\""
+gggttt;echo "git branch -d \"$currentBranch\""
 gggttt;echo "if you meet conflicts in merges, you should delete the branch manully"
-echo "press ENTER to continue, press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 read temp
+
 git checkout "$master"
-git merge --no-ff "$currentBranch" -m "Merge branch $currentBranch into $master" && git tag -a "$version" -m "hotfix: $version"
-git checkout $develop
-git merge --no-ff "$currentBranch" -m "Merge branch $currentBranch into $develop"\
+git merge --no-ff "$currentBranch" -m "Merge hotfix branch $currentBranch into $master" && git tag -a "$version" -m "hotfix: $version"
+git checkout "$develop"
+git merge --no-ff "$currentBranch" -m "Merge hotfix branch $currentBranch into $develop"\
 	&& echo "press Enter to delete branch $currentBranch"\
-	&& echo "press Ctrl+C to ESCAPE"\
+	&& echo "press Ctrl+c to ESCAPE"\
 	&& read temp &&git branch -d "$currentBranch"

@@ -29,20 +29,21 @@ get_develop
 echo "You are in branch ||      $currentBranch      ||"
 printf "Do you want to close it like this?\n"
 
-gggttt;echo "git checkout $master"
-gggttt;echo "git merge --no-ff $currentBranch"
-gggttt;echo "git tag -a $version"
-gggttt;echo "git checkout $develop"
-gggttt;echo "git merge --no-ff $currentBranch"
-gggttt;echo "git branch -d $currentBranch"
+gggttt;echo "git checkout \"$master\""
+gggttt;echo "git merge --no-ff \"$currentBranch\""
+gggttt;echo "git tag -a \"$version\""
+gggttt;echo "git checkout \"$develop\""
+gggttt;echo "git merge --no-ff \"$currentBranch\""
+gggttt;echo "git branch -d \"$currentBranch\""
 echo;echo "if you meet conflicts in merges, you should delete the branch manully"
-echo "press ENTER to continue, press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 read temp
+
 git checkout "$master"
-git merge --no-ff "$currentBranch" -m "Merge branch $currentBranch into $master" && git tag -a "$version" -m "$version"
+git merge --no-ff "$currentBranch" -m "Merge release branch $currentBranch into $master" && git tag -a "$version" -m "$version"
 git checkout "$develop"
-git merge --no-ff "$currentBranch" -m "Merge branch $currentBranch into $develop"\
+git merge --no-ff "$currentBranch" -m "Merge release branch $currentBranch into $develop"\
 	&& git commit --allow-empty --amend -m "Merge branch $currentBranch into $develop"\
 	&& echo "press Enter to delete branch $currentBranch"\
-	&& echo "press ENTER to continue, press Ctrl+C to ESCAPE"\
+	&& echo "press ENTER to continue, press Ctrl+c to ESCAPE"\
 	&& read temp &&git branch -D "$currentBranch"

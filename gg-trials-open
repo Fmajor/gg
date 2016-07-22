@@ -16,21 +16,27 @@ source $installPath/gg-functions
 testClear
 
 get_currentBranch
+get_currentBranchType
 
+if [[ $currentBranchType == 'master' ]]; then
+	printf "\nYou can not make a trial branch in master!\n\n"
+	git status
+	exit 1
+fi
 echo "You are in branch ||      $currentBranch      ||"
 printf "Do you want to make a trail branch like this?\n"
 
 if [[ $# == 1 ]]; then
-	gggttt;echo "git checkout -b $currentBranch%trials.$1"
-	echo "press ENTER to continue, press Ctrl+C to ESCAPE"
+	gggttt;echo "git checkout -b \"$currentBranch%trials.$1\""
+	echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 	read temp
 	git checkout -b "$currentBranch%trials.$1"
 elif [[ $# == 0 ]]; then
-	gggttt;echo "git checkout -b $currentBranch%trials"
-	echo "press ENTER to continue, press Ctrl+C to ESCAPE"	
+	gggttt;echo "git checkout -b \"$currentBranch%trials\""
+	echo "press ENTER to continue, press Ctrl+c to ESCAPE"	
 	read temp
 	git checkout -b "$currentBranch%trials"
 else
-	printf "parameters number error!"
+	printf "should have 0 input args to make a $currentBranch%trials branch or\n\thave 1 input args to make a $currentBranch%trials.$1 branch\n"
 	exit 1
 fi

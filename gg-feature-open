@@ -15,16 +15,23 @@ installPath=/usr/local/bin/gg
 source $installPath/gg-functions
 testClear
 
-if [[ "$#" != "1" ]]; then
-	printf "Please input feature name\n"
-	exit 1
-fi
 
 get_currentBranch
 get_currentBranchType
-if [[ $currentBranchType != 'develop' ]]; then
-	printf "\nYou must be in the develop branch to create a new feature branch!\n\n"
+if [[ $currentBranchType == 'master' && $currentBranchType == 'release' ]]; then
+    printf "\nYou can NOT create a new feature branch in master or release branchs!\n\tIf you are in master, stash and goto develop to fix issues\n\tIf you are in release, it seems that you should abort your release (git stash (if you want to save some changes and then) git branch -D \"$currentBranch\") and go to fix the issues and then make a new release"
 	git status
+	exit 1
+fi
+
+if [[ $currentBranchType != 'develop' ]]; then
+    postfix="-FromBranch-$currentBranch"
+else
+    postfix=
+fi
+
+if [[ "$#" != "1" ]]; then
+	printf "Please input feature name\n"
 	exit 1
 fi
 
@@ -32,7 +39,7 @@ get_develop
 get_feature
 printf "Do you what to open a new feature branch like this?\n"
 
-gggttt;echo "git checkout -b $feature/$1"
-echo "press ENTER to continue, press Ctrl+C to ESCAPE"
+gggttt;echo "git checkout -b \"$feature/$1$postfix\""
+echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 read temp
-git checkout -b "$feature/$1"
+git checkout -b "$feature/$1$postfix"
