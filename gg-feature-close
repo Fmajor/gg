@@ -11,33 +11,30 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
-installPath=/usr/local/bin
+installPath=/usr/local/bin/gg
 source $installPath/gg-functions
 testClear
 
 get_currentBranch
 get_currentBranchType
 if [[ $currentBranchType != 'feature' ]]; then
-	printf "\nYou must be in one feature branch!\n\n"
+	printf "You must be in one feature branch!\n\n"
 	git status
 	exit 1
 fi
 
-get_develop
+get_father
 echo "You are in branch ||   $currentBranch   ||"
 echo "Do you want to close it like this?"
-# 合并完成的特性回develop
-gggttt;echo "git checkout $develop"
-gggttt;echo "git merge --no-ff $currentBranch $develop"
-gggttt;echo "git branch -d $currentBranch"
-echo
-gggttt;echo "if you meet conflicts in merges, you should delete the branch manully"
-echo "press ENTER to continue, press Ctrl+C to ESCAPE"
+
+gggttt;echo "git checkout \"$father\""
+gggttt;echo "git merge --no-ff \"$currentBranch\""
+gggttt;echo "git branch -d \"$currentBranch\""
+echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 read temp
 
-git checkout $develop
-git merge --no-ff $currentBranch $develop -m "Merge branch $currentBranch into $develop"\
+git checkout "$father"
+git merge --no-ff "$currentBranch" -m "Merge feature branch $currentBranch into $father"\
 	&& echo "press Enter to delete $currentBranch branch"\
-	&& echo " press Ctrl+C to ESCAPE"\
-	&& read temp && git branch -d $currentBranch
-
+	&& echo " press Ctrl+c not to delete it"\
+	&& read temp && git branch -d "$currentBranch"

@@ -11,7 +11,7 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
-installPath=/usr/local/bin
+installPath=/usr/local/bin/gg
 source $installPath/gg-functions
 testClear
 
@@ -34,21 +34,20 @@ echo "You are in branch ||      $currentBranch      ||"
 printf "Do you want to close it like this?\n"
 now=`date "+%Y-%m-%d-%H-%M-%S"`
 
-printf "\tRecord the logs of this branch in .gg-data/deletedTrailsBranchs and then\n"
-gggttt;echo "git branch -D $currentBranch"
-echo "press ENTER to continue, press Ctrl+C to ESCAPE"
-read temp 
+printf "\tRecord the ref logs of this branch in .git/../.deletedTrailsBranchs and then\n"
+gggttt;echo "git branch -D \"$currentBranch\""
+echo "press ENTER to continue, press Ctrl+c to ESCAPE"
+read temp
 
+gitDir=`git rev-parse --git-dir`/..
 git checkout $currentBranchParent
-echo "=================================================" >> .gg-data/deletedTrailsBranchs
-echo $currentBranch "deleted at" $now >> .gg-data/deletedTrailsBranchs
+echo "=================================================" >> $gitDir/.deletedTrailsBranchs
+echo $currentBranch "deleted at" $now >> $gitDir/.deletedTrailsBranchs
 echo
-git log $currentBranchParent..$currentBranch >> .gg-data/deletedTrailsBranchs
+git log $currentBranchParent..$currentBranch >> $gitDir/.deletedTrailsBranchs
 
 
 echo "press Enter to delete $currentBranch branch" \
-	&& echo "press Ctrl+C to ESCAPE" \
+	&& echo "press Ctrl+c to ESCAPE" \
 	&& read temp && git branch -D $currentBranch \
-	&& git add .gg-data/deletedTrailsBranchs&&git commit .gg-data/deletedTrailsBranchs -m "bad close trial branch $currentBranch"
-
-
+	&& git add $gitDir/.deletedTrailsBranchs&&git commit $gitDir/.deletedTrailsBranchs -m "bad close trial branch $currentBranch"

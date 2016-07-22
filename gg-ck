@@ -11,29 +11,34 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
-installPath=/usr/local/bin
+installPath=/usr/local/bin/gg
 source $installPath/gg-functions
 testClear
 
-get_currentBranch
-get_currentBranchType
-get_basedOn
-get_master
-get_develop
+errorMsg="you should input one peremeter with 'm','d','f' for the master, evelop and father branch"
 
 if [[ $# != 1 ]]; then
-	echo "you can input one peremeter with 'm','d' or 'b' for the master, develop and bashedOn branch of thie devCode"
+	echo "$errorMsg"
 	exit 1
 fi
 
 case $1 in
 "m")
-	git checkout $master;;
+	get_master
+	git checkout "$master";;
 "d")
-	git checkout $develop;;
-"b")
-	git checkout $basedOn;;
+	get_develop
+	git checkout "$develop";;
+"f")
+	get_currentBranch
+	get_father
+	if [[ -n $father ]]; then
+		git checkout "$father"
+	else
+		echo "branch $currentBranch has no father"
+	fi
+	;;
 *)
-	echo "error parameter!!"
+	echo "$errorMsg"
 	exit 1
 esac

@@ -12,12 +12,12 @@ allBlobs=`cat bashTempOutput.txt | awk '{print $1"-"$3}'`
 for eachline in $allBlobs
 do
 	eachObject=`echo $eachline | awk -F '-' '{print $1}'`
-	  eachSize=`echo $eachline | awk -F '-' '{print $2}'`
+	eachSize=`echo $eachline | awk -F '-' '{print $2}'`
 	eachFileName=`cat bashTempOutput2.txt | grep $eachObject | awk '{print $2}'`
 	printf "%15s %s\n" $eachSize $eachFileName | tee -a files.dat
 done
 rm bashTempOutput.txt bashTempOutput2.txt
 printf "Do you what to delete the result data?\n"
-echo "press Ctrl+C to ESCAPE"
+echo "press Ctrl+c to ESCAPE"
 read temp
 rm files.dat

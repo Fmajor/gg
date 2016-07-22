@@ -11,32 +11,29 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
-installPath=/usr/local/bin
+installPath=/usr/local/bin/gg
 source $installPath/gg-functions
 testClear
 
 get_currentBranch
 get_currentBranchType
-if [[ "$#" != "1" ]]; then
-	echo "your are in branch $currentBranch"
-	printf "Please input the hotfix number~\n"
-	printf "Current tag names are\n"
-	git tag
-	exit 1
-fi
-
-
 if [[ $currentBranchType != 'master' ]]; then
 	printf "\nYou must be in the master branch to create a new hotfix branch!\n\n"
 	git status
+	exit 1
+fi
+if [[ "$#" != "1" ]]; then
+	echo "your are in branch $currentBranch, Please input the hotfix number"
+	printf "Current tag names are\n"
+	git tag -l
 	exit 1
 fi
 
 get_master
 get_hotfix
 printf "Do you what to open a new hotfix branch like this?\n"
-# 创建一个热补丁分支
-gggttt;echo "git checkout -b $hotfix-$1"
-echo "press ENTER to continue, press Ctrl+C to ESCAPE"
+
+gggttt;echo "git checkout -b \"$hotfix-$1\""
+echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 read temp
-git checkout -b $hotfix-$1
+git checkout -b "$hotfix-$1"

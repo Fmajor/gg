@@ -1,18 +1,7 @@
 #!/bin/bash
-#
-# An example hook script to verify what is about to be committed.
-# Called by "git commit" with no arguments.  The hook should
-# exit with non-zero status after issuing an appropriate message if
-# it wants to stop the commit.
-#
-# To enable this hook, rename this file to "pre-commit".
-
-
-currentBranch=`git status | grep On\ branch | sed 's#On\ branch\ \(.*\)$#\1#'|sed "s#|#\\\|#g"`
-isMaster=`echo $currentBranch|grep master`
-isDevelop=`echo $currentBranch|grep basedOn`
-if [[ -n "$isMaster" ]] || [[ -n "$basedOn" ]]; then
-	printf "You should NOT make a commit in the master branch or in the basedOn branch\n If you have to do so, use git commit --no-verify\n"
+isMaster=`git rev-parse --abbrev-ref HEAD|grep master`
+if [[ -n "$isMaster" ]]; then
+	printf "\tYou should NOT make a commit in the master branch\n\t\tIf you have to do so, use git commit --no-verify\n"
 	git branch
 	exit 1
 fi

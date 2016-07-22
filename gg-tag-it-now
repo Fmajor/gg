@@ -11,11 +11,11 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
-installPath=/usr/local/bin
+installPath=/usr/local/bin/gg
 source $installPath/gg-functions
 get_now
 git status
 printf "Do you want to tag the branch with $now?\n"
-echo "press ENTER to continue, press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 read temp
-git tag -a $now -m "in use since $now"
+git tag -a $now -m "time: $now"

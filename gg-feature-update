@@ -11,25 +11,25 @@
 # 2014-08-02
 #
 # Author: wujinnnnn@gmail.com
-installPath=/usr/local/bin
+installPath=/usr/local/bin/gg
 source $installPath/gg-functions
 testClear
 
 get_currentBranch
 get_currentBranchType
 if [[ $currentBranchType != 'feature' ]]; then
-	printf "\nYou must be in one feature branch to update it!\n\n"
+	printf "\nYou must be in one feature branch to update it!\n"
 	git status
 	exit 1
 fi
 
-get_develop
+get_father
 echo "You are in branch ||   $currentBranch   ||"
 echo "Do you want to update it like this?"
 
-gggttt;echo "git merge --no-ff $develop"
+gggttt;echo "git merge --no-ff \"$father\""
 echo
-echo "press ENTER to continue, press Ctrl+C to ESCAPE"
+echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 read temp
 
-git merge --no-ff $develop -m "Merge(update) branch $develop into $currentBranch "
+git merge --no-ff "$father" -m "Merge(update) branch $father into $currentBranch "
