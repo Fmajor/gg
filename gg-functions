@@ -26,7 +26,8 @@ get_currentBranchType(){
 	get_isTrialBranch
 	if [[ -z $isTrialBranch ]]; then # not the trialBranch
 		if [[ -n `echo $currentBranch | grep -- "-FromBranch-"` ]]; then
-			currentBranchType="issues" && return
+			temp=`echo ${currentBranch%%-FromBranch-*} | grep issues` ;[[ -n "$temp" ]] && currentBranchType="issues" && return
+			temp=`echo ${currentBranch%%-FromBranch-*} | grep feature`;[[ -n "$temp" ]] && currentBranchType="feature"&& return
 		fi
 		temp=`echo $currentBranch | grep \/`
 		if [[ -n "$temp" ]]; then # have a "/" struct
@@ -50,11 +51,13 @@ get_currentBranchType(){
 
 get_father() {
 	get_currentBranchType
-	if [[ $currentBranchType == 'issues' ]]; then
-		father=`echo $currentBranch | awk -F '-FromBranch-' '{print $2}'`
+	if [[ $currentBranchType == 'issues' || $currentBranchType == 'feature' ]]; then
+		father=`echo $currentBranch | grep -- '-FromBranch-'`
         if [[ -z $father ]]; then
             get_develop
             father=$develop
+        else
+            father=`echo ${currentBranch#*-FromBranch-}`
         fi
 	elif [[ $currentBranchType == 'trial' ]]; then
 		father=`echo $currentBranch|sed 's#\(.*\)%.*#\1#'`

@@ -23,17 +23,12 @@ if [[ $currentBranchType != 'feature' ]]; then
 	exit 1
 fi
 
-get_develop
-if [[ -n `echo $currentBranch | grep -- -FromBranch-` ]]; then
-	father=`echo $currentBranch | awk -F '-FromBranch-' '{print $2}'`
-else
-	father="$develop"
-fi
+get_father
 echo "You are in branch ||   $currentBranch   ||"
 echo "Do you want to close it like this?"
 
-gggttt;echo "git checkout \"$develop\""
-gggttt;echo "git merge --no-ff \"$currentBranch\" \"$develop\""
+gggttt;echo "git checkout \"$father\""
+gggttt;echo "git merge --no-ff \"$currentBranch\""
 gggttt;echo "git branch -d \"$currentBranch\""
 echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 read temp

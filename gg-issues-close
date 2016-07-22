@@ -24,11 +24,7 @@ if [[ $currentBranchType != 'issues' ]]; then
 fi
 
 get_develop
-if [[ -n `echo $currentBranch | grep -- -FromBranch-` ]]; then
-	father=`echo $currentBranch | awk -F '-FromBranch-' '{print $2}'`
-else
-	father="$develop"
-fi
+get_father
 echo "You are in branch ||   $currentBranch   ||"
 echo "Do you want to close it like this?"
 
