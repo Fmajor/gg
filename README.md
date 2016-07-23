@@ -4,6 +4,18 @@ The mental model of gg
 ===============
 ![gg mental model](http://fmajor.lamost.org/blog/assets/posts/2014-08-08-gg/dev.png)
 [gg-good use of git](http://fmajor.lamost.org/blog/2014/08/08/gg.html)
+
+Compare with [gitflow](https://github.com/nvie/gitflow)
+=======================================================
+
+Both gitflow and gg are based on [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
+
+I didn't know there was a gitflow when i started to develop gg. So gg is just another implement of that model.
+
+I have some new concepts like "trials branch" to improve the model. Also, i have my own style of names for branches.
+
+Anyway, i manage my projects using gg.
+
 Install
 ==============
 
