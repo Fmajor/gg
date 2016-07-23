@@ -13,8 +13,10 @@ get_currentBranch(){
     #currentBranch=`git status | grep On\ branch | awk '{print $3 }'`
 	#currentBranch=`git status | grep On\ branch | sed 's#On\ branch\ \(.*\)$#\1#'|sed "s#|#\\\|#g"`
 	currentBranch=`git rev-parse --abbrev-ref HEAD`
-	if [[ -z $currentBranch ]]; then
+	if [[ $currentBranch == "HEAD" ]]; then
 		pointer=1
+		currentBranch=`git rev-parse HEAD`
+		currentBranch=${currentBranch:0:7}
 	fi
 }
 get_currentBranchType(){
@@ -121,8 +123,10 @@ get_version() {
 	version=`echo $currentBranch|awk -F '-' '{print $2}'`
 	devCode=`echo $currentBranch|awk -F '|' '{print $1}'`
 	haveDevCode=`echo $currentBranch|awk -F '|' '{print $2}'`
-	if [[ -n "$haveDevCode" ]];then
-		version="$devCode-$version"
+	if [[ -n "$version" ]];then
+		if [[ -n "$haveDevCode" ]];then
+			version="$devCode-$versionStr"
+		fi
 	fi
 }
 

@@ -46,6 +46,7 @@ commands
 	
 	gg-feature-open <name>
 		can use this function in all branches other than $master and release branch
+			including detached HEAD commit
 		open a feature branch with name
 			feature/<name> # if you run it from the $develop branch
 			feature/<name>-FromBranch-$father # if your run it from $father(the current branch) other than the $develop branch
@@ -58,6 +59,7 @@ commands
 	
 	gg-issues-open <name>
 		can use this function in all branches other than $master and release branch
+			including detached HEAD commit
 		open a issue branch with name
 			issue/<name> # if you run it from the $develop branch
 			issue/<name>-FromBranch-$father # if your run it from $father(the current branch) other than the $develop branch
@@ -68,25 +70,29 @@ commands
 		can only use this function in one issues branch
 		merge the $father branch into this branch (update it)
 	
-	gg-release-open [<name>]
+	gg-release-open [<name>|none]
 		can only use this function in the $develop branch
 		if have no args, list all exist tags to help you make a name for this release
 		if have the <name>
 			open a release branch with name release-<name>
+		if <name> is none
+			open a release branch with name release
 	gg-release-close
 		can only use this function in a release branch
 		merge the release branch to $master and $develop, then delete it
-		tag the master with <name> from gg-release-open command
+		tag the master with <name> from gg-release-open if <name> is not none
 	
-	gg-hotfix-open [<name>]
+	gg-hotfix-open [<name>|none]
 		can only use this function in the $master branch
 		if have no args, list all exist tags to help you make a name for this hotfix
 		if have the <name>
 			open a release branch with name hotfix-<name>
+		if <name> is none
+			open a release branch with name release
 	gg-hotfix-close
 		can only use this function in a release branch
 		merge the release branch to $master and $develop, then delete it
-		tag the master with <name> from gg-hotfix-open
+		tag the master with <name> from gg-hotfix-open if <name> is not none
 	
 	gg-trials-open [<name>]
 		can use this function in all branches other than $master branch

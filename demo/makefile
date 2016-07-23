@@ -246,7 +246,7 @@ all:
 	git checkout "test|issues/newIssues/test-FromBranch-test|feature/testFeature/test%trials.newTrial/1"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	gg-trials-bad-close
-	@printf "\e[44m# to finished our demo, let's close the issues and feature branch, make a new release and see the final network plot\e[0m\n"
+	@printf "\e[44m# let's close the issues and feature branch, make a new release and see the final network plot\e[0m\n"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "some issues" >> issues.txt && git add issues.txt && git commit -m"new issues"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
@@ -265,6 +265,25 @@ all:
 	gg-release-close
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	git --no-pager log --oneline --decorate --graph --tags
+	@printf "\e[44m# some example about the name of issues and feature branch\e[0m\n"
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	gg-feature-open F;gg-issues-open I;gg-feature-open ff;gg-issues-open II
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	gg-issues-close;gg-feature-close;gg-issues-close;gg-feature-close
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	gg-issues-open F;gg-feature-open F;gg-feature-open FF;gg-issues-open II
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	gg-issues-close;gg-feature-close;gg-feature-close;gg-issues-close
+	@printf "\e[44m# test release branch with no name\e[0m\n"
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	gg-release-open none
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	gg-release-close
+	@printf "\e[44m# test to make feature and issues branch in 'detached HEAD' state\e[0m\n"
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	git checkout HEAD^^^; gg-feature-open D; touch test.txt; git add test.txt; git commit -m "add test.txt"
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	gg-feature-close
 	@printf "\e[44m# last comment: to fully test gg, i use the develop-master pair (test|develop and test|master) and\n\tvery complex name(with some / inside) for the branches, if you want to get simpler demo, use make simple\e[0m\n"
 simple:
 	@printf "\e[44m delete .git if it exists \e[0m\n"
@@ -511,7 +530,7 @@ simple:
 	git checkout "issues/I-FromBranch-feature/F%trials.T1"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	gg-trials-bad-close
-	@printf "\e[44m# to finished our demo, let's close the issues and feature branch, make a new release and see the final network plot\e[0m\n"
+	@printf "\e[44m# let's close the issues and feature branch, make a new release and see the final network plot\e[0m\n"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "some issues" >> issues.txt && git add issues.txt && git commit -m"new issues"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
@@ -530,6 +549,22 @@ simple:
 	gg-release-close
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	git --no-pager log --oneline --decorate --graph --tags
+	@printf "\e[44m# some example about the name of issues and feature branch\e[0m\n"
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	gg-feature-open F;gg-issues-open I;gg-feature-open ff;gg-issues-open II
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	gg-issues-close;gg-feature-close;gg-issues-close;gg-feature-close
+	@printf "\e[44m# test release branch with no name\e[0m\n"
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	gg-release-open none
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	gg-release-close
+	@printf "\e[44m# test to make feature and issues branch in 'detached HEAD' state\e[0m\n"
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	git checkout HEAD^^^; gg-feature-open D; touch test.txt; git add test.txt; git commit -m "add test.txt"
+	@printf "\e[30;48;5;82m>>>>\e[0m "
+	gg-feature-close
+
 clean:
 	@printf "\e[44m delete .git if it exists \e[0m\n"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
