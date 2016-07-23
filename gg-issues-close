@@ -23,8 +23,18 @@ if [[ $currentBranchType != 'issues' ]]; then
 	exit 1
 fi
 
-get_develop
 get_father
+if [[ -z `git branch | grep -v $currentBranch | grep $father` ]]; then
+    get_develop
+    echo "do not know which branch to merge into, please input[default is $develop]:"
+    git branch
+    read temp
+    if [[ -z $temp ]]; then
+        father=$develop
+    else
+        father=$temp
+    fi
+fi
 echo "You are in branch ||   $currentBranch   ||"
 echo "Do you want to close it like this?"
 

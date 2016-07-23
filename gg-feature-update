@@ -24,6 +24,11 @@ if [[ $currentBranchType != 'feature' ]]; then
 fi
 
 get_father
+
+if [[ -z `git branch | grep -v $currentBranch | grep $father` ]]; then
+    echo "your branch is made from a detached HEAD, can not update it"
+    return 1
+fi
 echo "You are in branch ||   $currentBranch   ||"
 echo "Do you want to update it like this?"
 
