@@ -44,7 +44,7 @@ read temp
 git checkout "$master"
 if [[ -n $version ]]; then
     git merge --no-ff "$currentBranch" -m "Merge release branch $currentBranch into $master" && git tag -a "$version" -m "$version"
-else:
+else
     git merge --no-ff "$currentBranch" -m "Merge release branch $currentBranch into $master"
 fi
 git checkout "$develop"
