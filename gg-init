@@ -18,18 +18,18 @@ isGitRepo=`ls .git`
 if [[ -z $isGitRepo ]];then
 	printf 'Do you what to git init the directory like this?\n'
 	printf '\tgit init\n'
-	printf '\tgit commit --allow-empty -m "Init commit as gg repertory"\n'
+	printf '\tgit commit --allow-empty -m "Init commit as gg repository"\n'
 	printf '\tgit checkout -b develop\n'
 	printf "cat $installPath/gg-pre-commit >> .git/hooks/pre-commit\n"
 	echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 	read temp
 	git init
-	git commit --allow-empty -m "Init commit as gg repertory"
+	git commit --allow-empty -m "Init commit as gg repository"
 	git checkout -b develop
 else
 	printf 'Do you what to git init the directory like this?\n'
 	printf '\tgit checkout master\n'
-	printf '\tgit commit --allow-empty -m "Init commit as gg repertory"\n'
+	printf '\tgit commit --allow-empty -m "Init commit as gg repository"\n'
 	printf '\tgit checkout -b develop\n'
 	printf "\tcat $installPath/gg-pre-commit >> .git/hooks/pre-commit\n"
 	echo "press ENTER to continue, press Ctrl+c to ESCAPE"
@@ -40,7 +40,7 @@ else
 		printf '\tgit checkout master ERROR, use git checkout -b master instead\n'
         git checkout -b master
 	fi
-	git commit --allow-empty -m "Init commit as gg repertory"
+	git commit --allow-empty -m "Init commit as gg repository"
 	git checkout -b develop
 fi
 cat $installPath/gg-pre-commit >> .git/hooks/pre-commit
