@@ -10,7 +10,7 @@ rm -r $installPath 2> /dev/null
 mkdir -p $installPath 2> /dev/null
 cp gg-* $installPath
 if [[ $? != 0 ]]; then
-	echo "\n\ncan not copy file to install path, check your permission"
+	printf "\n\ncan not copy file to install path, check your permission"
 	exit 1
 fi
 
