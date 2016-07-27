@@ -10,8 +10,8 @@ rm -r $installPath 2> /dev/null
 mkdir -p $installPath 2> /dev/null
 cp gg-* $installPath
 if [[ $? != 0 ]]; then
-	print "\n\ncan not copy file to install path, check your permission"
+	printf "\n\ncan not copy file to install path, check your permission"
 	exit 1
 fi
 
-printf "\n\ninstall done!\nyou should read the README.md carefully is case of big changes in the usage of the scripts\nPlease add \n\t\$PATH=\$PATH:$installPath\nin your env config\n"
+printf "\n\ninstall done!\nyou should read the README.md carefully is case of big changes in the usage of the scripts\nPlease add \n\texport \$PATH=\$PATH:$installPath\nin your env config\n"
