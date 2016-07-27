@@ -30,18 +30,18 @@ else
 	printf 'Do you what to git init the directory like this?\n'
 	printf '\tgit checkout master\n'
 	printf '\tgit commit --allow-empty -m "Init commit as gg repository"\n'
-	printf '\tgit checkout -b develop\n'
+	printf '\tgit checkout -b develop || git checkout develop\n'
 	printf "\tcat $installPath/gg-pre-commit >> .git/hooks/pre-commit\n"
 	echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 	read temp
 	testClear
 	temp=`git checkout master`
-    if [[ -n `echo $temp | grep "error:"` ]]; then # no master branch...
+    if [[ $? != 0 ]]; then # no master branch...
 		printf '\tgit checkout master ERROR, use git checkout -b master instead\n'
         git checkout -b master
 	fi
 	git commit --allow-empty -m "Init commit as gg repository"
-	git checkout -b develop
+	git checkout -b develop || git checkout develop
 fi
 cat $installPath/gg-pre-commit >> .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
