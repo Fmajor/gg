@@ -46,7 +46,7 @@ git checkout "$master"
 if [[ -n $version ]]; then
     git merge --no-ff "$currentBranch" -m "Merge hotfix branch $currentBranch into $master" && git tag -a "$version" -m "hotfix: $version"
 else
-    git merge --no-ff "$currentBranch" -m "Merge hotfix branch $currentBranch into $master"
+    git merge --no-ff "$currentBranch" -m "Merge hotfix branch into $master"
 fi
 git checkout "$develop"
 git merge --no-ff "$currentBranch" -m "Merge hotfix branch $currentBranch into $develop"\
