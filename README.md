@@ -140,16 +140,16 @@ you can get **colorful** demo by running it by yourself
 	>>>> gg-init
 	Do you what to git init the directory like this?
 		git checkout master
-		git commit --allow-empty -m "Init commit as gg repertory"
+		git commit --allow-empty -m "Init commit as gg repository"
 		git checkout -b develop
 		cat /usr/local/bin/gg/gg-pre-commit >> .git/hooks/pre-commit
 	press ENTER to continue, press Ctrl+c to ESCAPE
 
 	Already on 'master'
-	[master 88e28f3] Init commit as gg repertory
+	[master 88e28f3] Init commit as gg repository
 	Switched to a new branch 'develop'
 	>>>> git --no-pager log --oneline --decorate
-	88e28f3 (HEAD -> develop, master) Init commit as gg repertory
+	88e28f3 (HEAD -> develop, master) Init commit as gg repository
 	8717a5f init a repository
 	#=============================================
 	# we can also make another master-develop pair with prefix like somename|master and somename|develop
@@ -162,7 +162,7 @@ you can get **colorful** demo by running it by yourself
 	Switched to a new branch 'test|develop'
 	Switched to a new branch 'test|master'
 	>>>> git --no-pager log --oneline --decorate
-	88e28f3 (HEAD -> test|master, test|develop, master, develop) Init commit as gg repertory
+	88e28f3 (HEAD -> test|master, test|develop, master, develop) Init commit as gg repository
 	8717a5f init a repository
 	# gg-ck to quickly switch between develop and master with the same prefix
 	>>>> gg-ck d
@@ -199,8 +199,8 @@ you can get **colorful** demo by running it by yourself
 		failed to commit in master
 	# now we stash and go to develop to commint
 	>>>> git stash
-	Saved working directory and index state WIP on master: 88e28f3 Init commit as gg repertory
-	HEAD is now at 88e28f3 Init commit as gg repertory
+	Saved working directory and index state WIP on master: 88e28f3 Init commit as gg repository
+	HEAD is now at 88e28f3 Init commit as gg repository
 	>>>> gg-ck d
 	Switched to branch 'develop'
 	>>>> git stash pop
@@ -284,7 +284,7 @@ you can get **colorful** demo by running it by yourself
 	* fd357b5 (tag: someTagName) make some changes and then we can make a release
 	* c70c146 add file in master, but we can only commit in develop
 	* ec08ac9 add file in develop
-	* 88e28f3 (test|master, test|develop) Init commit as gg repertory
+	* 88e28f3 (test|master, test|develop) Init commit as gg repository
 	* 8717a5f init a repository
 	# Oh!! we find a bug in the released version.. now try to fix it!!
 	>>>> cat inDevelop.txt
@@ -408,7 +408,7 @@ you can get **colorful** demo by running it by yourself
 	* | c70c146 add file in master, but we can only commit in develop
 	* | ec08ac9 add file in develop
 	|/
-	* 88e28f3 (test|master, test|develop) Init commit as gg repertory
+	* 88e28f3 (test|master, test|develop) Init commit as gg repository
 	* 8717a5f init a repository
 	# now let us try the issues, features and trial branch in the develop branch
 	>>>> echo "some changes in develop" >> inDevelop.txt
@@ -548,7 +548,7 @@ you can get **colorful** demo by running it by yourself
 	* | c70c146 add file in master, but we can only commit in develop
 	* | ec08ac9 add file in develop
 	|/
-	* 88e28f3 (test|master, test|develop) Init commit as gg repertory
+	* 88e28f3 (test|master, test|develop) Init commit as gg repository
 	* 8717a5f init a repository
 	# release another version
 	>>>> gg-release-open v0.2
@@ -639,7 +639,7 @@ you can get **colorful** demo by running it by yourself
 	| * c70c146 add file in master, but we can only commit in develop
 	| * ec08ac9 add file in develop
 	|/
-	* 88e28f3 (test|master, test|develop) Init commit as gg repertory
+	* 88e28f3 (test|master, test|develop) Init commit as gg repository
 	* 8717a5f init a repository
 	# last, let's try the trial branch. For test, i will start it on a issues branch of a feature branch
 	>>>> gg-ck d && echo "some changes in develop" >> inDevelop.txt && git add inDevelop.txt && git commit -m"new changes in inDevelop"
@@ -962,5 +962,5 @@ you can get **colorful** demo by running it by yourself
 	| * c70c146 add file in master, but we can only commit in develop
 	| * ec08ac9 add file in develop
 	|/
-	* 88e28f3 (test|master, test|develop) Init commit as gg repertory
+	* 88e28f3 (test|master, test|develop) Init commit as gg repository
 	* 8717a5f init a repository
