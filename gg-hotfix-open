@@ -37,9 +37,11 @@ if [[ "$1" == "none" ]]; then
     echo "press ENTER to continue, press Ctrl+c to ESCAPE"
     read temp
     git checkout -b "$hotfix"
+	git commit --allow-empty -m "Start hotfix"
 else
     gggttt;echo "git checkout -b \"$hotfix-$1\""
     echo "press ENTER to continue, press Ctrl+c to ESCAPE"
     read temp
     git checkout -b "$hotfix-$1"
+	git commit --allow-empty -m "Start hotfix version $1"
 fi

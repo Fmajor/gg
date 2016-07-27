@@ -20,7 +20,6 @@ get_currentBranchType
 get_version
 if [[ $currentBranchType != 'hotfix' ]]; then
 	printf "You must be in one hotfix branch!"
-	echo
 	git status
 	exit 1
 fi
@@ -49,7 +48,14 @@ else
     git merge --no-ff "$currentBranch" -m "Merge hotfix branch into $master"
 fi
 git checkout "$develop"
+if [[ -n $version ]]; then
 git merge --no-ff "$currentBranch" -m "Merge hotfix branch $currentBranch into $develop"\
 	&& echo "press Enter to delete branch $currentBranch"\
-	&& echo "press Ctrl+c to ESCAPE"\
+	&& echo "press ENTER to continue, press Ctrl+c to ESCAPE"\
 	&& read temp &&git branch -d "$currentBranch"
+else
+git merge --no-ff "$currentBranch" -m "Merge hotfix branch into $develop"\
+	&& echo "press Enter to delete branch $currentBranch"\
+	&& echo "press ENTER to continue, press Ctrl+c to ESCAPE"\
+	&& read temp &&git branch -d "$currentBranch"
+fi

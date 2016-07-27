@@ -38,13 +38,13 @@ if [[ "$1" == "none" ]]; then
 	gggttt;echo "git checkout -b \"$release\""
 	echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 	read temp
-	git commit --allow-empty -m "Start to release"
 	git checkout -b "$release"
+	git commit --allow-empty -m "Start release"
 else
 	gggttt;echo "git checkout -b \"$release-$1\""
 	echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 	read temp
-	git commit --allow-empty -m "Start to release version $1"
 	git checkout -b "$release-$1"
+	git commit --allow-empty -m "Start release version $1"
 fi
 
