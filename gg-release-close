@@ -48,8 +48,14 @@ else
     git merge --no-ff "$currentBranch" -m "Merge release branch into $master"
 fi
 git checkout "$develop"
+if [[ -n $version ]]; then
 git merge --no-ff "$currentBranch" -m "Merge release branch $currentBranch into $develop"\
-	&& git commit --allow-empty --amend -m "Merge branch $currentBranch into $develop"\
 	&& echo "press Enter to delete branch $currentBranch"\
 	&& echo "press ENTER to continue, press Ctrl+c to ESCAPE"\
-	&& read temp &&git branch -D "$currentBranch"
+	&& read temp &&git branch -d "$currentBranch"
+else
+git merge --no-ff "$currentBranch" -m "Merge release branch into $develop"\
+	&& echo "press Enter to delete branch $currentBranch"\
+	&& echo "press ENTER to continue, press Ctrl+c to ESCAPE"\
+	&& read temp &&git branch -d "$currentBranch"
+fi
