@@ -36,12 +36,14 @@ printf "Do you what to open a new release branch like this?\n"
 
 if [[ "$1" == "none" ]]; then
 	gggttt;echo "git checkout -b \"$release\""
+	gggttt;echo "git commit --allow-empty -m \"Start release\""
 	echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 	read temp
 	git checkout -b "$release"
 	git commit --allow-empty -m "Start release"
 else
 	gggttt;echo "git checkout -b \"$release-$1\""
+	gggttt;echo "git commit --allow-empty -m \"Start release version $1\""
 	echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 	read temp
 	git checkout -b "$release-$1"

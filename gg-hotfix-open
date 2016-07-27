@@ -34,12 +34,14 @@ printf "Do you what to open a new hotfix branch like this?\n"
 
 if [[ "$1" == "none" ]]; then
     gggttt;echo "git checkout -b \"$hotfix\""
+    gggttt;echo "git commit --allow-empty -m \"Start hotfix\""
     echo "press ENTER to continue, press Ctrl+c to ESCAPE"
     read temp
     git checkout -b "$hotfix"
 	git commit --allow-empty -m "Start hotfix"
 else
     gggttt;echo "git checkout -b \"$hotfix-$1\""
+    gggttt;echo "git commit --allow-empty -m \"Start hotfix version $1\""
     echo "press ENTER to continue, press Ctrl+c to ESCAPE"
     read temp
     git checkout -b "$hotfix-$1"
