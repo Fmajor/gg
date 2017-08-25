@@ -2,7 +2,7 @@ gg
 ======================
 The mental model of gg
 ===============
-![gg mental model](http://fmajor.lamost.org/blog/assets/posts/2014-08-08-gg/dev.png)
+![gg mental model](https://fmajor.github.io/assets/posts/2014-08-08-gg/dev.png)
 
 * Detail of the model(Blog in Chinese): [gg-good use of git](http://fmajor.lamost.org/blog/2014/08/08/gg.html)
 
