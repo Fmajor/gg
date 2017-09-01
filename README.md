@@ -2,7 +2,7 @@ gg
 ======================
 The mental model of gg
 ===============
-![gg mental model](http://fmajor.lamost.org/blog/assets/posts/2014-08-08-gg/dev.png)
+![gg mental model](https://fmajor.github.io/assets/posts/2014-08-08-gg/dev.png)
 
 * Detail of the model(Blog in Chinese): [gg-good use of git](http://fmajor.lamost.org/blog/2014/08/08/gg.html)
 
@@ -124,6 +124,12 @@ in this demo
 other things are output from gg or git
 
 you can get **colorful** demo by running it by yourself
+
+
+![demo network plot](https://fmajor.github.io/assets/posts/2014-08-08-gg/demo_output.png)
+
+demo output
+============
 
 	#=============================================
 	# demo for gg
