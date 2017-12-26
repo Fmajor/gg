@@ -14,4 +14,4 @@ if [[ $? != 0 ]]; then
 	exit 1
 fi
 
-printf "\n\ninstall done!\nyou should read the README.md carefully is case of big changes in the usage of the scripts\nPlease add \n\texport \$PATH=\$PATH:$installPath\nin your env config\n"
+printf "\n\ninstall done!\nyou should read the README.md carefully is case of big changes in the usage of the scripts\nPlease add \n\texport PATH=\$PATH:$installPath\nin your env config\n"
