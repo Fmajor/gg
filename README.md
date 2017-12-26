@@ -126,7 +126,7 @@ other things are output from gg or git
 you can get **colorful** demo by running it by yourself
 
 
-![demo network plot](https://fmajor.github.io/assets/posts/2014-08-08-gg/demo_output.png)
+![demo network plot](demo/git-log-for-demo.png)
 
 demo output
 ============
