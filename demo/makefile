@@ -75,7 +75,7 @@ all:
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "some changes" >> inDevelop.txt
 	@printf "\e[30;48;5;82m>>>>\e[0m "
-	echo "some bugs\n more bug...\n bug everywhere..." >> inDevelop.txt
+	echo -e "some bugs\n more bug...\n bug everywhere..." >> inDevelop.txt
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	git add inDevelop.txt
 	@printf "\e[30;48;5;82m>>>>\e[0m "
@@ -359,7 +359,7 @@ simple:
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "some changes" >> inDevelop.txt
 	@printf "\e[30;48;5;82m>>>>\e[0m "
-	echo "some bugs\n more bug...\n bug everywhere..." >> inDevelop.txt
+	echo -e "some bugs\n more bug...\n bug everywhere..." >> inDevelop.txt
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	git add inDevelop.txt
 	@printf "\e[30;48;5;82m>>>>\e[0m "
