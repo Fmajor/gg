@@ -286,6 +286,7 @@ all:
 	gg-feature-close
 	@printf "\e[44m# last comment: to fully test gg, i use the develop-master pair (test|develop and test|master) and\n\tvery complex name(with some / inside) for the branches, if you want to get simpler demo, use make simple\e[0m\n"
 simple:
+rebase:
 	@printf "\e[44m delete .git if it exists \e[0m\n"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	rm -rf .git || echo "no .git direcory"
@@ -309,24 +310,6 @@ simple:
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	git --no-pager log --oneline --decorate
 	#=============================================
-	@printf "\e[44m# we can also make another master-develop pair with prefix like somename|master and somename|develop\e[0m\n"
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-create-new-develop-branch-pair test
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	git --no-pager log --oneline --decorate
-	 
-	@printf "\e[44m# gg-ck to quickly switch between develop and master with the same prefix\e[0m\n"
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-ck d
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-ck m
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	git checkout master
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-ck m
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-ck d
-	#=============================================
 	@printf "\e[44m# now make some changes\e[0m\n"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "in develop" > inDevelop.txt
@@ -335,27 +318,6 @@ simple:
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	git commit -m "add file in develop"
 	 
-	@printf "\e[44m# now checkout to master and try to make some change\e[0m\n"
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-ck m
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	echo "in master" > inMaster.txt
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	git add inMaster.txt
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	git commit -m "add file in master" || echo "\tfailed to commit in master"
-	 
-	@printf "\e[44m# now we stash and go to develop to commint\e[0m\n"
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	git stash
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-ck d
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	git stash pop
-	@printf "\e[30;48;5;82m>>>>\e[0m "
-	 
-	git commit -m "add file in master, but we can only commit in develop"
-	@printf "\e[44m# make some changes and try to make a release \e[0m\n"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "some changes" >> inDevelop.txt
 	@printf "\e[30;48;5;82m>>>>\e[0m "
@@ -420,7 +382,7 @@ simple:
 	git commit -m "fix bugs for issues/#1/test/for/multi/slash/name"
 	@printf "\e[44m# now close issues branch\e[0m\n"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-issues-close
+	gg-issues-close-rebase
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "version: v0.1.1" > README.txt
 	@printf "\e[30;48;5;82m>>>>\e[0m "
@@ -465,13 +427,13 @@ simple:
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "fix issues" >> newFeature.txt && git add newFeature.txt && git commit -m "fix issues"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-issues-close
+	gg-issues-close-rebase
 	 
 	@printf "\e[44m# add new feature and close feature\e[0m\n"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "more features" >> inDevelop.txt && git add inDevelop.txt && git commit -m "add more new feature in feature/fly branch"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-feature-close
+	gg-feature-close-rebase
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	git --no-pager log --oneline --decorate --graph
 	 
@@ -519,12 +481,12 @@ simple:
 	echo "some trials" >> trials21.txt && git add trials21.txt && git commit -m"trials21"
 	@printf "\e[44m# now let's good-close a trial\e[0m\n"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-trials-good-close
+	gg-trials-good-close-rebase
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "some trials" >> trials2.txt && git add trials2.txt && git commit -m"trials2"
 	@printf "\e[44m# now let's good-close the trial from the issue branch\e[0m\n"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-trials-good-close
+	gg-trials-good-close-rebase
 	@printf "\e[44m# now let's go to another trial branch and bad-close it (drop it)\e[0m\n"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	git checkout "issues/I-FromBranch-feature/F%trials.T1"
@@ -534,11 +496,11 @@ simple:
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "some issues" >> issues.txt && git add issues.txt && git commit -m"new issues"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-issues-close
+	gg-issues-close-rebase
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "some features" >> newFeature.txt && git add newFeature.txt && git commit -m"new features"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-feature-close
+	gg-feature-close-rebase
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	echo "some changes in develop" >> inDevelop.txt && git add inDevelop.txt && git commit -m"new changes in inDevelop"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
@@ -553,7 +515,7 @@ simple:
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	gg-feature-open F;gg-issues-open I;gg-feature-open ff;gg-issues-open II
 	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-issues-close;gg-feature-close;gg-issues-close;gg-feature-close
+	gg-issues-close-rebase;gg-feature-close-rebase;gg-issues-close-rebase;gg-feature-close-rebase
 	@printf "\e[44m# test release branch with no name\e[0m\n"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	gg-release-open none
@@ -563,7 +525,7 @@ simple:
 	@printf "\e[30;48;5;82m>>>>\e[0m "
 	git checkout HEAD^^^; gg-feature-open D; touch test.txt; git add test.txt; git commit -m "add test.txt"
 	@printf "\e[30;48;5;82m>>>>\e[0m "
-	gg-feature-close
+	gg-feature-close-rebase
 
 clean:
 	@printf "\e[44m delete .git if it exists \e[0m\n"
