@@ -10,38 +10,39 @@ genDebugLog(){
 }
 
 get_currentBranch(){
-    #currentBranch=`git status | grep On\ branch | awk '{print $3 }'`
-	#currentBranch=`git status | grep On\ branch | sed 's#On\ branch\ \(.*\)$#\1#'|sed "s#|#\\\|#g"`
-	currentBranch=`git rev-parse --abbrev-ref HEAD`
+	currentBranch=$(git rev-parse --abbrev-ref HEAD) # in case of detached HEAD state
 	if [[ $currentBranch == "HEAD" ]]; then
 		pointer=1
-		currentBranch=`git rev-parse HEAD`
+		currentBranch=$(git rev-parse HEAD)
 		currentBranch=${currentBranch:0:7}
 	fi
+}
+get_isTrialBranch(){
+	isTrialBranch=$(echo $currentBranch|grep %) # only trial branch have %
 }
 get_currentBranchType(){
 	get_currentBranch
 	if [[ -n "$pointer" ]]; then
-		currentBranchType="pointer"
+		currentBranchType="pointer" # detached HEAD state
 		return
 	fi
 	get_isTrialBranch
-	if [[ -z $isTrialBranch ]]; then # not the trialBranch
-		if [[ -n `echo $currentBranch | grep -- "-FromBranch-"` ]]; then
-			temp=`echo ${currentBranch%%-FromBranch-*} | grep issues` ;[[ -n "$temp" ]] && currentBranchType="issues" && return
-			temp=`echo ${currentBranch%%-FromBranch-*} | grep feature`;[[ -n "$temp" ]] && currentBranchType="feature"&& return
+	if [[ -z "$isTrialBranch" ]]; then # not the trialBranch
+		if [[ -n $(echo $currentBranch | grep -- "-FromBranch-") ]]; then
+			temp=$(echo ${currentBranch%%-FromBranch-*} | grep issues) ;[[ -n "$temp" ]] && currentBranchType="issues" && return
+			temp=$(echo ${currentBranch%%-FromBranch-*} | grep feature);[[ -n "$temp" ]] && currentBranchType="feature"&& return
 		fi
-		temp=`echo $currentBranch | grep \/`
+		temp=$(echo $currentBranch | grep \/)
 		if [[ -n "$temp" ]]; then # have a "/" struct
-			currentBranchTypeAll=`echo $currentBranch|sed 's#\([^/]*\)\/.*#\1#'`
-			temp=`echo $currentBranchTypeAll | grep issues` ;[[ -n "$temp" ]] && currentBranchType="issues" && return
-			temp=`echo $currentBranchTypeAll | grep feature`;[[ -n "$temp" ]] && currentBranchType="feature"&& return
+			currentBranchTypeAll=$(echo $currentBranch|sed 's#\([^/]*\)\/.*#\1#')
+			temp=$(echo $currentBranchTypeAll | grep issues) ;[[ -n "$temp" ]] && currentBranchType="issues" && return
+			temp=$(echo $currentBranchTypeAll | grep feature);[[ -n "$temp" ]] && currentBranchType="feature"&& return
 		else # do not have a "/" struct
 			currentBranchTypeAll=$currentBranch
-			temp=`echo $currentBranchTypeAll | grep release`;[[ -n "$temp" ]] && currentBranchType="release"&& return
-			temp=`echo $currentBranchTypeAll | grep hotfix` ;[[ -n "$temp" ]] && currentBranchType="hotfix" && return
-			temp=`echo $currentBranchTypeAll | grep master` ;[[ -n "$temp" ]] && currentBranchType="master" && return
-			temp=`echo $currentBranchTypeAll | grep develop`;[[ -n "$temp" ]] && currentBranchType="develop"&& return
+			temp=$(echo $currentBranchTypeAll | grep release);[[ -n "$temp" ]] && currentBranchType="release"&& return
+			temp=$(echo $currentBranchTypeAll | grep hotfix) ;[[ -n "$temp" ]] && currentBranchType="hotfix" && return
+			temp=$(echo $currentBranchTypeAll | grep master) ;[[ -n "$temp" ]] && currentBranchType="master" && return
+			temp=$(echo $currentBranchTypeAll | grep develop);[[ -n "$temp" ]] && currentBranchType="develop"&& return
 		fi
 	else # it is a trialBranch
 		currentBranchType="trial"&& return
@@ -53,16 +54,16 @@ get_currentBranchType(){
 
 get_father() {
 	get_currentBranchType
-	if [[ $currentBranchType == 'issues' || $currentBranchType == 'feature' ]]; then
-		father=`echo $currentBranch | grep -- '-FromBranch-'`
+	if [[ $currentBranchType == "issues" || $currentBranchType == "feature" ]]; then
+		father=$(echo $currentBranch | grep -- '-FromBranch-')
         if [[ -z $father ]]; then
             get_develop
             father=$develop
         else
-            father=`echo ${currentBranch#*-FromBranch-}`
+            father=$(echo ${currentBranch#*-FromBranch-})
         fi
-	elif [[ $currentBranchType == 'trial' ]]; then
-		father=`echo $currentBranch|sed 's#\(.*\)%.*#\1#'`
+	elif [[ $currentBranchType == "trial" ]]; then
+		father=$(echo $currentBranch|sed 's#\(.*\)%.*#\1#')
 	else
 		father=
 	fi
@@ -70,8 +71,8 @@ get_father() {
 
 get_develop() {
 	get_currentBranchType
-	devCode=`echo $currentBranchTypeAll|awk -F '|' '{print $1}'`
-	haveDevCode=`echo $currentBranchTypeAll|grep \|`
+	devCode=$(echo $currentBranchTypeAll|awk -F '|' '{print $1}')
+	haveDevCode=$(echo $currentBranchTypeAll|grep \|)
 	if [[ -z "$haveDevCode" ]];then
 		devCode=
 	fi
@@ -84,8 +85,8 @@ get_develop() {
 
 get_master() {
 	get_currentBranchType
-	devCode=`echo $currentBranchTypeAll|awk -F '|' '{print $1}'`
-	haveDevCode=`echo $currentBranchTypeAll|grep \|`
+	devCode=$(echo $currentBranchTypeAll|awk -F '|' '{print $1}')
+	haveDevCode=$(echo $currentBranchTypeAll|grep \|)
 	if [[ -z "$haveDevCode" ]];then
 		devCode=
 	fi
@@ -97,7 +98,7 @@ get_master() {
 }
 
 get_feature() {
-    get_develop
+	get_develop
 	if [[ -z $devCode ]]; then
 		feature="feature"
 	else
@@ -105,7 +106,7 @@ get_feature() {
 	fi
 }
 get_issues() {
-		get_develop
+	get_develop
 	if [[ -z $devCode ]]; then
 		issues="issues"
 	else
@@ -119,13 +120,12 @@ get_version() {
 		printf "must be in the release or hotfix branches to get the version!\n"
 		exit 1
 	fi
-	#version=`echo $currentBranch | sed 's#.*-\(.*\)#\1#'`
-	version=`echo $currentBranch|awk -F '-' '{print $2}'`
-	devCode=`echo $currentBranch|awk -F '|' '{print $1}'`
-	haveDevCode=`echo $currentBranch|awk -F '|' '{print $2}'`
+	version=$(echo $currentBranch|awk -F '-' '{print $2}')
+	devCode=$(echo $currentBranch|awk -F '|' '{print $1}')
+	haveDevCode=$(echo $currentBranch|awk -F '|' '{print $2}')
 	if [[ -n "$version" ]];then
 		if [[ -n "$haveDevCode" ]];then
-			version="$devCode-$versionStr"
+			version="$devCode-$version"
 		fi
 	fi
 }
@@ -152,17 +152,14 @@ get_currentBranchParent(){
 	currentBranchParent=`echo $currentBranch|sed 's#\(.*\)%.*#\1#'`
 }
 
-get_isTrialBranch(){
-	isTrialBranch=`echo $currentBranch|grep %`
-}
 
 get_isParentAlive(){
-	isParentAlive=`git rev-parse --symbolic --branches | grep -x "$currentBranchParent"`
+	isParentAlive=$(git rev-parse --symbolic --branches | grep -x "$currentBranchParent")
 }
 
 get_currentSHA() {
 	#currentSHA=`git show|grep ^commit|awk '{print $2}'`
-	currentSHA=`git rev-parse HEAD`
+	currentSHA=$(git rev-parse HEAD)
 }
 
 get_currentTagName() {
@@ -172,8 +169,8 @@ get_currentTagName() {
 	#paste .gg-data-temp1.txt .gg-data-temp2.txt > .gg-data-temp3.txt
 	#currentTagName=`cat .gg-data-temp3.txt|grep $currentSHA|head -n 1|awk '{print $1}'`
 	#rm .gg-data-temp*
-	currentTagName=`git describe --exact-match --tags`
-	if [[ -n `echo $currentTagName | grep "fital:"` ]]; then
+	currentTagName=$(git describe --exact-match --tags)
+	if [[ -n $(echo $currentTagName | grep "fital:") ]]; then
 		---currentTagName="None"
 	fi
 }
@@ -182,7 +179,7 @@ get_currentTagVersion() {
 	if [[ -z $currentTagName ]]; then
 		get_currentTagName
 	fi
-	currentTagVersion=`echo $currentTagName|sed 's#inUse-\(.*\)#\1#'`
+	currentTagVersion=$(echo $currentTagName|sed 's#inUse-\(.*\)#\1#')
 }
 
 get_now() {
@@ -190,8 +187,7 @@ get_now() {
 }
 
 testClear() {
-	isClear=`git status|grep -i Changes\ not\ staged``git status|grep -i Changes\ to\ be\ committed`
-	if [[ -n "$isClear" ]]; then
+	if [[ -n "$(git status --untracked-files=no --porcelain)" ]]; then
 		git status
 		printf "\n\nwe suggest you make a commit or stash before you do the next thing(Ctrl+c to abort the scripts)\nor you just want to go on doing this?(Press Enter twice for sure)"
 		read temp
@@ -202,7 +198,7 @@ gggttt(){
 	printf "\t"
 }
 testUntracked(){
-	haveUntracked=`git status|grep Untracked`
+	haveUntracked=$(git status --porcelain | grep "^?? ")
 	if [[ -n "$haveUntracked" ]]; then
 		git status
 		printf "\nyou have Untracked files!!\nThe next step will REMOVE all the files here, please make the Untracked files safe!\n\tOr you can use 'git stash' to make a stash and then 'git stash pop'\n"
