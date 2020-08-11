@@ -1,16 +1,4 @@
 #!/bin/bash
-#
-#         (__)                     gg
-#         (oo)
-#   /------\/               Distributed under
-#  / |    ||             the GNU GPL v3 License
-# *  /\---/\
-#    ~~   ~~               http://www.gnu.org
-#
-#
-# 2014-08-02
-#
-# Author: wujinnnnn@gmail.com
 installPath=/usr/local/bin/gg
 source $installPath/gg-functions
 testClear
@@ -27,7 +15,7 @@ get_father
 if [[ -z `git branch | grep -v $currentBranch | grep $father` ]]; then
     get_develop
     echo "do not know which branch to merge into, please input[default is $develop]:"
-    git branch
+    git --no-pager branch
     read temp
     if [[ -z $temp ]]; then
         father=$develop

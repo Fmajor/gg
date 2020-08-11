@@ -22,15 +22,15 @@ fi
 echo "You are in branch ||      $currentBranch      ||"
 printf "Do you want to close it like this?\n"
 
+gggttt;echo "git rebase \"$currentBranch\""
 gggttt;echo "git checkout \"$currentBranchParent\""
-gggttt;echo "git merge --no-ff \"$currentBranch\""
+gggttt;echo "git reset --hard \"$currentBranch\""
 gggttt;echo "git branch -d \"$currentBranch\""
 echo "if you meet conflicts in merges, you should delete the branch manully"
 echo "press ENTER to continue, press Ctrl+c to ESCAPE"
 read temp
 
-git checkout "$currentBranchParent"
-git merge --no-ff "$currentBranch" -m "Merge good trial branch $currentBranch into $currentBranchParent"\
-	&& echo "press Enter to delete $currentBranch branch" \
-	&& echo "press Ctrl+c to ESCAPE" \
+git rebase "$currentBranch" && git checkout "$currentBranchParent" && git reset --hard "$currentBranch"\
+	&& echo "press Enter to delete $currentBranch branch"\
+	&& echo " press Ctrl+c not to delete it"\
 	&& read temp && git branch -d "$currentBranch"

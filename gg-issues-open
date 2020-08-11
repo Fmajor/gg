@@ -1,20 +1,7 @@
 #!/bin/bash
-#
-#         (__)                     gg
-#         (oo)
-#   /------\/               Distributed under
-#  / |    ||             the GNU GPL v3 License
-# *  /\---/\
-#    ~~   ~~               http://www.gnu.org
-#
-#
-# 2014-08-02
-#
-# Author: wujinnnnn@gmail.com
 installPath=/usr/local/bin/gg
 source $installPath/gg-functions
 testClear
-
 
 get_currentBranch
 get_currentBranchType

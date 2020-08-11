@@ -17,14 +17,11 @@ I have some new concepts like "trials branch" to improve the model. Also, i have
 
 Anyway, i manage my own projects using gg, it's lite compared with gitflow but still covering all my requirements for easy git management.
 
-Install
+Install and Uninstall
 ==============
 
-In Linux:
-	./linuxInstall
-
-In Mac:
-	./macInstall
+	make install
+	make uninstall
 
 commands
 =====================
@@ -53,6 +50,9 @@ commands
 	gg-feature-close
 		can only use this function in a feature branch
 		merge the feature branch to $father and delete it
+	gg-feature-close-rebase
+		can only use this function in a feature branch
+		rebase the feature branch to $father and delete it
 	gg-feature-update
 		can only use this function in one feature branch
 		merge the $father branch into this branch (update it)
@@ -66,6 +66,9 @@ commands
 	gg-issues-close
 		can only use this function in a issues branch
 		merge the feature branch to $father and delete it
+	gg-issues-close-rebase
+		can only use this function in a issues branch
+		rebase the feature branch to $father and delete it
 	gg-issues-update
 		can only use this function in one issues branch
 		merge the $father branch into this branch (update it)
@@ -103,6 +106,9 @@ commands
 	gg-trials-good-close
 		can only use this function in a trials branch
 		merge the trials branch to $father and delete it
+	gg-trials-good-close-rebase
+		can only use this function in a trials branch
+		rebase the trials branch to $father and delete it
 	gg-trials-bad-close
 		can only use this function in a trials branch
 		detele the trials branch and save the log to .git/../.deletedTrailsBranchs
@@ -114,7 +120,7 @@ to get this demo
 	cd demo
 	make simple
 
-and hit Enter for 42 times
+and hit Enter for many times
 
 in this demo
 
@@ -124,7 +130,6 @@ in this demo
 other things are output from gg or git
 
 you can get **colorful** demo by running it by yourself
-
 
 ![demo network plot](demo/git-log-for-demo.png)
 
